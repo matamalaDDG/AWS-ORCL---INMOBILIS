@@ -1,5 +1,7 @@
 package com.api.apisigi.service;
 
+import com.api.apisigi.converter.RegionConverter;
+import com.api.apisigi.model.MRegion;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import com.api.apisigi.entity.Region;
 import com.api.apisigi.repository.IRRegion;
+
+import java.util.List;
 
 @Service("regionService")
 public class SRegion {
@@ -16,6 +20,9 @@ public class SRegion {
     @Autowired
     @Qualifier("regionRepo")
     private IRRegion regionrepo;
+    @Autowired
+    @Qualifier("regionConverter")
+    private RegionConverter regionconverter;
 
     //#CREATE
     public boolean create(Region region) {
@@ -28,7 +35,10 @@ public class SRegion {
     }
 
     //#READ
-    //  public List<sadsa> read(){return sadsa;}
+    public List<MRegion> read() {
+        return regionconverter.listConverter(regionrepo.findAll());
+    }
+
     //#UPDATE
     public boolean update(Region region) {
         try {

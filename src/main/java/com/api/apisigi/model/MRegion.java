@@ -1,4 +1,6 @@
-package sigisystem.sigisystem.model;
+package com.api.apisigi.model;
+
+import com.api.apisigi.entity.Region;
 
 import java.util.Objects;
 
@@ -10,9 +12,9 @@ public class MRegion {
     public MRegion() {
     }
 
-    public MRegion(String idRegion, String region) {
-        this.idRegion = idRegion;
-        this.region = region;
+    public MRegion(Region region) {
+        this.idRegion = region.getIdRegion();
+        this.region = region.getRegion();
     }
 
     public String getIdRegion() {

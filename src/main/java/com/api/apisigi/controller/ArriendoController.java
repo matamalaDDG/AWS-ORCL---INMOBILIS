@@ -34,7 +34,7 @@ public class ArriendoController {
     //#POST
     @PostMapping("/nuevoarriendo")
     public boolean createArriendo(@RequestBody @Valid Arriendo arriendo){
-        logger.info("[Request_Type: GET] -- FROM: '/arriendo' -- Status: '200']");
+        logger.info("[Request_Type: GET] -- FROM: '/arriendo' -- Status: '201']");
         return arriendoservice.crear(arriendo);
     }
 
