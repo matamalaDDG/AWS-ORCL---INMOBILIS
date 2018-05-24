@@ -14,3 +14,6 @@ Se utilizó:
 Sistema consisitrira en diseñar, desarrollar e implementar 
 un sistema de contro y gesion inmobiliarios con sus respectivas 
 plataformas web y de escritorio.
+
+El sitema esta ramificado de la siguiente manera, para asi dar a conocer 
+como se gestiono su desarrollo.
