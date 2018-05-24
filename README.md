@@ -11,3 +11,6 @@ Se utilizó:
   - Microsoft C#
   - AWS Intance ORCL/AWS 
 
+Sistema consisitrira en diseñar, desarrollar e implementar 
+un sistema de contro y gesion inmobiliarios con sus respectivas 
+plataformas web y de escritorio.
