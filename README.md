@@ -17,3 +17,5 @@ plataformas web y de escritorio.
 
 El sitema esta ramificado de la siguiente manera, para asi dar a conocer 
 como se gestiono su desarrollo.
+
+[img]
