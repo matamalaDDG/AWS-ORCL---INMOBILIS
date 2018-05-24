@@ -6,4 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/arriendo")
 public class ArriendoController {
+    //##GET
+
+    //#POST
+    //#PUT
+    //#DELETE
 }
