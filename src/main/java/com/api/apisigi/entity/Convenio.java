@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 public class Convenio {
     private String idConvenio;
-    private double dscto;
+    private float dscto;
     private String idEmpresa;
     private String descripcion;
     private String tipoConvenio;
@@ -26,11 +26,11 @@ public class Convenio {
 
     @Basic
     @Column(name = "DSCTO")
-    public double getDscto() {
+    public float getDscto() {
         return dscto;
     }
 
-    public void setDscto(double dscto) {
+    public void setDscto(float dscto) {
         this.dscto = dscto;
     }
 
@@ -67,18 +67,18 @@ public class Convenio {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Convenio)) return false;
         Convenio convenio = (Convenio) o;
-        return Double.compare(convenio.dscto, dscto) == 0 &&
-                Objects.equals(idConvenio, convenio.idConvenio) &&
-                Objects.equals(idEmpresa, convenio.idEmpresa) &&
-                Objects.equals(descripcion, convenio.descripcion) &&
-                Objects.equals(tipoConvenio, convenio.tipoConvenio);
+        return Float.compare(convenio.getDscto(), getDscto()) == 0 &&
+                Objects.equals(getIdConvenio(), convenio.getIdConvenio()) &&
+                Objects.equals(getIdEmpresa(), convenio.getIdEmpresa()) &&
+                Objects.equals(getDescripcion(), convenio.getDescripcion()) &&
+                Objects.equals(getTipoConvenio(), convenio.getTipoConvenio());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idConvenio, dscto, idEmpresa, descripcion, tipoConvenio);
+        return Objects.hash(getIdConvenio(), getDscto(), getIdEmpresa(), getDescripcion(), getTipoConvenio());
     }
 }
