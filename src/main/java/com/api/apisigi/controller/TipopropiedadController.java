@@ -33,7 +33,7 @@ public class TipopropiedadController {
     @ResponseBody
     @JsonFormat
     public TipoPropiedad createRegion(@Valid @RequestBody TipoPropiedad tipoPropiedad) {
-       // logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
+        // logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
         return tipopropiedadrepo.save(tipoPropiedad);
     }
 
@@ -43,7 +43,7 @@ public class TipopropiedadController {
     public ResponseEntity<?> deleteRegion(@PathVariable String tipopropiedadId) {
         //logger.info("[buscado region : /dregion/{regionId}.... Method: deletePost]");
         return tipopropiedadrepo.findById(tipopropiedadId).map(tipoPropiedad -> {
-           // logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
+            // logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
             tipopropiedadrepo.delete(tipoPropiedad);
             //logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
             return ResponseEntity.ok().build();
@@ -55,7 +55,7 @@ public class TipopropiedadController {
     @ResponseBody
     @JsonFormat
     public TipoPropiedad updatePost(@PathVariable String tipopropiedadId,
-                             @Valid @RequestBody TipoPropiedad tipopropiedadrequest) {
+                                    @Valid @RequestBody TipoPropiedad tipopropiedadrequest) {
         return tipopropiedadrepo.findById(tipopropiedadId).map(tipopropiedad -> {
             tipopropiedad.setIdTipoProp(tipopropiedadrequest.getIdTipoProp());
             tipopropiedad.setDescripcion(tipopropiedadrequest.getDescripcion());
