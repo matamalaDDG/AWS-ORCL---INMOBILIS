@@ -34,7 +34,7 @@ public class DocumentoController {
     //    GET MAPPING: ByDescripcion
     //    GET MAPPING: ByDocumento
 
-    
+
     //    POST MAPPING
     @PostMapping("/ndocumento")
     @ResponseBody

@@ -57,7 +57,7 @@ public class Condominio {
         return Objects.hash(idCondominio, nombre, numeroCond);
     }
 
-    @OneToMany(mappedBy = "condominioByIdCondominio")
+    @OneToMany(mappedBy = "condominio")
     public Collection<Casa> getCasasByIdCondominio() {
         return casasByIdCondominio;
     }

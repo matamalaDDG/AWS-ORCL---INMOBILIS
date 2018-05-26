@@ -10,9 +10,9 @@ public class Departamento {
     private String idEdificio;
     private long cantDorm;
     private long numDepto;
-    private long cantBaños;
+    private long cantBanos;
     private long mtsCuadConst;
-    private Edificio edificioByIdEdificio;
+    private Edificio edificio;
     private Collection<Propiedad> propiedadsByIdDepto;
 
     @Id
@@ -57,12 +57,12 @@ public class Departamento {
 
     @Basic
     @Column(name = "CANT_BAÑOS")
-    public long getCantBaños() {
-        return cantBaños;
+    public long getCantBanos() {
+        return cantBanos;
     }
 
-    public void setCantBaños(long cantBaños) {
-        this.cantBaños = cantBaños;
+    public void setCantBanos(long cantBaños) {
+        this.cantBanos = cantBaños;
     }
 
     @Basic
@@ -82,7 +82,7 @@ public class Departamento {
         Departamento that = (Departamento) o;
         return cantDorm == that.cantDorm &&
                 numDepto == that.numDepto &&
-                cantBaños == that.cantBaños &&
+                cantBanos == that.cantBanos &&
                 mtsCuadConst == that.mtsCuadConst &&
                 Objects.equals(idDepto, that.idDepto) &&
                 Objects.equals(idEdificio, that.idEdificio);
@@ -91,17 +91,17 @@ public class Departamento {
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDepto, idEdificio, cantDorm, numDepto, cantBaños, mtsCuadConst);
+        return Objects.hash(idDepto, idEdificio, cantDorm, numDepto, cantBanos, mtsCuadConst);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_EDIFICIO", referencedColumnName = "ID_EDIFICIO", nullable = false)
-    public Edificio getEdificioByIdEdificio() {
-        return edificioByIdEdificio;
+    public Edificio getEdificio() {
+        return edificio;
     }
 
-    public void setEdificioByIdEdificio(Edificio edificioByIdEdificio) {
-        this.edificioByIdEdificio = edificioByIdEdificio;
+    public void setEdificio(Edificio edificioByIdEdificio) {
+        this.edificio = edificioByIdEdificio;
     }
 
     @OneToMany(mappedBy = "departamentoByIdDepto")

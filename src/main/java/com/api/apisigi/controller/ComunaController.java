@@ -45,7 +45,7 @@ public class ComunaController {
         return comunarepo.findByIdComuna(idcomuna, pageable);
     }
 
-    //#LISTADO DE COMUNAS POR ID COMUNA
+    //#LISTADO DE COMUNAS
     @GetMapping("/comunas")
     @ResponseBody
     @JsonFormat
@@ -54,12 +54,11 @@ public class ComunaController {
     }
 
     //#AGREGAR COMUNAS NUEVAS CON RELACION DE REGION
-    @PostMapping("/region/{regionId}/NComuna/")
+    @PostMapping("/region/{regionId}/NComuna")
     @ResponseBody
     @JsonFormat
     public Comuna createComuna(@PathVariable(value = "regionId") String regionId,
                                @Valid @RequestBody Comuna comuna) {
-
         return comunarepo.save(
                 regionrepo.findById(regionId).map(region -> {
                     comuna.setRegion(region);
@@ -91,13 +90,13 @@ public class ComunaController {
                                  @PathVariable (value = "comunaId") String comunaId,
                                  @Valid @RequestBody Comuna comunaRequest) {
         if(!regionrepo.existsById(regionId)) {
-            throw new ResourceNotFoundExcption("PostId " + regionId + " not found");
+            throw new ResourceNotFoundExcption("ID " + regionId + " not found");
         }
 
         return comunarepo.findById(comunaId).map(comuna -> {
             comuna.setIdComuna(comunaRequest.getIdComuna());
             comuna.setComuna(comunaRequest.getComuna());
             return comunarepo.save(comuna);
-        }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + comunaId + "not found"));
+        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + comunaId + "not found"));
     }
 }

@@ -20,6 +20,7 @@ public class RegionController {
     @Autowired
     private IRRegion regionre;
 
+
     @GetMapping("/regiones")
     @ResponseBody
     @JsonFormat
@@ -27,6 +28,8 @@ public class RegionController {
         return regionre.findAll();
     }
 
+    //#ROUTE METHODS
+    //#POST METHOD: INSERCION REGION
     @PostMapping("/nregion")
     @ResponseBody
     @JsonFormat
