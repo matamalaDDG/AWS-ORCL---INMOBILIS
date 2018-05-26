@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -8,6 +9,7 @@ import java.util.Objects;
 public class PatenteComercial {
     private String idPatente;
     private String tipoPatente;
+    private Collection<Oficina> oficinasByIdPatente;
 
     @Id
     @Column(name = "ID_PATENTE")
@@ -42,5 +44,14 @@ public class PatenteComercial {
     public int hashCode() {
 
         return Objects.hash(idPatente, tipoPatente);
+    }
+
+    @OneToMany(mappedBy = "patenteComercialByIdPatente")
+    public Collection<Oficina> getOficinasByIdPatente() {
+        return oficinasByIdPatente;
+    }
+
+    public void setOficinasByIdPatente(Collection<Oficina> oficinasByIdPatente) {
+        this.oficinasByIdPatente = oficinasByIdPatente;
     }
 }

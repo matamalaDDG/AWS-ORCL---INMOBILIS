@@ -2,24 +2,10 @@ package com.api.apisigi.entity;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@NamedStoredProcedureQuery(
-        name = "addAriendo_sp",
-        procedureName = "",
-        parameters = {
-                @StoredProcedureParameter(name = "bookName", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "bookReleaseDate", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "authorFirstname", mode = ParameterMode.IN, type = Time.class),
-                @StoredProcedureParameter(name = "authorLastname", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "authorLastname", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "authorLastname", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "idPreContrato", mode = ParameterMode.IN, type = String.class),
-                @StoredProcedureParameter(name = "monto", mode = ParameterMode.IN, type = long.class),
-                @StoredProcedureParameter(name = "idCorredor", mode = ParameterMode.IN, type = String.class),
-        }
-)
 public class Arriendo {
     private String idArriendo;
     private String notificacion;
@@ -30,6 +16,16 @@ public class Arriendo {
     private String idPreContrato;
     private long monto;
     private String idCorredor;
+    private Convenio convenioByIdConvenio;
+    private Aseguradora aseguradoraByIdAseguradora;
+    private CapacidadEconomica capacidadEconomicaByIdCapacidadEconomica;
+    private Precontrato precontratoByIdPreContrato;
+    private Corredor corredorByIdCorredor;
+
+
+
+    //Relacion
+    private Collection<Propiedad> propiedadsByIdArriendo;
 
     @Id
     @Column(name = "ID_ARRIENDO")
@@ -141,5 +137,64 @@ public class Arriendo {
     public int hashCode() {
 
         return Objects.hash(idArriendo, notificacion, fechaArriendo, idConvenio, idAseguradora, idCapacidadEconomica, idPreContrato, monto, idCorredor);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CONVENIO", referencedColumnName = "ID_CONVENIO")
+    public Convenio getConvenioByIdConvenio() {
+        return convenioByIdConvenio;
+    }
+
+    public void setConvenioByIdConvenio(Convenio convenioByIdConvenio) {
+        this.convenioByIdConvenio = convenioByIdConvenio;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ASEGURADORA", referencedColumnName = "ID_ASEGURADORA")
+    public Aseguradora getAseguradoraByIdAseguradora() {
+        return aseguradoraByIdAseguradora;
+    }
+
+    public void setAseguradoraByIdAseguradora(Aseguradora aseguradoraByIdAseguradora) {
+        this.aseguradoraByIdAseguradora = aseguradoraByIdAseguradora;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CAPACIDAD_ECONOMICA", referencedColumnName = "ID_CAPACIDAD_ECONOMICA", nullable = false)
+    public CapacidadEconomica getCapacidadEconomicaByIdCapacidadEconomica() {
+        return capacidadEconomicaByIdCapacidadEconomica;
+    }
+
+    public void setCapacidadEconomicaByIdCapacidadEconomica(CapacidadEconomica capacidadEconomicaByIdCapacidadEconomica) {
+        this.capacidadEconomicaByIdCapacidadEconomica = capacidadEconomicaByIdCapacidadEconomica;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PRE_CONTRATO", referencedColumnName = "ID_PRE_CONTRATO")
+    public Precontrato getPrecontratoByIdPreContrato() {
+        return precontratoByIdPreContrato;
+    }
+
+    public void setPrecontratoByIdPreContrato(Precontrato precontratoByIdPreContrato) {
+        this.precontratoByIdPreContrato = precontratoByIdPreContrato;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CORREDOR", referencedColumnName = "ID_CORREDOR")
+    public Corredor getCorredorByIdCorredor() {
+        return corredorByIdCorredor;
+    }
+
+    public void setCorredorByIdCorredor(Corredor corredorByIdCorredor) {
+        this.corredorByIdCorredor = corredorByIdCorredor;
+    }
+
+    @OneToMany(mappedBy = "arriendoByIdArriendo")
+    public Collection<Propiedad> getPropiedadsByIdArriendo() {
+        return propiedadsByIdArriendo;
+    }
+
+    public void setPropiedadsByIdArriendo(Collection<Propiedad> propiedadsByIdArriendo) {
+        this.propiedadsByIdArriendo = propiedadsByIdArriendo;
     }
 }

@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +12,8 @@ public class Tasacion {
     private String descripcion;
     private String documento;
     private String idDocumento;
+    private Documento documentoByIdDocumento;
+    private Collection<Venta> ventasByIdTasacion;
 
     @Id
     @Column(name = "ID_TASACION")
@@ -92,5 +92,24 @@ public class Tasacion {
     public int hashCode() {
 
         return Objects.hash(idTasacion, monto, nomTasador, descripcion, documento, idDocumento);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumentoByIdDocumento() {
+        return documentoByIdDocumento;
+    }
+
+    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
+        this.documentoByIdDocumento = documentoByIdDocumento;
+    }
+
+    @OneToMany(mappedBy = "tasacionByIdTasacion")
+    public Collection<Venta> getVentasByIdTasacion() {
+        return ventasByIdTasacion;
+    }
+
+    public void setVentasByIdTasacion(Collection<Venta> ventasByIdTasacion) {
+        this.ventasByIdTasacion = ventasByIdTasacion;
     }
 }

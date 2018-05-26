@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +10,8 @@ public class Conservador {
     private String nomConservador;
     private String documento;
     private String idDocumento;
+    private Documento documentoByIdDocumento;
+    private Collection<Venta> ventasByIdDocConservador;
 
     @Id
     @Column(name = "ID_DOC_CONSERVADOR")
@@ -68,5 +68,24 @@ public class Conservador {
     public int hashCode() {
 
         return Objects.hash(idDocConservador, nomConservador, documento, idDocumento);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumentoByIdDocumento() {
+        return documentoByIdDocumento;
+    }
+
+    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
+        this.documentoByIdDocumento = documentoByIdDocumento;
+    }
+
+    @OneToMany(mappedBy = "conservadorByIdDocConservador")
+    public Collection<Venta> getVentasByIdDocConservador() {
+        return ventasByIdDocConservador;
+    }
+
+    public void setVentasByIdDocConservador(Collection<Venta> ventasByIdDocConservador) {
+        this.ventasByIdDocConservador = ventasByIdDocConservador;
     }
 }

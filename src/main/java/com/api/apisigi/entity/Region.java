@@ -1,15 +1,14 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Region {
     private String idRegion;
     private String region;
+    private Collection<Comuna> comunasByIdRegion;
 
     @Id
     @Column(name = "ID_REGION")
@@ -44,5 +43,14 @@ public class Region {
     public int hashCode() {
 
         return Objects.hash(idRegion, region);
+    }
+
+    @OneToMany(mappedBy = "regionByIdRegion")
+    public Collection<Comuna> getComunasByIdRegion() {
+        return comunasByIdRegion;
+    }
+
+    public void setComunasByIdRegion(Collection<Comuna> comunasByIdRegion) {
+        this.comunasByIdRegion = comunasByIdRegion;
     }
 }

@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +20,17 @@ public class Propiedad {
     private String idEstacionamiento;
     private String idArriendo;
     private String idPerfil;
+    private Collection<Bodega> bodegasByIdPropiedad;
+    private Estado estadoByIdEstado;
+    private TipoPropiedad tipoPropiedadByIdTipoProp;
+    private Comuna comunaByIdComuna;
+    private Oficina oficinaByIdOficina;
+    private Casa casaByIdCasa;
+    private Venta ventaByIdVenta;
+    private Departamento departamentoByIdDepto;
+    private Estacionamiento estacionamientoByIdEstacionamiento;
+    private Arriendo arriendoByIdArriendo;
+    private PerfilCliente perfilClienteByIdPerfil;
 
     @Id
     @Column(name = "ID_PROPIEDAD")
@@ -188,5 +197,114 @@ public class Propiedad {
     public int hashCode() {
 
         return Objects.hash(idPropiedad, direccion, tipoDueno, disponibilidad, idEstado, idTipoProp, idComuna, idOficina, idCasa, idVenta, idDepto, idEstacionamiento, idArriendo, idPerfil);
+    }
+
+    @OneToMany(mappedBy = "propiedadByIdPropiedad")
+    public Collection<Bodega> getBodegasByIdPropiedad() {
+        return bodegasByIdPropiedad;
+    }
+
+    public void setBodegasByIdPropiedad(Collection<Bodega> bodegasByIdPropiedad) {
+        this.bodegasByIdPropiedad = bodegasByIdPropiedad;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO", nullable = false)
+    public Estado getEstadoByIdEstado() {
+        return estadoByIdEstado;
+    }
+
+    public void setEstadoByIdEstado(Estado estadoByIdEstado) {
+        this.estadoByIdEstado = estadoByIdEstado;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TIPO_PROP", referencedColumnName = "ID_TIPO_PROP", nullable = false)
+    public TipoPropiedad getTipoPropiedadByIdTipoProp() {
+        return tipoPropiedadByIdTipoProp;
+    }
+
+    public void setTipoPropiedadByIdTipoProp(TipoPropiedad tipoPropiedadByIdTipoProp) {
+        this.tipoPropiedadByIdTipoProp = tipoPropiedadByIdTipoProp;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_COMUNA", referencedColumnName = "ID_COMUNA", nullable = false)
+    public Comuna getComunaByIdComuna() {
+        return comunaByIdComuna;
+    }
+
+    public void setComunaByIdComuna(Comuna comunaByIdComuna) {
+        this.comunaByIdComuna = comunaByIdComuna;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_OFICINA", referencedColumnName = "ID_OFICINA")
+    public Oficina getOficinaByIdOficina() {
+        return oficinaByIdOficina;
+    }
+
+    public void setOficinaByIdOficina(Oficina oficinaByIdOficina) {
+        this.oficinaByIdOficina = oficinaByIdOficina;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CASA", referencedColumnName = "ID_CASA")
+    public Casa getCasaByIdCasa() {
+        return casaByIdCasa;
+    }
+
+    public void setCasaByIdCasa(Casa casaByIdCasa) {
+        this.casaByIdCasa = casaByIdCasa;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_VENTA", referencedColumnName = "ID_VENTA")
+    public Venta getVentaByIdVenta() {
+        return ventaByIdVenta;
+    }
+
+    public void setVentaByIdVenta(Venta ventaByIdVenta) {
+        this.ventaByIdVenta = ventaByIdVenta;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DEPTO", referencedColumnName = "ID_DEPTO")
+    public Departamento getDepartamentoByIdDepto() {
+        return departamentoByIdDepto;
+    }
+
+    public void setDepartamentoByIdDepto(Departamento departamentoByIdDepto) {
+        this.departamentoByIdDepto = departamentoByIdDepto;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ESTACIONAMIENTO", referencedColumnName = "ID_ESTACIONAMIENTO")
+    public Estacionamiento getEstacionamientoByIdEstacionamiento() {
+        return estacionamientoByIdEstacionamiento;
+    }
+
+    public void setEstacionamientoByIdEstacionamiento(Estacionamiento estacionamientoByIdEstacionamiento) {
+        this.estacionamientoByIdEstacionamiento = estacionamientoByIdEstacionamiento;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ARRIENDO", referencedColumnName = "ID_ARRIENDO")
+    public Arriendo getArriendoByIdArriendo() {
+        return arriendoByIdArriendo;
+    }
+
+    public void setArriendoByIdArriendo(Arriendo arriendoByIdArriendo) {
+        this.arriendoByIdArriendo = arriendoByIdArriendo;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL", nullable = false)
+    public PerfilCliente getPerfilClienteByIdPerfil() {
+        return perfilClienteByIdPerfil;
+    }
+
+    public void setPerfilClienteByIdPerfil(PerfilCliente perfilClienteByIdPerfil) {
+        this.perfilClienteByIdPerfil = perfilClienteByIdPerfil;
     }
 }
