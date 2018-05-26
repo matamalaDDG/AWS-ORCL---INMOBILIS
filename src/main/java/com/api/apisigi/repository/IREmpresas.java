@@ -6,6 +6,6 @@ import com.api.apisigi.entity.Empresas;
 
 import java.io.Serializable;
 
-@Repository("empresaRepo")
+@Repository("empresasRepo")
 public interface IREmpresas extends JpaRepository<Empresas, Serializable> {
 }
