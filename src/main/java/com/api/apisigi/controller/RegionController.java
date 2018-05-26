@@ -23,7 +23,7 @@ public class RegionController {
     @GetMapping("/regiones")
     @ResponseBody
     @JsonFormat
-    public List<Region> getAllPosts() {
+    public List<Region> getAllRegiones() {
         return regionre.findAll();
     }
 
@@ -36,7 +36,9 @@ public class RegionController {
     }
 
     @DeleteMapping("/dregion/{regionId}")
-    public ResponseEntity<?> deletePost(@PathVariable String regionId) {
+    @ResponseBody
+    @JsonFormat
+    public ResponseEntity<?> deleteRegion(@PathVariable String regionId) {
         logger.info("[buscado region : /dregion/{regionId}.... Method: deletePost]");
         return regionre.findById(regionId).map(region -> {
             logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
@@ -45,4 +47,19 @@ public class RegionController {
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
     }
+
+    //#UPDATE REGION
+    @PutMapping("/region/{regionId}")
+    @ResponseBody
+    @JsonFormat
+    public Region updatePost(@PathVariable String regionId,
+                             @Valid @RequestBody Region regionRequest) {
+        return regionre.findById(regionId).map(region -> {
+            region.setRegion(regionRequest.getRegion());
+            region.setIdRegion(regionRequest.getIdRegion());
+            return regionre.save(region);
+        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+    }
+
+
 }

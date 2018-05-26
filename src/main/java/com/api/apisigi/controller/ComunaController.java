@@ -84,4 +84,20 @@ public class ComunaController {
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + comunaId + " not found"));
     }
+
+    //# PUTCONTROLLER
+    @PutMapping("/region/{regionId}/comuna/{comunaId}")
+    public Comuna updateComuna(@PathVariable (value = "regionId") String regionId,
+                                 @PathVariable (value = "comunaId") String comunaId,
+                                 @Valid @RequestBody Comuna comunaRequest) {
+        if(!regionrepo.existsById(regionId)) {
+            throw new ResourceNotFoundExcption("PostId " + regionId + " not found");
+        }
+
+        return comunarepo.findById(comunaId).map(comuna -> {
+            comuna.setIdComuna(comunaRequest.getIdComuna());
+            comuna.setComuna(comunaRequest.getComuna());
+            return comunarepo.save(comuna);
+        }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + comunaId + "not found"));
+    }
 }
