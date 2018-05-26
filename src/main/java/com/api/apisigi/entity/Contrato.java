@@ -1,10 +1,8 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +13,8 @@ public class Contrato {
     private Time fechaFin;
     private String documento;
     private String idDocumento;
+    private Collection<CapacidadEconomica> capacidadEconomicasByIdContrato;
+    private Documento documentoByIdDocumento;
 
     @Id
     @Column(name = "ID_CONTRATO")
@@ -93,5 +93,24 @@ public class Contrato {
     public int hashCode() {
 
         return Objects.hash(idContrato, descripcion, fechaInico, fechaFin, documento, idDocumento);
+    }
+
+    @OneToMany(mappedBy = "contratoByIdContrato")
+    public Collection<CapacidadEconomica> getCapacidadEconomicasByIdContrato() {
+        return capacidadEconomicasByIdContrato;
+    }
+
+    public void setCapacidadEconomicasByIdContrato(Collection<CapacidadEconomica> capacidadEconomicasByIdContrato) {
+        this.capacidadEconomicasByIdContrato = capacidadEconomicasByIdContrato;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumentoByIdDocumento() {
+        return documentoByIdDocumento;
+    }
+
+    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
+        this.documentoByIdDocumento = documentoByIdDocumento;
     }
 }

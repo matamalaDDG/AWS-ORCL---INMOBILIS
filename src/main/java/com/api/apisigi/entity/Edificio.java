@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +9,7 @@ public class Edificio {
     private String idEdificio;
     private String nombreEdi;
     private String numeroEdificio;
+    private Collection<Departamento> departamentosByIdEdificio;
 
     @Id
     @Column(name = "ID_EDIFICIO")
@@ -56,5 +55,14 @@ public class Edificio {
     public int hashCode() {
 
         return Objects.hash(idEdificio, nombreEdi, numeroEdificio);
+    }
+
+    @OneToMany(mappedBy = "edificioByIdEdificio")
+    public Collection<Departamento> getDepartamentosByIdEdificio() {
+        return departamentosByIdEdificio;
+    }
+
+    public void setDepartamentosByIdEdificio(Collection<Departamento> departamentosByIdEdificio) {
+        this.departamentosByIdEdificio = departamentosByIdEdificio;
     }
 }

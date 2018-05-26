@@ -1,10 +1,8 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +16,12 @@ public class Arriendo {
     private String idPreContrato;
     private long monto;
     private String idCorredor;
+    private Convenio convenioByIdConvenio;
+    private Aseguradora aseguradoraByIdAseguradora;
+    private CapacidadEconomica capacidadEconomicaByIdCapacidadEconomica;
+    private Precontrato precontratoByIdPreContrato;
+    private Corredor corredorByIdCorredor;
+    private Collection<Propiedad> propiedadsByIdArriendo;
 
     @Id
     @Column(name = "ID_ARRIENDO")
@@ -129,5 +133,64 @@ public class Arriendo {
     public int hashCode() {
 
         return Objects.hash(idArriendo, notificacion, fechaArriendo, idConvenio, idAseguradora, idCapacidadEconomica, idPreContrato, monto, idCorredor);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CONVENIO", referencedColumnName = "ID_CONVENIO")
+    public Convenio getConvenioByIdConvenio() {
+        return convenioByIdConvenio;
+    }
+
+    public void setConvenioByIdConvenio(Convenio convenioByIdConvenio) {
+        this.convenioByIdConvenio = convenioByIdConvenio;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ASEGURADORA", referencedColumnName = "ID_ASEGURADORA")
+    public Aseguradora getAseguradoraByIdAseguradora() {
+        return aseguradoraByIdAseguradora;
+    }
+
+    public void setAseguradoraByIdAseguradora(Aseguradora aseguradoraByIdAseguradora) {
+        this.aseguradoraByIdAseguradora = aseguradoraByIdAseguradora;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CAPACIDAD_ECONOMICA", referencedColumnName = "ID_CAPACIDAD_ECONOMICA", nullable = false)
+    public CapacidadEconomica getCapacidadEconomicaByIdCapacidadEconomica() {
+        return capacidadEconomicaByIdCapacidadEconomica;
+    }
+
+    public void setCapacidadEconomicaByIdCapacidadEconomica(CapacidadEconomica capacidadEconomicaByIdCapacidadEconomica) {
+        this.capacidadEconomicaByIdCapacidadEconomica = capacidadEconomicaByIdCapacidadEconomica;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PRE_CONTRATO", referencedColumnName = "ID_PRE_CONTRATO")
+    public Precontrato getPrecontratoByIdPreContrato() {
+        return precontratoByIdPreContrato;
+    }
+
+    public void setPrecontratoByIdPreContrato(Precontrato precontratoByIdPreContrato) {
+        this.precontratoByIdPreContrato = precontratoByIdPreContrato;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CORREDOR", referencedColumnName = "ID_CORREDOR")
+    public Corredor getCorredorByIdCorredor() {
+        return corredorByIdCorredor;
+    }
+
+    public void setCorredorByIdCorredor(Corredor corredorByIdCorredor) {
+        this.corredorByIdCorredor = corredorByIdCorredor;
+    }
+
+    @OneToMany(mappedBy = "arriendoByIdArriendo")
+    public Collection<Propiedad> getPropiedadsByIdArriendo() {
+        return propiedadsByIdArriendo;
+    }
+
+    public void setPropiedadsByIdArriendo(Collection<Propiedad> propiedadsByIdArriendo) {
+        this.propiedadsByIdArriendo = propiedadsByIdArriendo;
     }
 }

@@ -1,9 +1,6 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +8,7 @@ public class Notaria {
     private String idNotaria;
     private String descripcion;
     private String idDocNotaria;
+    private DocNotaria docNotariaByIdDocNotaria;
 
     @Id
     @Column(name = "ID_NOTARIA")
@@ -56,5 +54,15 @@ public class Notaria {
     public int hashCode() {
 
         return Objects.hash(idNotaria, descripcion, idDocNotaria);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOC_NOTARIA", referencedColumnName = "ID_DOC_NOTARIA", nullable = false)
+    public DocNotaria getDocNotariaByIdDocNotaria() {
+        return docNotariaByIdDocNotaria;
+    }
+
+    public void setDocNotariaByIdDocNotaria(DocNotaria docNotariaByIdDocNotaria) {
+        this.docNotariaByIdDocNotaria = docNotariaByIdDocNotaria;
     }
 }

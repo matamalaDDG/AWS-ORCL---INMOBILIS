@@ -1,0 +1,38 @@
+package com.api.apisigi.controller;
+
+import com.api.apisigi.entity.PatenteComercial;
+import com.api.apisigi.repository.IRPatenteComercial;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/patentecomercial")
+public class PatenteComercialController {
+
+    //#DEPENDENCI INJECTION AREA
+    @Autowired
+    @Qualifier("patenteComercialRepo")
+    private IRPatenteComercial patentecomercialrepo;
+
+    //#REQUEST AREA
+    //#GETMAPPING
+    @GetMapping("/patentecomerciales")
+    @ResponseBody
+    @JsonFormat
+    public List<PatenteComercial> getpatentecomercial() {
+        return patentecomercialrepo.findAll();
+    }
+
+    @GetMapping("/{patentecomercialId}/patentecomercial")
+    @ResponseBody
+    @JsonFormat
+    public List<PatenteComercial> getPatenteComercialById(@PathVariable String patentecomercialId) {
+            return patentecomercialrepo.findByIdPatente(patentecomercialId);
+    }
+
+}

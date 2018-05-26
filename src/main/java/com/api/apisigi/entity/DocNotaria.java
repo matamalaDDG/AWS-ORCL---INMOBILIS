@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +12,9 @@ public class DocNotaria {
     private String descripcion;
     private String documento;
     private String idDocumento;
+    private Documento documentoByIdDocumento;
+    private Collection<Notaria> notariasByIdDocNotaria;
+    private Collection<Venta> ventasByIdDocNotaria;
 
     @Id
     @Column(name = "ID_DOC_NOTARIA")
@@ -78,5 +82,33 @@ public class DocNotaria {
     public int hashCode() {
 
         return Objects.hash(idDocNotaria, nomNotario, descripcion, documento, idDocumento);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumentoByIdDocumento() {
+        return documentoByIdDocumento;
+    }
+
+    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
+        this.documentoByIdDocumento = documentoByIdDocumento;
+    }
+
+    @OneToMany(mappedBy = "docNotariaByIdDocNotaria")
+    public Collection<Notaria> getNotariasByIdDocNotaria() {
+        return notariasByIdDocNotaria;
+    }
+
+    public void setNotariasByIdDocNotaria(Collection<Notaria> notariasByIdDocNotaria) {
+        this.notariasByIdDocNotaria = notariasByIdDocNotaria;
+    }
+
+    @OneToMany(mappedBy = "docNotariaByIdDocNotaria")
+    public Collection<Venta> getVentasByIdDocNotaria() {
+        return ventasByIdDocNotaria;
+    }
+
+    public void setVentasByIdDocNotaria(Collection<Venta> ventasByIdDocNotaria) {
+        this.ventasByIdDocNotaria = ventasByIdDocNotaria;
     }
 }

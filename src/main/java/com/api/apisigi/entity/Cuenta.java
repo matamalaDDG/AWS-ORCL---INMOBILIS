@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +9,7 @@ public class Cuenta {
     private String idCuenta;
     private String usuario;
     private String password;
+    private Collection<PerfilCliente> perfilClientesByIdCuenta;
 
     @Id
     @Column(name = "ID_CUENTA")
@@ -56,5 +55,14 @@ public class Cuenta {
     public int hashCode() {
 
         return Objects.hash(idCuenta, usuario, password);
+    }
+
+    @OneToMany(mappedBy = "cuentaByIdCuenta")
+    public Collection<PerfilCliente> getPerfilClientesByIdCuenta() {
+        return perfilClientesByIdCuenta;
+    }
+
+    public void setPerfilClientesByIdCuenta(Collection<PerfilCliente> perfilClientesByIdCuenta) {
+        this.perfilClientesByIdCuenta = perfilClientesByIdCuenta;
     }
 }
