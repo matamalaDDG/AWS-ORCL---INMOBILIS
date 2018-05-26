@@ -8,7 +8,6 @@ import java.util.Objects;
 public class Conservador {
     private String idDocConservador;
     private String nomConservador;
-    private String documento;
     private String idDocumento;
     private Documento documentoByIdDocumento;
     private Collection<Venta> ventasByIdDocConservador;
@@ -34,16 +33,6 @@ public class Conservador {
     }
 
     @Basic
-    @Column(name = "DOCUMENTO")
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    @Basic
     @Column(name = "ID_DOCUMENTO")
     public String getIdDocumento() {
         return idDocumento;
@@ -60,14 +49,13 @@ public class Conservador {
         Conservador that = (Conservador) o;
         return Objects.equals(idDocConservador, that.idDocConservador) &&
                 Objects.equals(nomConservador, that.nomConservador) &&
-                Objects.equals(documento, that.documento) &&
                 Objects.equals(idDocumento, that.idDocumento);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDocConservador, nomConservador, documento, idDocumento);
+        return Objects.hash(idDocConservador, nomConservador, idDocumento);
     }
 
     @ManyToOne

@@ -9,9 +9,6 @@ public class Aseguradora {
     private String idAseguradora;
     private String tipoSeguro;
     private String aseguradora;
-
-
-    //RELACION
     private Collection<Arriendo> arriendosByIdAseguradora;
 
     @Id

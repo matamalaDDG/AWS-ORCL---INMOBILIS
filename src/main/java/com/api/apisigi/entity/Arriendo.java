@@ -21,10 +21,6 @@ public class Arriendo {
     private CapacidadEconomica capacidadEconomicaByIdCapacidadEconomica;
     private Precontrato precontratoByIdPreContrato;
     private Corredor corredorByIdCorredor;
-
-
-
-    //Relacion
     private Collection<Propiedad> propiedadsByIdArriendo;
 
     @Id
