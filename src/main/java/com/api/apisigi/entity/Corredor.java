@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +9,9 @@ public class Corredor {
     private String nombreCorredor;
     private String idCorredor;
     private String idPerfil;
+    private Collection<Arriendo> arriendosByIdCorredor;
+    private PerfilCliente perfilClienteByIdPerfil;
+    private Collection<Venta> ventasByIdCorredor;
 
     @Basic
     @Column(name = "NOMBRE_CORREDOR")
@@ -56,5 +57,33 @@ public class Corredor {
     public int hashCode() {
 
         return Objects.hash(nombreCorredor, idCorredor, idPerfil);
+    }
+
+    @OneToMany(mappedBy = "corredorByIdCorredor")
+    public Collection<Arriendo> getArriendosByIdCorredor() {
+        return arriendosByIdCorredor;
+    }
+
+    public void setArriendosByIdCorredor(Collection<Arriendo> arriendosByIdCorredor) {
+        this.arriendosByIdCorredor = arriendosByIdCorredor;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL", nullable = false)
+    public PerfilCliente getPerfilClienteByIdPerfil() {
+        return perfilClienteByIdPerfil;
+    }
+
+    public void setPerfilClienteByIdPerfil(PerfilCliente perfilClienteByIdPerfil) {
+        this.perfilClienteByIdPerfil = perfilClienteByIdPerfil;
+    }
+
+    @OneToMany(mappedBy = "corredorByIdCorredor")
+    public Collection<Venta> getVentasByIdCorredor() {
+        return ventasByIdCorredor;
+    }
+
+    public void setVentasByIdCorredor(Collection<Venta> ventasByIdCorredor) {
+        this.ventasByIdCorredor = ventasByIdCorredor;
     }
 }

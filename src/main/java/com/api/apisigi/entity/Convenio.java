@@ -1,18 +1,19 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Convenio {
     private String idConvenio;
-    private float dscto;
+    private double dscto;
     private String idEmpresa;
     private String descripcion;
     private String tipoConvenio;
+    private Collection<Arriendo> arriendosByIdConvenio;
+    private Empresas empresasByIdEmpresa;
+    private Collection<Venta> ventasByIdConvenio;
 
     @Id
     @Column(name = "ID_CONVENIO")
@@ -26,11 +27,11 @@ public class Convenio {
 
     @Basic
     @Column(name = "DSCTO")
-    public float getDscto() {
+    public double getDscto() {
         return dscto;
     }
 
-    public void setDscto(float dscto) {
+    public void setDscto(double dscto) {
         this.dscto = dscto;
     }
 
@@ -67,18 +68,46 @@ public class Convenio {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Convenio)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Convenio convenio = (Convenio) o;
-        return Float.compare(convenio.getDscto(), getDscto()) == 0 &&
-                Objects.equals(getIdConvenio(), convenio.getIdConvenio()) &&
-                Objects.equals(getIdEmpresa(), convenio.getIdEmpresa()) &&
-                Objects.equals(getDescripcion(), convenio.getDescripcion()) &&
-                Objects.equals(getTipoConvenio(), convenio.getTipoConvenio());
+        return Double.compare(convenio.dscto, dscto) == 0 &&
+                Objects.equals(idConvenio, convenio.idConvenio) &&
+                Objects.equals(idEmpresa, convenio.idEmpresa) &&
+                Objects.equals(descripcion, convenio.descripcion) &&
+                Objects.equals(tipoConvenio, convenio.tipoConvenio);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getIdConvenio(), getDscto(), getIdEmpresa(), getDescripcion(), getTipoConvenio());
+        return Objects.hash(idConvenio, dscto, idEmpresa, descripcion, tipoConvenio);
+    }
+
+    @OneToMany(mappedBy = "convenioByIdConvenio")
+    public Collection<Arriendo> getArriendosByIdConvenio() {
+        return arriendosByIdConvenio;
+    }
+
+    public void setArriendosByIdConvenio(Collection<Arriendo> arriendosByIdConvenio) {
+        this.arriendosByIdConvenio = arriendosByIdConvenio;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID_EMPRESA", nullable = false)
+    public Empresas getEmpresasByIdEmpresa() {
+        return empresasByIdEmpresa;
+    }
+
+    public void setEmpresasByIdEmpresa(Empresas empresasByIdEmpresa) {
+        this.empresasByIdEmpresa = empresasByIdEmpresa;
+    }
+
+    @OneToMany(mappedBy = "convenioByIdConvenio")
+    public Collection<Venta> getVentasByIdConvenio() {
+        return ventasByIdConvenio;
+    }
+
+    public void setVentasByIdConvenio(Collection<Venta> ventasByIdConvenio) {
+        this.ventasByIdConvenio = ventasByIdConvenio;
     }
 }

@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -9,6 +10,8 @@ public class CedulaIdentidad {
     private String idCedula;
     private String descripcion;
     private String idDocumento;
+    private Collection<CapacidadEconomica> capacidadEconomicasByIdCedula;
+    private Documento documentoByIdDocumento;
 
     @Id
     @Column(name = "ID_CEDULA")
@@ -54,5 +57,24 @@ public class CedulaIdentidad {
     public int hashCode() {
 
         return Objects.hash(idCedula, descripcion, idDocumento);
+    }
+
+    @OneToMany(mappedBy = "cedulaIdentidadByIdCedula")
+    public Collection<CapacidadEconomica> getCapacidadEconomicasByIdCedula() {
+        return capacidadEconomicasByIdCedula;
+    }
+
+    public void setCapacidadEconomicasByIdCedula(Collection<CapacidadEconomica> capacidadEconomicasByIdCedula) {
+        this.capacidadEconomicasByIdCedula = capacidadEconomicasByIdCedula;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumentoByIdDocumento() {
+        return documentoByIdDocumento;
+    }
+
+    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
+        this.documentoByIdDocumento = documentoByIdDocumento;
     }
 }

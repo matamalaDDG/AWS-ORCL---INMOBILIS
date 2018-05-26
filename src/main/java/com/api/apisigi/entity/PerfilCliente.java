@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +14,9 @@ public class PerfilCliente {
     private String rut;
     private String tipoCliente;
     private String idCuenta;
+    private Collection<Corredor> corredorsByIdPerfil;
+    private Cuenta cuentaByIdCuenta;
+    private Collection<Propiedad> propiedadsByIdPerfil;
 
     @Id
     @Column(name = "ID_PERFIL")
@@ -102,5 +106,33 @@ public class PerfilCliente {
     public int hashCode() {
 
         return Objects.hash(idPerfil, nombre, apellido, correo, rut, tipoCliente, idCuenta);
+    }
+
+    @OneToMany(mappedBy = "perfilClienteByIdPerfil")
+    public Collection<Corredor> getCorredorsByIdPerfil() {
+        return corredorsByIdPerfil;
+    }
+
+    public void setCorredorsByIdPerfil(Collection<Corredor> corredorsByIdPerfil) {
+        this.corredorsByIdPerfil = corredorsByIdPerfil;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CUENTA", referencedColumnName = "ID_CUENTA", nullable = false)
+    public Cuenta getCuentaByIdCuenta() {
+        return cuentaByIdCuenta;
+    }
+
+    public void setCuentaByIdCuenta(Cuenta cuentaByIdCuenta) {
+        this.cuentaByIdCuenta = cuentaByIdCuenta;
+    }
+
+    @OneToMany(mappedBy = "perfilClienteByIdPerfil")
+    public Collection<Propiedad> getPropiedadsByIdPerfil() {
+        return propiedadsByIdPerfil;
+    }
+
+    public void setPropiedadsByIdPerfil(Collection<Propiedad> propiedadsByIdPerfil) {
+        this.propiedadsByIdPerfil = propiedadsByIdPerfil;
     }
 }

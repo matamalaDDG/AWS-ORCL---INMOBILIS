@@ -1,10 +1,8 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +17,14 @@ public class Venta {
     private String idTasacion;
     private String idBanco;
     private String idCorredor;
+    private Collection<Propiedad> propiedadsByIdVenta;
+    private Servicios serviciosByIdServicio;
+    private Convenio convenioByIdConvenio;
+    private DocNotaria docNotariaByIdDocNotaria;
+    private Conservador conservadorByIdDocConservador;
+    private Tasacion tasacionByIdTasacion;
+    private DocBanco docBancoByIdBanco;
+    private Corredor corredorByIdCorredor;
 
     @Id
     @Column(name = "ID_VENTA")
@@ -141,5 +147,84 @@ public class Venta {
     public int hashCode() {
 
         return Objects.hash(idVenta, monto, fechaCompra, idServicio, idConvenio, idDocNotaria, idDocConservador, idTasacion, idBanco, idCorredor);
+    }
+
+    @OneToMany(mappedBy = "ventaByIdVenta")
+    public Collection<Propiedad> getPropiedadsByIdVenta() {
+        return propiedadsByIdVenta;
+    }
+
+    public void setPropiedadsByIdVenta(Collection<Propiedad> propiedadsByIdVenta) {
+        this.propiedadsByIdVenta = propiedadsByIdVenta;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_SERVICIO", referencedColumnName = "ID_SERVICIO")
+    public Servicios getServiciosByIdServicio() {
+        return serviciosByIdServicio;
+    }
+
+    public void setServiciosByIdServicio(Servicios serviciosByIdServicio) {
+        this.serviciosByIdServicio = serviciosByIdServicio;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CONVENIO", referencedColumnName = "ID_CONVENIO")
+    public Convenio getConvenioByIdConvenio() {
+        return convenioByIdConvenio;
+    }
+
+    public void setConvenioByIdConvenio(Convenio convenioByIdConvenio) {
+        this.convenioByIdConvenio = convenioByIdConvenio;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOC_NOTARIA", referencedColumnName = "ID_DOC_NOTARIA", nullable = false)
+    public DocNotaria getDocNotariaByIdDocNotaria() {
+        return docNotariaByIdDocNotaria;
+    }
+
+    public void setDocNotariaByIdDocNotaria(DocNotaria docNotariaByIdDocNotaria) {
+        this.docNotariaByIdDocNotaria = docNotariaByIdDocNotaria;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOC_CONSERVADOR", referencedColumnName = "ID_DOC_CONSERVADOR", nullable = false)
+    public Conservador getConservadorByIdDocConservador() {
+        return conservadorByIdDocConservador;
+    }
+
+    public void setConservadorByIdDocConservador(Conservador conservadorByIdDocConservador) {
+        this.conservadorByIdDocConservador = conservadorByIdDocConservador;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TASACION", referencedColumnName = "ID_TASACION", nullable = false)
+    public Tasacion getTasacionByIdTasacion() {
+        return tasacionByIdTasacion;
+    }
+
+    public void setTasacionByIdTasacion(Tasacion tasacionByIdTasacion) {
+        this.tasacionByIdTasacion = tasacionByIdTasacion;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_BANCO", referencedColumnName = "ID_BANCO", nullable = false)
+    public DocBanco getDocBancoByIdBanco() {
+        return docBancoByIdBanco;
+    }
+
+    public void setDocBancoByIdBanco(DocBanco docBancoByIdBanco) {
+        this.docBancoByIdBanco = docBancoByIdBanco;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CORREDOR", referencedColumnName = "ID_CORREDOR")
+    public Corredor getCorredorByIdCorredor() {
+        return corredorByIdCorredor;
+    }
+
+    public void setCorredorByIdCorredor(Corredor corredorByIdCorredor) {
+        this.corredorByIdCorredor = corredorByIdCorredor;
     }
 }

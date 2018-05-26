@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +10,8 @@ public class Oficina {
     private long numOficina;
     private long mtsCuadDisp;
     private String idPatente;
+    private PatenteComercial patenteComercialByIdPatente;
+    private Collection<Propiedad> propiedadsByIdOficina;
 
     @Id
     @Column(name = "ID_OFICINA")
@@ -68,5 +68,24 @@ public class Oficina {
     public int hashCode() {
 
         return Objects.hash(idOficina, numOficina, mtsCuadDisp, idPatente);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PATENTE", referencedColumnName = "ID_PATENTE")
+    public PatenteComercial getPatenteComercialByIdPatente() {
+        return patenteComercialByIdPatente;
+    }
+
+    public void setPatenteComercialByIdPatente(PatenteComercial patenteComercialByIdPatente) {
+        this.patenteComercialByIdPatente = patenteComercialByIdPatente;
+    }
+
+    @OneToMany(mappedBy = "oficinaByIdOficina")
+    public Collection<Propiedad> getPropiedadsByIdOficina() {
+        return propiedadsByIdOficina;
+    }
+
+    public void setPropiedadsByIdOficina(Collection<Propiedad> propiedadsByIdOficina) {
+        this.propiedadsByIdOficina = propiedadsByIdOficina;
     }
 }

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 import com.api.apisigi.entity.PatenteComercial;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Repository("patenteComercialRepo")
-public interface IRPatenteComercial extends JpaRepository<PatenteComercial, Serializable> {
+public interface IRPatenteComercial extends JpaRepository<PatenteComercial, String> {
+    public abstract List<PatenteComercial> findByIdPatente(String patentecomercial);
 }
