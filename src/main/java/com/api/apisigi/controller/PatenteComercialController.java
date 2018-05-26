@@ -1,7 +1,6 @@
 package com.api.apisigi.controller;
 
 import com.api.apisigi.entity.PatenteComercial;
-import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRPatenteComercial;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -86,7 +86,7 @@ public class Documento {
         this.cedulaIdentidadsByIdDocumento = cedulaIdentidadsByIdDocumento;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
+    @OneToMany(mappedBy = "documento")
     public Collection<Conservador> getConservadorsByIdDocumento() {
         return conservadorsByIdDocumento;
     }

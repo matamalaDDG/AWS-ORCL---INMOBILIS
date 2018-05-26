@@ -45,7 +45,7 @@ public class Region {
         return Objects.hash(idRegion, region);
     }
 
-    @OneToMany(mappedBy = "regionByIdRegion")
+    @OneToMany(mappedBy = "region")
     public Collection<Comuna> getComunasByIdRegion() {
         return comunasByIdRegion;
     }

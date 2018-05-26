@@ -9,7 +9,7 @@ public class Comuna {
     private String idComuna;
     private String comuna;
     private String idRegion;
-    private Region regionByIdRegion;
+    private Region region;
     private Collection<Propiedad> propiedadsByIdComuna;
 
     @Id
@@ -60,12 +60,12 @@ public class Comuna {
 
     @ManyToOne
     @JoinColumn(name = "ID_REGION", referencedColumnName = "ID_REGION", nullable = false)
-    public Region getRegionByIdRegion() {
-        return regionByIdRegion;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setRegionByIdRegion(Region regionByIdRegion) {
-        this.regionByIdRegion = regionByIdRegion;
+    public void setRegion(Region regionByIdRegion) {
+        this.region = regionByIdRegion;
     }
 
     @OneToMany(mappedBy = "comunaByIdComuna")

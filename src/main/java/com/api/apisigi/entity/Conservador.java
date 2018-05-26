@@ -8,8 +8,8 @@ import java.util.Objects;
 public class Conservador {
     private String idDocConservador;
     private String nomConservador;
-    private String idDocumento;
-    private Documento documentoByIdDocumento;
+    private String doc;
+    private Documento documento;
     private Collection<Venta> ventasByIdDocConservador;
 
     @Id
@@ -34,12 +34,12 @@ public class Conservador {
 
     @Basic
     @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
+    public String getDoc() {
+        return doc;
     }
 
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
+    public void setDoc(String idDocumento) {
+        this.doc = idDocumento;
     }
 
     @Override
@@ -49,23 +49,23 @@ public class Conservador {
         Conservador that = (Conservador) o;
         return Objects.equals(idDocConservador, that.idDocConservador) &&
                 Objects.equals(nomConservador, that.nomConservador) &&
-                Objects.equals(idDocumento, that.idDocumento);
+                Objects.equals(doc, that.doc);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDocConservador, nomConservador, idDocumento);
+        return Objects.hash(idDocConservador, nomConservador, doc);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
-    public Documento getDocumentoByIdDocumento() {
-        return documentoByIdDocumento;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
-        this.documentoByIdDocumento = documentoByIdDocumento;
+    public void setDocumento(Documento documentoByIdDocumento) {
+        this.documento = documentoByIdDocumento;
     }
 
     @OneToMany(mappedBy = "conservadorByIdDocConservador")
