@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +13,11 @@ public class CapacidadEconomica {
     private String idContrato;
     private String idCedula;
     private String idBoleta;
+    private Collection<Arriendo> arriendosByIdCapacidadEconomica;
+    private LiquidacionSueldo liquidacionSueldoByIdLiqSuel;
+    private Contrato contratoByIdContrato;
+    private CedulaIdentidad cedulaIdentidadByIdCedula;
+    private BoletaHonorario boletaHonorarioByIdBoleta;
 
     @Id
     @Column(name = "ID_CAPACIDAD_ECONOMICA")
@@ -90,5 +96,54 @@ public class CapacidadEconomica {
     public int hashCode() {
 
         return Objects.hash(idCapacidadEconomica, aval, idLiqSuel, idContrato, idCedula, idBoleta);
+    }
+
+    @OneToMany(mappedBy = "capacidadEconomicaByIdCapacidadEconomica")
+    public Collection<Arriendo> getArriendosByIdCapacidadEconomica() {
+        return arriendosByIdCapacidadEconomica;
+    }
+
+    public void setArriendosByIdCapacidadEconomica(Collection<Arriendo> arriendosByIdCapacidadEconomica) {
+        this.arriendosByIdCapacidadEconomica = arriendosByIdCapacidadEconomica;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_LIQ_SUEL", referencedColumnName = "ID_LIQ_SUEL")
+    public LiquidacionSueldo getLiquidacionSueldoByIdLiqSuel() {
+        return liquidacionSueldoByIdLiqSuel;
+    }
+
+    public void setLiquidacionSueldoByIdLiqSuel(LiquidacionSueldo liquidacionSueldoByIdLiqSuel) {
+        this.liquidacionSueldoByIdLiqSuel = liquidacionSueldoByIdLiqSuel;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CONTRATO", referencedColumnName = "ID_CONTRATO", nullable = false)
+    public Contrato getContratoByIdContrato() {
+        return contratoByIdContrato;
+    }
+
+    public void setContratoByIdContrato(Contrato contratoByIdContrato) {
+        this.contratoByIdContrato = contratoByIdContrato;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CEDULA", referencedColumnName = "ID_CEDULA", nullable = false)
+    public CedulaIdentidad getCedulaIdentidadByIdCedula() {
+        return cedulaIdentidadByIdCedula;
+    }
+
+    public void setCedulaIdentidadByIdCedula(CedulaIdentidad cedulaIdentidadByIdCedula) {
+        this.cedulaIdentidadByIdCedula = cedulaIdentidadByIdCedula;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_BOLETA", referencedColumnName = "ID_BOLETA")
+    public BoletaHonorario getBoletaHonorarioByIdBoleta() {
+        return boletaHonorarioByIdBoleta;
+    }
+
+    public void setBoletaHonorarioByIdBoleta(BoletaHonorario boletaHonorarioByIdBoleta) {
+        this.boletaHonorarioByIdBoleta = boletaHonorarioByIdBoleta;
     }
 }

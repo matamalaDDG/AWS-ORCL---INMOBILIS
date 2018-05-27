@@ -1,43 +1,68 @@
 package com.api.apisigi.controller;
 
 import com.api.apisigi.entity.Region;
-import com.api.apisigi.model.MRegion;
-import com.api.apisigi.service.SRegion;
+import com.api.apisigi.exception.ResourceNotFoundExcption;
+import com.api.apisigi.repository.IRRegion;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
-@RequestMapping("/region")
 public class RegionController {
 
-    //#LOG
-    public static final Log logger = LogFactory.getLog(ArriendoController.class);
+    public static final Log logger = LogFactory.getLog(RegionController.class);
 
     @Autowired
-    @Qualifier("regionService")
-    private SRegion regionservice;
+    private IRRegion regionre;
 
-    //#GET
-    @GetMapping("/list")
+
+    @GetMapping("/regiones")
     @ResponseBody
-    public List<MRegion> Region() {
-        logger.info("[Request_Type: GET] -- FROM: region '/list' -- Status: '200']");
-        return regionservice.read();
+    @JsonFormat
+    public List<Region> getAllRegiones() {
+        return regionre.findAll();
     }
 
-    //#POST
+    //#ROUTE METHODS
+    //#POST METHOD: INSERCION REGION
     @PostMapping("/nregion")
     @ResponseBody
-    public boolean agregarRegion(@RequestBody @Valid Region region) {
-        logger.info("[Request_Type: POST] -- FROM: region '/region' -- Status: '201']");
-        return regionservice.create(region);
+    @JsonFormat
+    public Region createRegion(@Valid @RequestBody Region region) {
+        logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
+        return regionre.save(region);
     }
-    //#PUT
-    //#DELETE
+
+    @DeleteMapping("/dregion/{regionId}")
+    @ResponseBody
+    @JsonFormat
+    public ResponseEntity<?> deleteRegion(@PathVariable String regionId) {
+        logger.info("[buscado region : /dregion/{regionId}.... Method: deletePost]");
+        return regionre.findById(regionId).map(region -> {
+            logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
+            regionre.delete(region);
+            logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+    }
+
+    //#UPDATE REGION
+    @PutMapping("/region/{regionId}")
+    @ResponseBody
+    @JsonFormat
+    public Region updatePost(@PathVariable String regionId,
+                             @Valid @RequestBody Region regionRequest) {
+        return regionre.findById(regionId).map(region -> {
+            region.setRegion(regionRequest.getRegion());
+            region.setIdRegion(regionRequest.getIdRegion());
+            return regionre.save(region);
+        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+    }
+
+
 }

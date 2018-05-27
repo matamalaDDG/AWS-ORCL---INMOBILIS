@@ -14,3 +14,13 @@ Se utilizó:
 En Testing 
 
 utilizaremos Junit
+
+Ciclo de vida :
+Sera 
+
+
+
+
+
+Controlladores
+

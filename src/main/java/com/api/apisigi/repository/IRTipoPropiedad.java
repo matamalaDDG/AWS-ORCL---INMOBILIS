@@ -1,11 +1,18 @@
 package com.api.apisigi.repository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.api.apisigi.entity.TipoPropiedad;
 
+import java.awt.print.Pageable;
 import java.io.Serializable;
+import java.util.List;
 
 @Repository("tipoPropiedadRepo")
-public interface IRTipoPropiedad extends JpaRepository<TipoPropiedad, Serializable> {
+public interface IRTipoPropiedad extends JpaRepository<TipoPropiedad, String> {
+    public abstract Page<TipoPropiedad> findByRegion_IdRegion(String idtipoprop, Pageable pageable);
+    public abstract Page<TipoPropiedad> findByIdComuna(String idtipoprop,Pageable pageable);
+    public abstract Page<TipoPropiedad> findAllByIdComuna(String idtipoprop,Pageable pageable);
+    public abstract List<TipoPropiedad> findAll();
 }
