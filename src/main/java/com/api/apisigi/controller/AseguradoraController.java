@@ -23,7 +23,9 @@ public class AseguradoraController {
     @ResponseBody
     @JsonFormat
     public List<Aseguradora> getAll() {
+
         return aseguradorarepo.findAll();
+
     }
 
     @PostMapping("/naseguradora")
