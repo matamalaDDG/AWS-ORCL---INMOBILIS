@@ -7,17 +7,22 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
+@RestController
+@RequestMapping("/region")
 public class RegionController {
 
     public static final Log logger = LogFactory.getLog(RegionController.class);
 
     @Autowired
+    @Qualifier("regionRepo")
     private IRRegion regionre;
 
 
@@ -25,7 +30,15 @@ public class RegionController {
     @ResponseBody
     @JsonFormat
     public List<Region> getAllRegiones() {
-        return regionre.findAll();
+        logger.info("[Buscando Region : ROUTE: /regiones .... Method: getAllRegiones]");
+        logger.info("[Listando Regiones : ROUTE: /regiones .... Method: getAllRegiones]");
+        logger.info("[Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]");
+        List temp_Regiones = new ArrayList<>();
+        regionre.findAll().forEach(temp_Regiones::add);
+        return temp_Regiones;
+
+        //return regionre.findAll().;
+
     }
 
     //#ROUTE METHODS
@@ -33,9 +46,9 @@ public class RegionController {
     @PostMapping("/nregion")
     @ResponseBody
     @JsonFormat
-    public Region createRegion(@Valid @RequestBody Region region) {
+    public void createRegion(@Valid @RequestBody Region region) {
         logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        return regionre.save(region);
+        regionre.save(region);
     }
 
     @DeleteMapping("/dregion/{regionId}")

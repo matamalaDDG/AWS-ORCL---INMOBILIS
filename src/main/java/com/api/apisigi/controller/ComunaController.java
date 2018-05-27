@@ -8,24 +8,30 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/comuna")
 public class ComunaController {
 
     //#LOGS
     public static final Log logger = LogFactory.getLog(RegionController.class);
 
     @Autowired
+    @Qualifier("comunaRepo")
     private IRComuna comunarepo;
 
     @Autowired
+    @Qualifier("regionRepo")
     private IRRegion regionrepo;
 
     //#LISTADO DE COMUNAS POR ID REGION
@@ -33,7 +39,7 @@ public class ComunaController {
     @ResponseBody
     @JsonFormat
     public Optional<Comuna> getAllComunasByRegionID(@PathVariable(value = "regionId") String idregion) {
-            return comunarepo.findById(idregion);
+        return comunarepo.findById(idregion);
     }
 
     //#LISTADO DE COMUNAS POR ID COMUNA
@@ -47,6 +53,7 @@ public class ComunaController {
     //#LISTADO DE COMUNAS
     @GetMapping("/comunas")
     @ResponseBody
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @JsonFormat
     public List<Comuna> getAll() {
         return comunarepo.findAll();
@@ -56,14 +63,16 @@ public class ComunaController {
     @PostMapping("/region/{regionId}/NComuna")
     @ResponseBody
     @JsonFormat
-    public Comuna createComuna(@PathVariable(value = "regionId") String regionId,
-                               @Valid @RequestBody Comuna comuna) {
-        return comunarepo.save(
-                regionrepo.findById(regionId).map(region -> {
-                    comuna.setRegion(region);
-                    return comuna;
-                }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found")
-                ));
+    public void createComuna(@PathVariable(value = "regionId") String regionId,
+                             @Valid @RequestBody Comuna comuna) {
+
+        regionrepo.findById(regionId).map((region) -> {
+
+            comuna.setRegion(region);
+            
+            return comuna;
+        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found"));
+        comunarepo.delete(comuna);
     }
 
 
