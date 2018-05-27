@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +9,7 @@ public class Condominio {
     private String idCondominio;
     private String nombre;
     private long numeroCond;
+    private Collection<Casa> casa;
 
     @Id
     @Column(name = "ID_CONDOMINIO")
@@ -56,5 +55,14 @@ public class Condominio {
     public int hashCode() {
 
         return Objects.hash(idCondominio, nombre, numeroCond);
+    }
+
+    @OneToMany(mappedBy = "condominio")
+    public Collection<Casa> getCasa() {
+        return casa;
+    }
+
+    public void setCasa(Collection<Casa> casa) {
+        this.casa = casa;
     }
 }

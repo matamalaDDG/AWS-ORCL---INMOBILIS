@@ -1,18 +1,15 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Convenio {
     private String idConvenio;
     private double dscto;
-    private String idEmpresa;
     private String descripcion;
     private String tipoConvenio;
+    private Empresas empresa;
 
     @Id
     @Column(name = "ID_CONVENIO")
@@ -32,16 +29,6 @@ public class Convenio {
 
     public void setDscto(double dscto) {
         this.dscto = dscto;
-    }
-
-    @Basic
-    @Column(name = "ID_EMPRESA")
-    public String getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa(String idEmpresa) {
-        this.idEmpresa = idEmpresa;
     }
 
     @Basic
@@ -71,7 +58,6 @@ public class Convenio {
         Convenio convenio = (Convenio) o;
         return Double.compare(convenio.dscto, dscto) == 0 &&
                 Objects.equals(idConvenio, convenio.idConvenio) &&
-                Objects.equals(idEmpresa, convenio.idEmpresa) &&
                 Objects.equals(descripcion, convenio.descripcion) &&
                 Objects.equals(tipoConvenio, convenio.tipoConvenio);
     }
@@ -79,6 +65,16 @@ public class Convenio {
     @Override
     public int hashCode() {
 
-        return Objects.hash(idConvenio, dscto, idEmpresa, descripcion, tipoConvenio);
+        return Objects.hash(idConvenio, dscto, descripcion, tipoConvenio);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID_EMPRESA", nullable = false)
+    public Empresas getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresas empresa) {
+        this.empresa = empresa;
     }
 }

@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,9 @@ public class PerfilCliente {
     private String correo;
     private String rut;
     private String tipoCliente;
-    private String idCuenta;
+    private Collection<Corredor> corredor;
+    private Cuenta cuenta;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_PERFIL")
@@ -74,16 +77,6 @@ public class PerfilCliente {
         this.tipoCliente = tipoCliente;
     }
 
-    @Basic
-    @Column(name = "ID_CUENTA")
-    public String getIdCuenta() {
-        return idCuenta;
-    }
-
-    public void setIdCuenta(String idCuenta) {
-        this.idCuenta = idCuenta;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,13 +87,40 @@ public class PerfilCliente {
                 Objects.equals(apellido, that.apellido) &&
                 Objects.equals(correo, that.correo) &&
                 Objects.equals(rut, that.rut) &&
-                Objects.equals(tipoCliente, that.tipoCliente) &&
-                Objects.equals(idCuenta, that.idCuenta);
+                Objects.equals(tipoCliente, that.tipoCliente);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idPerfil, nombre, apellido, correo, rut, tipoCliente, idCuenta);
+        return Objects.hash(idPerfil, nombre, apellido, correo, rut, tipoCliente);
+    }
+
+    @OneToMany(mappedBy = "perfilcliente")
+    public Collection<Corredor> getCorredor() {
+        return corredor;
+    }
+
+    public void setCorredor(Collection<Corredor> corredor) {
+        this.corredor = corredor;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CUENTA", referencedColumnName = "ID_CUENTA", nullable = false)
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    @OneToMany(mappedBy = "perfilcliente")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

@@ -1,19 +1,18 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Casa {
     private String idCasa;
-    private String idCondominio;
     private long cantDorm;
     private long cantBanos;
     private long mtsHabConst;
     private long mtsPatConst;
+    private Condominio condominio;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_CASA")
@@ -23,16 +22,6 @@ public class Casa {
 
     public void setIdCasa(String idCasa) {
         this.idCasa = idCasa;
-    }
-
-    @Basic
-    @Column(name = "ID_CONDOMINIO")
-    public String getIdCondominio() {
-        return idCondominio;
-    }
-
-    public void setIdCondominio(String idCondominio) {
-        this.idCondominio = idCondominio;
     }
 
     @Basic
@@ -84,13 +73,31 @@ public class Casa {
                 cantBanos == casa.cantBanos &&
                 mtsHabConst == casa.mtsHabConst &&
                 mtsPatConst == casa.mtsPatConst &&
-                Objects.equals(idCasa, casa.idCasa) &&
-                Objects.equals(idCondominio, casa.idCondominio);
+                Objects.equals(idCasa, casa.idCasa);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idCasa, idCondominio, cantDorm, cantBanos, mtsHabConst, mtsPatConst);
+        return Objects.hash(idCasa, cantDorm, cantBanos, mtsHabConst, mtsPatConst);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CONDOMINIO", referencedColumnName = "ID_CONDOMINIO")
+    public Condominio getCondominio() {
+        return condominio;
+    }
+
+    public void setCondominio(Condominio condominio) {
+        this.condominio = condominio;
+    }
+
+    @OneToMany(mappedBy = "casa")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

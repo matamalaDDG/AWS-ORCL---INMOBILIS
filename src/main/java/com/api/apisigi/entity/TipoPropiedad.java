@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -8,6 +9,7 @@ import java.util.Objects;
 public class TipoPropiedad {
     private String idTipoProp;
     private String descripcion;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_TIPO_PROP")
@@ -42,5 +44,14 @@ public class TipoPropiedad {
     public int hashCode() {
 
         return Objects.hash(idTipoProp, descripcion);
+    }
+
+    @OneToMany(mappedBy = "tipopropiedad")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

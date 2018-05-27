@@ -1,9 +1,6 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +8,7 @@ public class Bodega {
     private String idBodega;
     private long numIdentBodega;
     private long mtsCuad;
-    private String idPropiedad;
+    private Propiedad propiedad;
 
     @Id
     @Column(name = "ID_BODEGA")
@@ -43,16 +40,6 @@ public class Bodega {
         this.mtsCuad = mtsCuad;
     }
 
-    @Basic
-    @Column(name = "ID_PROPIEDAD")
-    public String getIdPropiedad() {
-        return idPropiedad;
-    }
-
-    public void setIdPropiedad(String idPropiedad) {
-        this.idPropiedad = idPropiedad;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,13 +47,22 @@ public class Bodega {
         Bodega bodega = (Bodega) o;
         return numIdentBodega == bodega.numIdentBodega &&
                 mtsCuad == bodega.mtsCuad &&
-                Objects.equals(idBodega, bodega.idBodega) &&
-                Objects.equals(idPropiedad, bodega.idPropiedad);
+                Objects.equals(idBodega, bodega.idBodega);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idBodega, numIdentBodega, mtsCuad, idPropiedad);
+        return Objects.hash(idBodega, numIdentBodega, mtsCuad);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PROPIEDAD", referencedColumnName = "ID_PROPIEDAD")
+    public Propiedad getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(Propiedad propiedad) {
+        this.propiedad = propiedad;
     }
 }

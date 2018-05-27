@@ -1,15 +1,14 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Estado {
     private String idEstado;
     private String estado;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_ESTADO")
@@ -44,5 +43,14 @@ public class Estado {
     public int hashCode() {
 
         return Objects.hash(idEstado, estado);
+    }
+
+    @OneToMany(mappedBy = "estado")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

@@ -1,16 +1,16 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Corredor {
     private String nombreCorredor;
     private String idCorredor;
-    private String idPerfil;
+    private Collection<Arriendo> arriendo;
+    private PerfilCliente perfilcliente;
+    private Collection<Venta> venta;
 
     @Basic
     @Column(name = "NOMBRE_CORREDOR")
@@ -32,29 +32,46 @@ public class Corredor {
         this.idCorredor = idCorredor;
     }
 
-    @Basic
-    @Column(name = "ID_PERFIL")
-    public String getIdPerfil() {
-        return idPerfil;
-    }
-
-    public void setIdPerfil(String idPerfil) {
-        this.idPerfil = idPerfil;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Corredor corredor = (Corredor) o;
         return Objects.equals(nombreCorredor, corredor.nombreCorredor) &&
-                Objects.equals(idCorredor, corredor.idCorredor) &&
-                Objects.equals(idPerfil, corredor.idPerfil);
+                Objects.equals(idCorredor, corredor.idCorredor);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(nombreCorredor, idCorredor, idPerfil);
+        return Objects.hash(nombreCorredor, idCorredor);
+    }
+
+    @OneToMany(mappedBy = "corredor")
+    public Collection<Arriendo> getArriendo() {
+        return arriendo;
+    }
+
+    public void setArriendo(Collection<Arriendo> arriendo) {
+        this.arriendo = arriendo;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL", nullable = false)
+    public PerfilCliente getPerfilcliente() {
+        return perfilcliente;
+    }
+
+    public void setPerfilcliente(PerfilCliente perfilcliente) {
+        this.perfilcliente = perfilcliente;
+    }
+
+    @OneToMany(mappedBy = "corredor")
+    public Collection<Venta> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Collection<Venta> venta) {
+        this.venta = venta;
     }
 }

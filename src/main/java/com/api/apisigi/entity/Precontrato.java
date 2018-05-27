@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,8 +9,8 @@ public class Precontrato {
     private String idPreContrato;
     private String estado;
     private String descripcion;
-    private String documento;
-    private String idDocumento;
+    private Collection<Arriendo> arriendo;
+    private Documento documento;
 
     @Id
     @Column(name = "ID_PRE_CONTRATO")
@@ -44,26 +42,6 @@ public class Precontrato {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "DOCUMENTO")
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,14 +49,31 @@ public class Precontrato {
         Precontrato that = (Precontrato) o;
         return Objects.equals(idPreContrato, that.idPreContrato) &&
                 Objects.equals(estado, that.estado) &&
-                Objects.equals(descripcion, that.descripcion) &&
-                Objects.equals(documento, that.documento) &&
-                Objects.equals(idDocumento, that.idDocumento);
+                Objects.equals(descripcion, that.descripcion);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idPreContrato, estado, descripcion, documento, idDocumento);
+        return Objects.hash(idPreContrato, estado, descripcion);
+    }
+
+    @OneToMany(mappedBy = "precontrato")
+    public Collection<Arriendo> getArriendo() {
+        return arriendo;
+    }
+
+    public void setArriendo(Collection<Arriendo> arriendo) {
+        this.arriendo = arriendo;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 }

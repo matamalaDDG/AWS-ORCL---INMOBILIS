@@ -1,17 +1,15 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Conservador {
     private String idDocConservador;
     private String nomConservador;
-    private String documento;
-    private String idDocumento;
+    private Documento documento;
+    private Collection<Venta> venta;
 
     @Id
     @Column(name = "ID_DOC_CONSERVADOR")
@@ -33,40 +31,37 @@ public class Conservador {
         this.nomConservador = nomConservador;
     }
 
-    @Basic
-    @Column(name = "DOCUMENTO")
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Conservador that = (Conservador) o;
         return Objects.equals(idDocConservador, that.idDocConservador) &&
-                Objects.equals(nomConservador, that.nomConservador) &&
-                Objects.equals(documento, that.documento) &&
-                Objects.equals(idDocumento, that.idDocumento);
+                Objects.equals(nomConservador, that.nomConservador);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDocConservador, nomConservador, documento, idDocumento);
+        return Objects.hash(idDocConservador, nomConservador);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
+
+    @OneToMany(mappedBy = "conservador")
+    public Collection<Venta> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Collection<Venta> venta) {
+        this.venta = venta;
     }
 }

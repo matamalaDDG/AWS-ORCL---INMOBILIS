@@ -1,15 +1,14 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Empresas {
     private String idEmpresa;
     private String nombreEmpresa;
+    private Collection<Convenio> convenio;
 
     @Id
     @Column(name = "ID_EMPRESA")
@@ -44,5 +43,14 @@ public class Empresas {
     public int hashCode() {
 
         return Objects.hash(idEmpresa, nombreEmpresa);
+    }
+
+    @OneToMany(mappedBy = "empresa")
+    public Collection<Convenio> getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Collection<Convenio> convenio) {
+        this.convenio = convenio;
     }
 }

@@ -1,10 +1,8 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Time;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,13 +10,14 @@ public class Venta {
     private String idVenta;
     private long monto;
     private Time fechaCompra;
-    private String idServicio;
-    private String idConvenio;
-    private String idDocNotaria;
-    private String idDocConservador;
-    private String idTasacion;
-    private String idBanco;
-    private String idCorredor;
+    private Collection<Propiedad> propiedad;
+    private Servicios servicios;
+    private Convenio convenio;
+    private DocNotaria docnotaria;
+    private Conservador conservador;
+    private Tasacion tasacion;
+    private DocBanco docbanco;
+    private Corredor corredor;
 
     @Id
     @Column(name = "ID_VENTA")
@@ -50,76 +49,6 @@ public class Venta {
         this.fechaCompra = fechaCompra;
     }
 
-    @Basic
-    @Column(name = "ID_SERVICIO")
-    public String getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(String idServicio) {
-        this.idServicio = idServicio;
-    }
-
-    @Basic
-    @Column(name = "ID_CONVENIO")
-    public String getIdConvenio() {
-        return idConvenio;
-    }
-
-    public void setIdConvenio(String idConvenio) {
-        this.idConvenio = idConvenio;
-    }
-
-    @Basic
-    @Column(name = "ID_DOC_NOTARIA")
-    public String getIdDocNotaria() {
-        return idDocNotaria;
-    }
-
-    public void setIdDocNotaria(String idDocNotaria) {
-        this.idDocNotaria = idDocNotaria;
-    }
-
-    @Basic
-    @Column(name = "ID_DOC_CONSERVADOR")
-    public String getIdDocConservador() {
-        return idDocConservador;
-    }
-
-    public void setIdDocConservador(String idDocConservador) {
-        this.idDocConservador = idDocConservador;
-    }
-
-    @Basic
-    @Column(name = "ID_TASACION")
-    public String getIdTasacion() {
-        return idTasacion;
-    }
-
-    public void setIdTasacion(String idTasacion) {
-        this.idTasacion = idTasacion;
-    }
-
-    @Basic
-    @Column(name = "ID_BANCO")
-    public String getIdBanco() {
-        return idBanco;
-    }
-
-    public void setIdBanco(String idBanco) {
-        this.idBanco = idBanco;
-    }
-
-    @Basic
-    @Column(name = "ID_CORREDOR")
-    public String getIdCorredor() {
-        return idCorredor;
-    }
-
-    public void setIdCorredor(String idCorredor) {
-        this.idCorredor = idCorredor;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,19 +56,91 @@ public class Venta {
         Venta venta = (Venta) o;
         return monto == venta.monto &&
                 Objects.equals(idVenta, venta.idVenta) &&
-                Objects.equals(fechaCompra, venta.fechaCompra) &&
-                Objects.equals(idServicio, venta.idServicio) &&
-                Objects.equals(idConvenio, venta.idConvenio) &&
-                Objects.equals(idDocNotaria, venta.idDocNotaria) &&
-                Objects.equals(idDocConservador, venta.idDocConservador) &&
-                Objects.equals(idTasacion, venta.idTasacion) &&
-                Objects.equals(idBanco, venta.idBanco) &&
-                Objects.equals(idCorredor, venta.idCorredor);
+                Objects.equals(fechaCompra, venta.fechaCompra);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idVenta, monto, fechaCompra, idServicio, idConvenio, idDocNotaria, idDocConservador, idTasacion, idBanco, idCorredor);
+        return Objects.hash(idVenta, monto, fechaCompra);
+    }
+
+    @OneToMany(mappedBy = "venta")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_SERVICIO", referencedColumnName = "ID_SERVICIO")
+    public Servicios getServicios() {
+        return servicios;
+    }
+
+    public void setServicios(Servicios servicios) {
+        this.servicios = servicios;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CONVENIO", referencedColumnName = "ID_CONVENIO")
+    public Convenio getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Convenio convenio) {
+        this.convenio = convenio;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOC_NOTARIA", referencedColumnName = "ID_DOC_NOTARIA", nullable = false)
+    public DocNotaria getDocnotaria() {
+        return docnotaria;
+    }
+
+    public void setDocnotaria(DocNotaria docnotaria) {
+        this.docnotaria = docnotaria;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOC_CONSERVADOR", referencedColumnName = "ID_DOC_CONSERVADOR", nullable = false)
+    public Conservador getConservador() {
+        return conservador;
+    }
+
+    public void setConservador(Conservador conservador) {
+        this.conservador = conservador;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TASACION", referencedColumnName = "ID_TASACION", nullable = false)
+    public Tasacion getTasacion() {
+        return tasacion;
+    }
+
+    public void setTasacion(Tasacion tasacion) {
+        this.tasacion = tasacion;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_BANCO", referencedColumnName = "ID_BANCO", nullable = false)
+    public DocBanco getDocbanco() {
+        return docbanco;
+    }
+
+    public void setDocbanco(DocBanco docbanco) {
+        this.docbanco = docbanco;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CORREDOR", referencedColumnName = "ID_CORREDOR")
+    public Corredor getCorredor() {
+        return corredor;
+    }
+
+    public void setCorredor(Corredor corredor) {
+        this.corredor = corredor;
     }
 }

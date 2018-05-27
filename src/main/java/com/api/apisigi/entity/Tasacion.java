@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,8 +10,8 @@ public class Tasacion {
     private long monto;
     private String nomTasador;
     private String descripcion;
-    private String documento;
-    private String idDocumento;
+    private Documento documento;
+    private Collection<Venta> venta;
 
     @Id
     @Column(name = "ID_TASACION")
@@ -55,26 +53,6 @@ public class Tasacion {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "DOCUMENTO")
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,14 +61,31 @@ public class Tasacion {
         return monto == tasacion.monto &&
                 Objects.equals(idTasacion, tasacion.idTasacion) &&
                 Objects.equals(nomTasador, tasacion.nomTasador) &&
-                Objects.equals(descripcion, tasacion.descripcion) &&
-                Objects.equals(documento, tasacion.documento) &&
-                Objects.equals(idDocumento, tasacion.idDocumento);
+                Objects.equals(descripcion, tasacion.descripcion);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idTasacion, monto, nomTasador, descripcion, documento, idDocumento);
+        return Objects.hash(idTasacion, monto, nomTasador, descripcion);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
+
+    @OneToMany(mappedBy = "tasacion")
+    public Collection<Venta> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Collection<Venta> venta) {
+        this.venta = venta;
     }
 }

@@ -16,3 +16,10 @@ Ciclo de vida :
 Sera 
 
 Controlladores:
+Ciclo de vida :
+
+
+
+
+
+Controlladores

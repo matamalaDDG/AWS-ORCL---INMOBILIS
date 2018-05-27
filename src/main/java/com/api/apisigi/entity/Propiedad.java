@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,16 +10,17 @@ public class Propiedad {
     private String direccion;
     private String tipoDueno;
     private String disponibilidad;
-    private String idEstado;
-    private String idTipoProp;
-    private String idComuna;
-    private String idOficina;
-    private String idCasa;
-    private String idVenta;
-    private String idDepto;
-    private String idEstacionamiento;
-    private String idArriendo;
-    private String idPerfil;
+    private Collection<Bodega> bodega;
+    private Estado estado;
+    private TipoPropiedad tipopropiedad;
+    private Comuna comuna;
+    private Oficina oficina;
+    private Casa casa;
+    private Venta venta;
+    private Departamento departamento;
+    private Estacionamiento estacionamiento;
+    private Arriendo arriendo;
+    private PerfilCliente perfilcliente;
 
     @Id
     @Column(name = "ID_PROPIEDAD")
@@ -63,106 +62,6 @@ public class Propiedad {
         this.disponibilidad = disponibilidad;
     }
 
-    @Basic
-    @Column(name = "ID_ESTADO")
-    public String getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(String idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    @Basic
-    @Column(name = "ID_TIPO_PROP")
-    public String getIdTipoProp() {
-        return idTipoProp;
-    }
-
-    public void setIdTipoProp(String idTipoProp) {
-        this.idTipoProp = idTipoProp;
-    }
-
-    @Basic
-    @Column(name = "ID_COMUNA")
-    public String getIdComuna() {
-        return idComuna;
-    }
-
-    public void setIdComuna(String idComuna) {
-        this.idComuna = idComuna;
-    }
-
-    @Basic
-    @Column(name = "ID_OFICINA")
-    public String getIdOficina() {
-        return idOficina;
-    }
-
-    public void setIdOficina(String idOficina) {
-        this.idOficina = idOficina;
-    }
-
-    @Basic
-    @Column(name = "ID_CASA")
-    public String getIdCasa() {
-        return idCasa;
-    }
-
-    public void setIdCasa(String idCasa) {
-        this.idCasa = idCasa;
-    }
-
-    @Basic
-    @Column(name = "ID_VENTA")
-    public String getIdVenta() {
-        return idVenta;
-    }
-
-    public void setIdVenta(String idVenta) {
-        this.idVenta = idVenta;
-    }
-
-    @Basic
-    @Column(name = "ID_DEPTO")
-    public String getIdDepto() {
-        return idDepto;
-    }
-
-    public void setIdDepto(String idDepto) {
-        this.idDepto = idDepto;
-    }
-
-    @Basic
-    @Column(name = "ID_ESTACIONAMIENTO")
-    public String getIdEstacionamiento() {
-        return idEstacionamiento;
-    }
-
-    public void setIdEstacionamiento(String idEstacionamiento) {
-        this.idEstacionamiento = idEstacionamiento;
-    }
-
-    @Basic
-    @Column(name = "ID_ARRIENDO")
-    public String getIdArriendo() {
-        return idArriendo;
-    }
-
-    public void setIdArriendo(String idArriendo) {
-        this.idArriendo = idArriendo;
-    }
-
-    @Basic
-    @Column(name = "ID_PERFIL")
-    public String getIdPerfil() {
-        return idPerfil;
-    }
-
-    public void setIdPerfil(String idPerfil) {
-        this.idPerfil = idPerfil;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -171,22 +70,121 @@ public class Propiedad {
         return Objects.equals(idPropiedad, propiedad.idPropiedad) &&
                 Objects.equals(direccion, propiedad.direccion) &&
                 Objects.equals(tipoDueno, propiedad.tipoDueno) &&
-                Objects.equals(disponibilidad, propiedad.disponibilidad) &&
-                Objects.equals(idEstado, propiedad.idEstado) &&
-                Objects.equals(idTipoProp, propiedad.idTipoProp) &&
-                Objects.equals(idComuna, propiedad.idComuna) &&
-                Objects.equals(idOficina, propiedad.idOficina) &&
-                Objects.equals(idCasa, propiedad.idCasa) &&
-                Objects.equals(idVenta, propiedad.idVenta) &&
-                Objects.equals(idDepto, propiedad.idDepto) &&
-                Objects.equals(idEstacionamiento, propiedad.idEstacionamiento) &&
-                Objects.equals(idArriendo, propiedad.idArriendo) &&
-                Objects.equals(idPerfil, propiedad.idPerfil);
+                Objects.equals(disponibilidad, propiedad.disponibilidad);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idPropiedad, direccion, tipoDueno, disponibilidad, idEstado, idTipoProp, idComuna, idOficina, idCasa, idVenta, idDepto, idEstacionamiento, idArriendo, idPerfil);
+        return Objects.hash(idPropiedad, direccion, tipoDueno, disponibilidad);
+    }
+
+    @OneToMany(mappedBy = "propiedad")
+    public Collection<Bodega> getBodega() {
+        return bodega;
+    }
+
+    public void setBodega(Collection<Bodega> bodega) {
+        this.bodega = bodega;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO", nullable = false)
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_TIPO_PROP", referencedColumnName = "ID_TIPO_PROP", nullable = false)
+    public TipoPropiedad getTipopropiedad() {
+        return tipopropiedad;
+    }
+
+    public void setTipopropiedad(TipoPropiedad tipopropiedad) {
+        this.tipopropiedad = tipopropiedad;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_COMUNA", referencedColumnName = "ID_COMUNA", nullable = false)
+    public Comuna getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Comuna comuna) {
+        this.comuna = comuna;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_OFICINA", referencedColumnName = "ID_OFICINA")
+    public Oficina getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(Oficina oficina) {
+        this.oficina = oficina;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CASA", referencedColumnName = "ID_CASA")
+    public Casa getCasa() {
+        return casa;
+    }
+
+    public void setCasa(Casa casa) {
+        this.casa = casa;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_VENTA", referencedColumnName = "ID_VENTA")
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_DEPTO", referencedColumnName = "ID_DEPTO")
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ESTACIONAMIENTO", referencedColumnName = "ID_ESTACIONAMIENTO")
+    public Estacionamiento getEstacionamiento() {
+        return estacionamiento;
+    }
+
+    public void setEstacionamiento(Estacionamiento estacionamiento) {
+        this.estacionamiento = estacionamiento;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ARRIENDO", referencedColumnName = "ID_ARRIENDO")
+    public Arriendo getArriendo() {
+        return arriendo;
+    }
+
+    public void setArriendo(Arriendo arriendo) {
+        this.arriendo = arriendo;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PERFIL", referencedColumnName = "ID_PERFIL", nullable = false)
+    public PerfilCliente getPerfilcliente() {
+        return perfilcliente;
+    }
+
+    public void setPerfilcliente(PerfilCliente perfilcliente) {
+        this.perfilcliente = perfilcliente;
     }
 }

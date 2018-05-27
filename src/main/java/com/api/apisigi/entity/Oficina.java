@@ -1,9 +1,7 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +9,8 @@ public class Oficina {
     private String idOficina;
     private long numOficina;
     private long mtsCuadDisp;
-    private String idPatente;
+    private PatenteComercial patenteComercial;
+    private Collection<com.api.apisigi.entity.Propiedad> Propiedad;
 
     @Id
     @Column(name = "ID_OFICINA")
@@ -43,16 +42,6 @@ public class Oficina {
         this.mtsCuadDisp = mtsCuadDisp;
     }
 
-    @Basic
-    @Column(name = "ID_PATENTE")
-    public String getIdPatente() {
-        return idPatente;
-    }
-
-    public void setIdPatente(String idPatente) {
-        this.idPatente = idPatente;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,13 +49,31 @@ public class Oficina {
         Oficina oficina = (Oficina) o;
         return numOficina == oficina.numOficina &&
                 mtsCuadDisp == oficina.mtsCuadDisp &&
-                Objects.equals(idOficina, oficina.idOficina) &&
-                Objects.equals(idPatente, oficina.idPatente);
+                Objects.equals(idOficina, oficina.idOficina);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idOficina, numOficina, mtsCuadDisp, idPatente);
+        return Objects.hash(idOficina, numOficina, mtsCuadDisp);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_PATENTE", referencedColumnName = "ID_PATENTE")
+    public PatenteComercial getPatenteComercial() {
+        return patenteComercial;
+    }
+
+    public void setPatenteComercial(PatenteComercial patenteComercial) {
+        this.patenteComercial = patenteComercial;
+    }
+
+    @OneToMany(mappedBy = "oficina")
+    public Collection<com.api.apisigi.entity.Propiedad> getPropiedad() {
+        return Propiedad;
+    }
+
+    public void setPropiedad(Collection<com.api.apisigi.entity.Propiedad> propiedad) {
+        Propiedad = propiedad;
     }
 }

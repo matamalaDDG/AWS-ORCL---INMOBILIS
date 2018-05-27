@@ -1,19 +1,18 @@
 package com.api.apisigi.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Departamento {
     private String idDepto;
-    private String idEdificio;
     private long cantDorm;
     private long numDepto;
     private long cantBaños;
     private long mtsCuadConst;
+    private Edificio edificio;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_DEPTO")
@@ -23,16 +22,6 @@ public class Departamento {
 
     public void setIdDepto(String idDepto) {
         this.idDepto = idDepto;
-    }
-
-    @Basic
-    @Column(name = "ID_EDIFICIO")
-    public String getIdEdificio() {
-        return idEdificio;
-    }
-
-    public void setIdEdificio(String idEdificio) {
-        this.idEdificio = idEdificio;
     }
 
     @Basic
@@ -84,13 +73,31 @@ public class Departamento {
                 numDepto == that.numDepto &&
                 cantBaños == that.cantBaños &&
                 mtsCuadConst == that.mtsCuadConst &&
-                Objects.equals(idDepto, that.idDepto) &&
-                Objects.equals(idEdificio, that.idEdificio);
+                Objects.equals(idDepto, that.idDepto);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDepto, idEdificio, cantDorm, numDepto, cantBaños, mtsCuadConst);
+        return Objects.hash(idDepto, cantDorm, numDepto, cantBaños, mtsCuadConst);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_EDIFICIO", referencedColumnName = "ID_EDIFICIO", nullable = false)
+    public Edificio getEdificio() {
+        return edificio;
+    }
+
+    public void setEdificio(Edificio edificio) {
+        this.edificio = edificio;
+    }
+
+    @OneToMany(mappedBy = "departamento")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
+    }
+
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }
