@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Region {
     private String idRegion;
     private String region;
-    private Collection<Comuna> comunasByIdRegion;
+    private Collection<Comuna> comuna;
 
     @Id
     @Column(name = "ID_REGION")
@@ -46,11 +46,11 @@ public class Region {
     }
 
     @OneToMany(mappedBy = "region")
-    public Collection<Comuna> getComunasByIdRegion() {
-        return comunasByIdRegion;
+    public Collection<Comuna> getComuna() {
+        return comuna;
     }
 
-    public void setComunasByIdRegion(Collection<Comuna> comunasByIdRegion) {
-        this.comunasByIdRegion = comunasByIdRegion;
+    public void setComuna(Collection<Comuna> comuna) {
+        this.comuna = comuna;
     }
 }

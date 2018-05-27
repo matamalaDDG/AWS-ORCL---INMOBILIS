@@ -13,10 +13,9 @@ public class PerfilCliente {
     private String correo;
     private String rut;
     private String tipoCliente;
-    private String idCuenta;
-    private Collection<Corredor> corredorsByIdPerfil;
-    private Cuenta cuentaByIdCuenta;
-    private Collection<Propiedad> propiedadsByIdPerfil;
+    private Collection<Corredor> corredor;
+    private Cuenta cuenta;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_PERFIL")
@@ -78,16 +77,6 @@ public class PerfilCliente {
         this.tipoCliente = tipoCliente;
     }
 
-    @Basic
-    @Column(name = "ID_CUENTA")
-    public String getIdCuenta() {
-        return idCuenta;
-    }
-
-    public void setIdCuenta(String idCuenta) {
-        this.idCuenta = idCuenta;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,41 +87,40 @@ public class PerfilCliente {
                 Objects.equals(apellido, that.apellido) &&
                 Objects.equals(correo, that.correo) &&
                 Objects.equals(rut, that.rut) &&
-                Objects.equals(tipoCliente, that.tipoCliente) &&
-                Objects.equals(idCuenta, that.idCuenta);
+                Objects.equals(tipoCliente, that.tipoCliente);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idPerfil, nombre, apellido, correo, rut, tipoCliente, idCuenta);
+        return Objects.hash(idPerfil, nombre, apellido, correo, rut, tipoCliente);
     }
 
-    @OneToMany(mappedBy = "perfilClienteByIdPerfil")
-    public Collection<Corredor> getCorredorsByIdPerfil() {
-        return corredorsByIdPerfil;
+    @OneToMany(mappedBy = "perfilcliente")
+    public Collection<Corredor> getCorredor() {
+        return corredor;
     }
 
-    public void setCorredorsByIdPerfil(Collection<Corredor> corredorsByIdPerfil) {
-        this.corredorsByIdPerfil = corredorsByIdPerfil;
+    public void setCorredor(Collection<Corredor> corredor) {
+        this.corredor = corredor;
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_CUENTA", referencedColumnName = "ID_CUENTA", nullable = false)
-    public Cuenta getCuentaByIdCuenta() {
-        return cuentaByIdCuenta;
+    public Cuenta getCuenta() {
+        return cuenta;
     }
 
-    public void setCuentaByIdCuenta(Cuenta cuentaByIdCuenta) {
-        this.cuentaByIdCuenta = cuentaByIdCuenta;
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
-    @OneToMany(mappedBy = "perfilClienteByIdPerfil")
-    public Collection<Propiedad> getPropiedadsByIdPerfil() {
-        return propiedadsByIdPerfil;
+    @OneToMany(mappedBy = "perfilcliente")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
     }
 
-    public void setPropiedadsByIdPerfil(Collection<Propiedad> propiedadsByIdPerfil) {
-        this.propiedadsByIdPerfil = propiedadsByIdPerfil;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

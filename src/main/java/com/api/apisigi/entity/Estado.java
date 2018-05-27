@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Estado {
     private String idEstado;
     private String estado;
-    private Collection<Propiedad> propiedadsByIdEstado;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_ESTADO")
@@ -45,12 +45,12 @@ public class Estado {
         return Objects.hash(idEstado, estado);
     }
 
-    @OneToMany(mappedBy = "estadoByIdEstado")
-    public Collection<Propiedad> getPropiedadsByIdEstado() {
-        return propiedadsByIdEstado;
+    @OneToMany(mappedBy = "estado")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
     }
 
-    public void setPropiedadsByIdEstado(Collection<Propiedad> propiedadsByIdEstado) {
-        this.propiedadsByIdEstado = propiedadsByIdEstado;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

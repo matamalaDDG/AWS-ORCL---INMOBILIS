@@ -9,7 +9,7 @@ public class Edificio {
     private String idEdificio;
     private String nombreEdi;
     private String numeroEdificio;
-    private Collection<Departamento> departamentosByIdEdificio;
+    private Collection<Departamento> departamento;
 
     @Id
     @Column(name = "ID_EDIFICIO")
@@ -58,11 +58,11 @@ public class Edificio {
     }
 
     @OneToMany(mappedBy = "edificio")
-    public Collection<Departamento> getDepartamentosByIdEdificio() {
-        return departamentosByIdEdificio;
+    public Collection<Departamento> getDepartamento() {
+        return departamento;
     }
 
-    public void setDepartamentosByIdEdificio(Collection<Departamento> departamentosByIdEdificio) {
-        this.departamentosByIdEdificio = departamentosByIdEdificio;
+    public void setDepartamento(Collection<Departamento> departamento) {
+        this.departamento = departamento;
     }
 }

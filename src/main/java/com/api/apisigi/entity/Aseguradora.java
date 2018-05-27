@@ -9,7 +9,7 @@ public class Aseguradora {
     private String idAseguradora;
     private String tipoSeguro;
     private String aseguradora;
-    private Collection<Arriendo> arriendosByIdAseguradora;
+    private Collection<Arriendo> arriendo;
 
     @Id
     @Column(name = "ID_ASEGURADORA")
@@ -57,12 +57,12 @@ public class Aseguradora {
         return Objects.hash(idAseguradora, tipoSeguro, aseguradora);
     }
 
-    @OneToMany(mappedBy = "aseguradoraByIdAseguradora")
-    public Collection<Arriendo> getArriendosByIdAseguradora() {
-        return arriendosByIdAseguradora;
+    @OneToMany(mappedBy = "aseguradora")
+    public Collection<Arriendo> getArriendo() {
+        return arriendo;
     }
 
-    public void setArriendosByIdAseguradora(Collection<Arriendo> arriendosByIdAseguradora) {
-        this.arriendosByIdAseguradora = arriendosByIdAseguradora;
+    public void setArriendo(Collection<Arriendo> arriendo) {
+        this.arriendo = arriendo;
     }
 }

@@ -11,10 +11,8 @@ public class Contrato {
     private String descripcion;
     private Time fechaInico;
     private Time fechaFin;
-    private String documento;
-    private String idDocumento;
-    private Collection<CapacidadEconomica> capacidadEconomicasByIdContrato;
-    private Documento documentoByIdDocumento;
+    private Collection<CapacidadEconomica> capacidadeconomica;
+    private Documento tbldocumento;
 
     @Id
     @Column(name = "ID_CONTRATO")
@@ -56,26 +54,6 @@ public class Contrato {
         this.fechaFin = fechaFin;
     }
 
-    @Basic
-    @Column(name = "DOCUMENTO")
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,33 +62,31 @@ public class Contrato {
         return Objects.equals(idContrato, contrato.idContrato) &&
                 Objects.equals(descripcion, contrato.descripcion) &&
                 Objects.equals(fechaInico, contrato.fechaInico) &&
-                Objects.equals(fechaFin, contrato.fechaFin) &&
-                Objects.equals(documento, contrato.documento) &&
-                Objects.equals(idDocumento, contrato.idDocumento);
+                Objects.equals(fechaFin, contrato.fechaFin);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idContrato, descripcion, fechaInico, fechaFin, documento, idDocumento);
+        return Objects.hash(idContrato, descripcion, fechaInico, fechaFin);
     }
 
-    @OneToMany(mappedBy = "contratoByIdContrato")
-    public Collection<CapacidadEconomica> getCapacidadEconomicasByIdContrato() {
-        return capacidadEconomicasByIdContrato;
+    @OneToMany(mappedBy = "contrato")
+    public Collection<CapacidadEconomica> getCapacidadeconomica() {
+        return capacidadeconomica;
     }
 
-    public void setCapacidadEconomicasByIdContrato(Collection<CapacidadEconomica> capacidadEconomicasByIdContrato) {
-        this.capacidadEconomicasByIdContrato = capacidadEconomicasByIdContrato;
+    public void setCapacidadeconomica(Collection<CapacidadEconomica> capacidadeconomica) {
+        this.capacidadeconomica = capacidadeconomica;
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
-    public Documento getDocumentoByIdDocumento() {
-        return documentoByIdDocumento;
+    public Documento getTbldocumento() {
+        return tbldocumento;
     }
 
-    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
-        this.documentoByIdDocumento = documentoByIdDocumento;
+    public void setTbldocumento(Documento tbldocumento) {
+        this.tbldocumento = tbldocumento;
     }
 }

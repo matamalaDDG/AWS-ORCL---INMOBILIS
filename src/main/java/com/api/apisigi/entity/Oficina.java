@@ -9,9 +9,8 @@ public class Oficina {
     private String idOficina;
     private long numOficina;
     private long mtsCuadDisp;
-    private String idPatente;
-    private PatenteComercial patenteComercialByIdPatente;
-    private Collection<Propiedad> propiedadsByIdOficina;
+    private PatenteComercial patenteComercial;
+    private Collection<com.api.apisigi.entity.Propiedad> Propiedad;
 
     @Id
     @Column(name = "ID_OFICINA")
@@ -43,16 +42,6 @@ public class Oficina {
         this.mtsCuadDisp = mtsCuadDisp;
     }
 
-    @Basic
-    @Column(name = "ID_PATENTE")
-    public String getIdPatente() {
-        return idPatente;
-    }
-
-    public void setIdPatente(String idPatente) {
-        this.idPatente = idPatente;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,32 +49,31 @@ public class Oficina {
         Oficina oficina = (Oficina) o;
         return numOficina == oficina.numOficina &&
                 mtsCuadDisp == oficina.mtsCuadDisp &&
-                Objects.equals(idOficina, oficina.idOficina) &&
-                Objects.equals(idPatente, oficina.idPatente);
+                Objects.equals(idOficina, oficina.idOficina);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idOficina, numOficina, mtsCuadDisp, idPatente);
+        return Objects.hash(idOficina, numOficina, mtsCuadDisp);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_PATENTE", referencedColumnName = "ID_PATENTE")
-    public PatenteComercial getPatenteComercialByIdPatente() {
-        return patenteComercialByIdPatente;
+    public PatenteComercial getPatenteComercial() {
+        return patenteComercial;
     }
 
-    public void setPatenteComercialByIdPatente(PatenteComercial patenteComercialByIdPatente) {
-        this.patenteComercialByIdPatente = patenteComercialByIdPatente;
+    public void setPatenteComercial(PatenteComercial patenteComercial) {
+        this.patenteComercial = patenteComercial;
     }
 
-    @OneToMany(mappedBy = "oficinaByIdOficina")
-    public Collection<Propiedad> getPropiedadsByIdOficina() {
-        return propiedadsByIdOficina;
+    @OneToMany(mappedBy = "oficina")
+    public Collection<com.api.apisigi.entity.Propiedad> getPropiedad() {
+        return Propiedad;
     }
 
-    public void setPropiedadsByIdOficina(Collection<Propiedad> propiedadsByIdOficina) {
-        this.propiedadsByIdOficina = propiedadsByIdOficina;
+    public void setPropiedad(Collection<com.api.apisigi.entity.Propiedad> propiedad) {
+        Propiedad = propiedad;
     }
 }

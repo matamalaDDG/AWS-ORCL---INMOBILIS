@@ -11,10 +11,8 @@ public class DocBanco {
     private String tipoPago;
     private long monto;
     private String banco;
-    private String documento;
-    private String idDocumento;
-    private Documento documentoByIdDocumento;
-    private Collection<Venta> ventasByIdBanco;
+    private Documento documento;
+    private Collection<Venta> venta;
 
     @Id
     @Column(name = "ID_BANCO")
@@ -56,26 +54,6 @@ public class DocBanco {
         this.banco = banco;
     }
 
-    @Basic
-    @Column(name = "DOCUMENTO")
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,33 +62,31 @@ public class DocBanco {
         return monto == docBanco.monto &&
                 Objects.equals(idBanco, docBanco.idBanco) &&
                 Objects.equals(tipoPago, docBanco.tipoPago) &&
-                Objects.equals(banco, docBanco.banco) &&
-                Objects.equals(documento, docBanco.documento) &&
-                Objects.equals(idDocumento, docBanco.idDocumento);
+                Objects.equals(banco, docBanco.banco);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idBanco, tipoPago, monto, banco, documento, idDocumento);
+        return Objects.hash(idBanco, tipoPago, monto, banco);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
-    public Documento getDocumentoByIdDocumento() {
-        return documentoByIdDocumento;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
-        this.documentoByIdDocumento = documentoByIdDocumento;
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 
-    @OneToMany(mappedBy = "docBancoByIdBanco")
-    public Collection<Venta> getVentasByIdBanco() {
-        return ventasByIdBanco;
+    @OneToMany(mappedBy = "docbanco")
+    public Collection<Venta> getVenta() {
+        return venta;
     }
 
-    public void setVentasByIdBanco(Collection<Venta> ventasByIdBanco) {
-        this.ventasByIdBanco = ventasByIdBanco;
+    public void setVenta(Collection<Venta> venta) {
+        this.venta = venta;
     }
 }

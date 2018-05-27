@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Empresas {
     private String idEmpresa;
     private String nombreEmpresa;
-    private Collection<Convenio> conveniosByIdEmpresa;
+    private Collection<Convenio> convenio;
 
     @Id
     @Column(name = "ID_EMPRESA")
@@ -45,12 +45,12 @@ public class Empresas {
         return Objects.hash(idEmpresa, nombreEmpresa);
     }
 
-    @OneToMany(mappedBy = "empresasByIdEmpresa")
-    public Collection<Convenio> getConveniosByIdEmpresa() {
-        return conveniosByIdEmpresa;
+    @OneToMany(mappedBy = "empresa")
+    public Collection<Convenio> getConvenio() {
+        return convenio;
     }
 
-    public void setConveniosByIdEmpresa(Collection<Convenio> conveniosByIdEmpresa) {
-        this.conveniosByIdEmpresa = conveniosByIdEmpresa;
+    public void setConvenio(Collection<Convenio> convenio) {
+        this.convenio = convenio;
     }
 }

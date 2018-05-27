@@ -10,11 +10,9 @@ public class DocNotaria {
     private String idDocNotaria;
     private String nomNotario;
     private String descripcion;
-    private String documento;
-    private String idDocumento;
-    private Documento documentoByIdDocumento;
-    private Collection<Notaria> notariasByIdDocNotaria;
-    private Collection<Venta> ventasByIdDocNotaria;
+    private Documento documento;
+    private Collection<Notaria> notaria;
+    private Collection<Venta> venta;
 
     @Id
     @Column(name = "ID_DOC_NOTARIA")
@@ -46,26 +44,6 @@ public class DocNotaria {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "DOCUMENTO")
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,42 +51,40 @@ public class DocNotaria {
         DocNotaria that = (DocNotaria) o;
         return Objects.equals(idDocNotaria, that.idDocNotaria) &&
                 Objects.equals(nomNotario, that.nomNotario) &&
-                Objects.equals(descripcion, that.descripcion) &&
-                Objects.equals(documento, that.documento) &&
-                Objects.equals(idDocumento, that.idDocumento);
+                Objects.equals(descripcion, that.descripcion);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDocNotaria, nomNotario, descripcion, documento, idDocumento);
+        return Objects.hash(idDocNotaria, nomNotario, descripcion);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
-    public Documento getDocumentoByIdDocumento() {
-        return documentoByIdDocumento;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
-        this.documentoByIdDocumento = documentoByIdDocumento;
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 
-    @OneToMany(mappedBy = "docNotariaByIdDocNotaria")
-    public Collection<Notaria> getNotariasByIdDocNotaria() {
-        return notariasByIdDocNotaria;
+    @OneToMany(mappedBy = "docNotaria")
+    public Collection<Notaria> getNotaria() {
+        return notaria;
     }
 
-    public void setNotariasByIdDocNotaria(Collection<Notaria> notariasByIdDocNotaria) {
-        this.notariasByIdDocNotaria = notariasByIdDocNotaria;
+    public void setNotaria(Collection<Notaria> notaria) {
+        this.notaria = notaria;
     }
 
-    @OneToMany(mappedBy = "docNotariaByIdDocNotaria")
-    public Collection<Venta> getVentasByIdDocNotaria() {
-        return ventasByIdDocNotaria;
+    @OneToMany(mappedBy = "docnotaria")
+    public Collection<Venta> getVenta() {
+        return venta;
     }
 
-    public void setVentasByIdDocNotaria(Collection<Venta> ventasByIdDocNotaria) {
-        this.ventasByIdDocNotaria = ventasByIdDocNotaria;
+    public void setVenta(Collection<Venta> venta) {
+        this.venta = venta;
     }
 }

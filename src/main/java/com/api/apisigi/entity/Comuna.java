@@ -8,9 +8,8 @@ import java.util.Objects;
 public class Comuna {
     private String idComuna;
     private String comuna;
-    private String idRegion;
     private Region region;
-    private Collection<Propiedad> propiedadsByIdComuna;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_COMUNA")
@@ -32,30 +31,19 @@ public class Comuna {
         this.comuna = comuna;
     }
 
-    @Basic
-    @Column(name = "ID_REGION")
-    public String getIdRegion() {
-        return idRegion;
-    }
-
-    public void setIdRegion(String idRegion) {
-        this.idRegion = idRegion;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comuna comuna1 = (Comuna) o;
         return Objects.equals(idComuna, comuna1.idComuna) &&
-                Objects.equals(comuna, comuna1.comuna) &&
-                Objects.equals(idRegion, comuna1.idRegion);
+                Objects.equals(comuna, comuna1.comuna);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idComuna, comuna, idRegion);
+        return Objects.hash(idComuna, comuna);
     }
 
     @ManyToOne
@@ -64,16 +52,16 @@ public class Comuna {
         return region;
     }
 
-    public void setRegion(Region regionByIdRegion) {
-        this.region = regionByIdRegion;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
-    @OneToMany(mappedBy = "comunaByIdComuna")
-    public Collection<Propiedad> getPropiedadsByIdComuna() {
-        return propiedadsByIdComuna;
+    @OneToMany(mappedBy = "comuna")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
     }
 
-    public void setPropiedadsByIdComuna(Collection<Propiedad> propiedadsByIdComuna) {
-        this.propiedadsByIdComuna = propiedadsByIdComuna;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }
