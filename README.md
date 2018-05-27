@@ -12,3 +12,5 @@ Se utilizó:
   - AWS Intance ORCL/AWS 
 
 En Testing 
+
+utilizaremos Junit
