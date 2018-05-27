@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Estado;
 import java.io.Serializable;
 
 @Repository("estadoRepo")
-public interface IREstado extends JpaRepository<Estado, Serializable> {
+public interface IREstado extends JpaRepository<Estado, String> {
 }

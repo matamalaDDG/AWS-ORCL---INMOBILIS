@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Propiedad;
 import java.io.Serializable;
 
 @Repository("propiedadRepo")
-public interface IRPropiedad extends JpaRepository<Propiedad, Serializable> {
+public interface IRPropiedad extends JpaRepository<Propiedad, String> {
 }

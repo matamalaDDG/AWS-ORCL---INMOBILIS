@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Conservador;
 import java.io.Serializable;
 
 @Repository("conservadorRepo")
-public interface IRConservador extends JpaRepository<Conservador, Serializable> {
+public interface IRConservador extends JpaRepository<Conservador, String> {
 }

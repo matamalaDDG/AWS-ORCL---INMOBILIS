@@ -7,6 +7,6 @@ import com.api.apisigi.entity.Cuenta;
 import java.io.Serializable;
 
 @Repository("cuentaRepo")
-public interface IRCuenta extends JpaRepository<Cuenta, Serializable> {
+public interface IRCuenta extends JpaRepository<Cuenta, String> {
 
 }

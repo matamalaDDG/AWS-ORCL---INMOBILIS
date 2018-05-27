@@ -7,5 +7,5 @@ import com.api.apisigi.entity.LogsSessions;
 import java.io.Serializable;
 
 @Repository("logsSessionsRepo")
-public interface IRLogsSessions extends JpaRepository<LogsSessions, Serializable> {
+public interface IRLogsSessions extends JpaRepository<LogsSessions, String> {
 }

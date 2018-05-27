@@ -7,5 +7,5 @@ import com.api.apisigi.entity.DocBanco;
 import java.io.Serializable;
 
 @Repository("docbancoRepo")
-public interface IRDocBanco extends JpaRepository<DocBanco, Serializable> {
+public interface IRDocBanco extends JpaRepository<DocBanco, String> {
 }

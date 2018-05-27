@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Oficina;
 import java.io.Serializable;
 
 @Repository("oficinaRepo")
-public interface IROficina extends JpaRepository<Oficina, Serializable> {
+public interface IROficina extends JpaRepository<Oficina, String> {
 }

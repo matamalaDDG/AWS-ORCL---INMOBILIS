@@ -26,7 +26,7 @@ public class EdificioController {
     @GetMapping("/edificios")
     @ResponseBody
     @JsonFormat
-    public List<Edificio> getRegiones() {
+    public List<Edificio> getEdificios() {
         return edificiorepo.findAll();
     }
 
@@ -34,9 +34,9 @@ public class EdificioController {
     @GetMapping("/{edificioId}/edificios")
     @ResponseBody
     @JsonFormat
-    public Page<Edificio> getRegionesById(@PathVariable(value = "comunaId") String idcomuna,
+    public Page<Edificio> getAllById(@PathVariable(value = "edificioId") String edificioId,
                                           Pageable pageable) {
-        return edificiorepo.findByIdEdificio(idcomuna, pageable);
+        return edificiorepo.findByIdEdificio(edificioId,pageable);
     }
 
     //#AGREGAR: POSTMAPPIG

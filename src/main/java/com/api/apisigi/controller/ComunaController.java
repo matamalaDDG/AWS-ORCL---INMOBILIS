@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 public class ComunaController {
 
@@ -31,18 +32,16 @@ public class ComunaController {
     @GetMapping("/region/{regionId}/comunas/ListComunas")
     @ResponseBody
     @JsonFormat
-    public Page<Comuna> getAllComunasByRegionID(@PathVariable(value = "regionId") String idregion,
-                                                Pageable pageable) {
-        return comunarepo.findByRegion_IdRegion(idregion, pageable);
+    public Optional<Comuna> getAllComunasByRegionID(@PathVariable(value = "regionId") String idregion) {
+            return comunarepo.findById(idregion);
     }
 
     //#LISTADO DE COMUNAS POR ID COMUNA
     @GetMapping("/{comunaId}/comunas")
     @ResponseBody
     @JsonFormat
-    public Page<Comuna> getComunas(@PathVariable(value = "comunaId") String idcomuna,
-                                   Pageable pageable) {
-        return comunarepo.findByIdComuna(idcomuna, pageable);
+    public Optional<Comuna> getComunas(@PathVariable(value = "comunaId") String idcomuna) {
+        return comunarepo.findById(idcomuna);
     }
 
     //#LISTADO DE COMUNAS
@@ -86,10 +85,10 @@ public class ComunaController {
 
     //# PUTCONTROLLER
     @PutMapping("/region/{regionId}/comuna/{comunaId}")
-    public Comuna updateComuna(@PathVariable (value = "regionId") String regionId,
-                               @PathVariable (value = "comunaId") String comunaId,
+    public Comuna updateComuna(@PathVariable(value = "regionId") String regionId,
+                               @PathVariable(value = "comunaId") String comunaId,
                                @Valid @RequestBody Comuna comunaRequest) {
-        if(!regionrepo.existsById(regionId)) {
+        if (!regionrepo.existsById(regionId)) {
             throw new ResourceNotFoundExcption("ID " + regionId + " not found");
         }
 

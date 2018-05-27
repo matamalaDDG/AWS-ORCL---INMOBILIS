@@ -11,8 +11,4 @@ import java.util.List;
 
 @Repository("comunaRepo")
 public interface IRComuna extends JpaRepository<Comuna, String> {
-    public abstract Page<Comuna> findByRegion_IdRegion(String regionid, Pageable pageable);
-    public abstract Page<Comuna> findByIdComuna(String idcomuna,Pageable pageable);
-    public abstract Page<Comuna> findAllByIdComuna(String idcomuna,Pageable pageable);
-    public abstract List<Comuna> findAll();
 }

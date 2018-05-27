@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Servicios;
 import java.io.Serializable;
 
 @Repository("servicioRepo")
-public interface IRServicios extends JpaRepository<Servicios, Serializable> {
+public interface IRServicios extends JpaRepository<Servicios, String> {
 }

@@ -9,6 +9,7 @@ import com.api.apisigi.entity.Edificio;
 import java.io.Serializable;
 
 @Repository("edificioRepo")
-public interface IREdificio extends JpaRepository<Edificio, Serializable> {
-    public abstract Page<Edificio> findByIdEdificio(String id, Pageable pageable);
+public interface IREdificio extends JpaRepository<Edificio, String> {
+    public abstract Page<Edificio> findByIdEdificio(String id,Pageable pageable);
+
 }

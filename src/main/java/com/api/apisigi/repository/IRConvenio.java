@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Convenio;
 import java.io.Serializable;
 
 @Repository("convenioRepo")
-public interface IRConvenio extends JpaRepository<Convenio, Serializable> {
+public interface IRConvenio extends JpaRepository<Convenio, String> {
 }

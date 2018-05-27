@@ -8,12 +8,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.print.Pageable;
+
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/departamento")
@@ -21,7 +23,7 @@ public class DepartamentoController {
 
     @Autowired
     @Qualifier("departamentoRepo")
-    private IRDepartamento departamentorpeo;
+    private IRDepartamento departatamentorepo;
     @Autowired
     @Qualifier("edificioRepo")
     private IREdificio edificiorepo;
@@ -33,7 +35,7 @@ public class DepartamentoController {
     @JsonFormat
     public Departamento createEdificio(@PathVariable(value = "idEdificio") String idEdificio,
                                        @Valid @RequestBody Departamento departamento) {
-        return departamentorpeo.save(
+        return departatamentorepo.save(
                 edificiorepo.findById(idEdificio).map(edificio -> {
                     departamento.setEdificio(edificio);
                     return departamento;
@@ -46,9 +48,8 @@ public class DepartamentoController {
     @GetMapping("/edifio/{edificioId}/departamentos/listdeptos")
     @ResponseBody
     @JsonFormat
-    public Page<Departamento> getAllComunasByRegionID(@PathVariable(value = "edificioId") String edificioId,
-                                                      Pageable pageable) {
-        return departamentorpeo.findByIdEdificio(edificioId, pageable);
+    public Optional<Departamento> getAllComunasByRegionID(@PathVariable(value = "edificioId") String edificioId) {
+        return departatamentorepo.findById(edificioId);
     }
 
     //#LISTADO DE DEPARTAMENTOS
@@ -56,7 +57,7 @@ public class DepartamentoController {
     @ResponseBody
     @JsonFormat
     public List<Departamento> getAll() {
-        return departamentorpeo.findAll();
+        return departatamentorepo.findAll();
     }
 
     //#PUT METHOD: ACTUALIZACION DE DEPARTAMENTO
@@ -67,14 +68,14 @@ public class DepartamentoController {
         if (!edificiorepo.existsById(edificioId)) {
             throw new ResourceNotFoundExcption("ID " + edificioId + " not found");
         }
-        return departamentorpeo.findById(departamentoId).map(departamento -> {
+        return departatamentorepo.findById(departamentoId).map(departamento -> {
             departamento.setIdDepto(departamentorequest.getIdDepto());
             departamento.setCantDorm(departamentorequest.getCantDorm());
             departamento.setCantDorm(departamentorequest.getCantDorm());
             departamento.setCantDorm(departamentorequest.getCantDorm());
             departamento.setCantDorm(departamentorequest.getCantDorm());
 
-            return departamentorpeo.save(departamento);
+            return departatamentorepo.save(departamento);
         }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + departamentoId + "not found"));
     }
 
@@ -88,8 +89,8 @@ public class DepartamentoController {
             throw new ResourceNotFoundExcption("PostId " + edificioId + " not found");
         }
 
-        return departamentorpeo.findById(departamentoId).map(departamento -> {
-            departamentorpeo.delete(departamento);
+        return departatamentorepo.findById(departamentoId).map(departamento -> {
+            departatamentorepo.delete(departamento);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + departamentoId + " not found"));
     }

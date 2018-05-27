@@ -7,5 +7,5 @@ import com.api.apisigi.entity.LiquidacionSueldo;
 import java.io.Serializable;
 
 @Repository("liquidacionSueldoRepo")
-public interface IRLiquidacionSueldo extends JpaRepository<LiquidacionSueldo, Serializable> {
+public interface IRLiquidacionSueldo extends JpaRepository<LiquidacionSueldo, String> {
 }

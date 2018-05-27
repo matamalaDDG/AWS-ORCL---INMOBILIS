@@ -10,6 +10,4 @@ import java.io.Serializable;
 
 @Repository("departamentoRepo")
 public interface IRDepartamento extends JpaRepository<Departamento, String> {
-    public abstract Page<Departamento> findByIdEdificio(String id, Pageable pageable);
-
 }

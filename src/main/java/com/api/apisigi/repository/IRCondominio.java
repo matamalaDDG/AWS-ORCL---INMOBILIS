@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.api.apisigi.entity.Condominio;
 
+import java.util.List;
+
 
 @Repository("condominioRepo")
 public interface IRCondominio extends JpaRepository<Condominio, String> {
-    public abstract Page<Condominio> findByIdCondominio(String id, Pageable pageable);
-    public abstract Page<Condominio> findAllB();
+
 }
