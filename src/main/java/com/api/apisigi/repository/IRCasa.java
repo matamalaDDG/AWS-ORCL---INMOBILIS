@@ -12,7 +12,10 @@ import java.util.List;
 @Repository("casaRepo")
 public interface IRCasa extends JpaRepository<Casa, String> {
     public abstract Page<Casa> findByCondominio(String condominioId, Pageable pageable);
-    public abstract Page<Casa> findByIdCasa(String idCasa,Pageable pageable);
-    public abstract Page<Casa> findAllByIdCasa(String idCasa,Pageable pageable);
+
+    public abstract Page<Casa> findByIdCasa(String idCasa, Pageable pageable);
+
+    public abstract Page<Casa> findAllByIdCasa(String idCasa, Pageable pageable);
+
     public abstract List<Casa> findAll();
 }

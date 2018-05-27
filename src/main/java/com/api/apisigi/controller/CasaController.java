@@ -7,13 +7,10 @@ import com.api.apisigi.repository.IRCondominio;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.*;
-import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController

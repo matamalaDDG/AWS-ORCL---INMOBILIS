@@ -87,8 +87,8 @@ public class ComunaController {
     //# PUTCONTROLLER
     @PutMapping("/region/{regionId}/comuna/{comunaId}")
     public Comuna updateComuna(@PathVariable (value = "regionId") String regionId,
-                                 @PathVariable (value = "comunaId") String comunaId,
-                                 @Valid @RequestBody Comuna comunaRequest) {
+                               @PathVariable (value = "comunaId") String comunaId,
+                               @Valid @RequestBody Comuna comunaRequest) {
         if(!regionrepo.existsById(regionId)) {
             throw new ResourceNotFoundExcption("ID " + regionId + " not found");
         }
