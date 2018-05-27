@@ -9,7 +9,7 @@ import java.util.Objects;
 public class PatenteComercial {
     private String idPatente;
     private String tipoPatente;
-    private Collection<Oficina> oficinasByIdPatente;
+    private Collection<Oficina> oficina;
 
     @Id
     @Column(name = "ID_PATENTE")
@@ -46,12 +46,12 @@ public class PatenteComercial {
         return Objects.hash(idPatente, tipoPatente);
     }
 
-    @OneToMany(mappedBy = "patenteComercialByIdPatente")
-    public Collection<Oficina> getOficinasByIdPatente() {
-        return oficinasByIdPatente;
+    @OneToMany(mappedBy = "patenteComercial")
+    public Collection<Oficina> getOficina() {
+        return oficina;
     }
 
-    public void setOficinasByIdPatente(Collection<Oficina> oficinasByIdPatente) {
-        this.oficinasByIdPatente = oficinasByIdPatente;
+    public void setOficina(Collection<Oficina> oficina) {
+        this.oficina = oficina;
     }
 }

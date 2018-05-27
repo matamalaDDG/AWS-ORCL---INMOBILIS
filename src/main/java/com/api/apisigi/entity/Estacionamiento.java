@@ -9,7 +9,7 @@ public class Estacionamiento {
     private String idEstacionamiento;
     private String numEstacionamiento;
     private long nivelUbicacion;
-    private Collection<Propiedad> propiedadsByIdEstacionamiento;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_ESTACIONAMIENTO")
@@ -57,12 +57,12 @@ public class Estacionamiento {
         return Objects.hash(idEstacionamiento, numEstacionamiento, nivelUbicacion);
     }
 
-    @OneToMany(mappedBy = "estacionamientoByIdEstacionamiento")
-    public Collection<Propiedad> getPropiedadsByIdEstacionamiento() {
-        return propiedadsByIdEstacionamiento;
+    @OneToMany(mappedBy = "estacionamiento")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
     }
 
-    public void setPropiedadsByIdEstacionamiento(Collection<Propiedad> propiedadsByIdEstacionamiento) {
-        this.propiedadsByIdEstacionamiento = propiedadsByIdEstacionamiento;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

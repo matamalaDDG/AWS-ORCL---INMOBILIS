@@ -9,7 +9,7 @@ public class Servicios {
     private String idServicio;
     private String servicio;
     private long valorServicio;
-    private Collection<Venta> ventasByIdServicio;
+    private Collection<Venta> venta;
 
     @Id
     @Column(name = "ID_SERVICIO")
@@ -57,12 +57,12 @@ public class Servicios {
         return Objects.hash(idServicio, servicio, valorServicio);
     }
 
-    @OneToMany(mappedBy = "serviciosByIdServicio")
-    public Collection<Venta> getVentasByIdServicio() {
-        return ventasByIdServicio;
+    @OneToMany(mappedBy = "servicios")
+    public Collection<Venta> getVenta() {
+        return venta;
     }
 
-    public void setVentasByIdServicio(Collection<Venta> ventasByIdServicio) {
-        this.ventasByIdServicio = ventasByIdServicio;
+    public void setVenta(Collection<Venta> venta) {
+        this.venta = venta;
     }
 }

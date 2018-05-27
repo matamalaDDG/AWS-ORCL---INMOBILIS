@@ -7,5 +7,5 @@ import com.api.apisigi.entity.ErrorLogs;
 import java.io.Serializable;
 
 @Repository("errorLogsRepo")
-public interface IRErrorLogs extends JpaRepository<ErrorLogs, Serializable> {
+public interface IRErrorLogs extends JpaRepository<ErrorLogs, String> {
 }

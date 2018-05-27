@@ -7,5 +7,5 @@ import com.api.apisigi.entity.HistArriendo;
 import java.io.Serializable;
 
 @Repository("histArriendoRepo")
-public interface IRHistArriendo extends JpaRepository<HistArriendo, Serializable> {
+public interface IRHistArriendo extends JpaRepository<HistArriendo, String> {
 }

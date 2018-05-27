@@ -9,7 +9,7 @@ import java.util.Objects;
 public class TipoPropiedad {
     private String idTipoProp;
     private String descripcion;
-    private Collection<Propiedad> propiedadsByIdTipoProp;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_TIPO_PROP")
@@ -46,12 +46,12 @@ public class TipoPropiedad {
         return Objects.hash(idTipoProp, descripcion);
     }
 
-    @OneToMany(mappedBy = "tipoPropiedadByIdTipoProp")
-    public Collection<Propiedad> getPropiedadsByIdTipoProp() {
-        return propiedadsByIdTipoProp;
+    @OneToMany(mappedBy = "tipopropiedad")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
     }
 
-    public void setPropiedadsByIdTipoProp(Collection<Propiedad> propiedadsByIdTipoProp) {
-        this.propiedadsByIdTipoProp = propiedadsByIdTipoProp;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

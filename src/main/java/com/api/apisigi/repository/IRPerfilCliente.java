@@ -7,6 +7,6 @@ import com.api.apisigi.entity.PerfilCliente;
 import java.io.Serializable;
 
 @Repository("perfilClienteRepo")
-public interface IRPerfilCliente extends JpaRepository<PerfilCliente, Serializable> {
+public interface IRPerfilCliente extends JpaRepository<PerfilCliente, String> {
 
 }

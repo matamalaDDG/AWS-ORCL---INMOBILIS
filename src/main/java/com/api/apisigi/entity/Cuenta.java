@@ -9,7 +9,7 @@ public class Cuenta {
     private String idCuenta;
     private String usuario;
     private String password;
-    private Collection<PerfilCliente> perfilClientesByIdCuenta;
+    private Collection<PerfilCliente> perfilcliente;
 
     @Id
     @Column(name = "ID_CUENTA")
@@ -57,12 +57,12 @@ public class Cuenta {
         return Objects.hash(idCuenta, usuario, password);
     }
 
-    @OneToMany(mappedBy = "cuentaByIdCuenta")
-    public Collection<PerfilCliente> getPerfilClientesByIdCuenta() {
-        return perfilClientesByIdCuenta;
+    @OneToMany(mappedBy = "cuenta")
+    public Collection<PerfilCliente> getPerfilcliente() {
+        return perfilcliente;
     }
 
-    public void setPerfilClientesByIdCuenta(Collection<PerfilCliente> perfilClientesByIdCuenta) {
-        this.perfilClientesByIdCuenta = perfilClientesByIdCuenta;
+    public void setPerfilcliente(Collection<PerfilCliente> perfilcliente) {
+        this.perfilcliente = perfilcliente;
     }
 }

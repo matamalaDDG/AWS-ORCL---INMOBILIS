@@ -7,8 +7,7 @@ import java.util.Objects;
 public class Notaria {
     private String idNotaria;
     private String descripcion;
-    private String idDocNotaria;
-    private DocNotaria docNotariaByIdDocNotaria;
+    private DocNotaria docNotaria;
 
     @Id
     @Column(name = "ID_NOTARIA")
@@ -30,39 +29,28 @@ public class Notaria {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ID_DOC_NOTARIA")
-    public String getIdDocNotaria() {
-        return idDocNotaria;
-    }
-
-    public void setIdDocNotaria(String idDocNotaria) {
-        this.idDocNotaria = idDocNotaria;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Notaria notaria = (Notaria) o;
         return Objects.equals(idNotaria, notaria.idNotaria) &&
-                Objects.equals(descripcion, notaria.descripcion) &&
-                Objects.equals(idDocNotaria, notaria.idDocNotaria);
+                Objects.equals(descripcion, notaria.descripcion);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idNotaria, descripcion, idDocNotaria);
+        return Objects.hash(idNotaria, descripcion);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_DOC_NOTARIA", referencedColumnName = "ID_DOC_NOTARIA", nullable = false)
-    public DocNotaria getDocNotariaByIdDocNotaria() {
-        return docNotariaByIdDocNotaria;
+    public DocNotaria getDocNotaria() {
+        return docNotaria;
     }
 
-    public void setDocNotariaByIdDocNotaria(DocNotaria docNotariaByIdDocNotaria) {
-        this.docNotariaByIdDocNotaria = docNotariaByIdDocNotaria;
+    public void setDocNotaria(DocNotaria docNotaria) {
+        this.docNotaria = docNotaria;
     }
 }

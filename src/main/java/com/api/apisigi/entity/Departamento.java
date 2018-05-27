@@ -7,13 +7,12 @@ import java.util.Objects;
 @Entity
 public class Departamento {
     private String idDepto;
-    private String idEdificio;
     private long cantDorm;
     private long numDepto;
-    private long cantBanos;
+    private long cantBaños;
     private long mtsCuadConst;
     private Edificio edificio;
-    private Collection<Propiedad> propiedadsByIdDepto;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_DEPTO")
@@ -23,16 +22,6 @@ public class Departamento {
 
     public void setIdDepto(String idDepto) {
         this.idDepto = idDepto;
-    }
-
-    @Basic
-    @Column(name = "ID_EDIFICIO")
-    public String getIdEdificio() {
-        return idEdificio;
-    }
-
-    public void setIdEdificio(String idEdificio) {
-        this.idEdificio = idEdificio;
     }
 
     @Basic
@@ -57,12 +46,12 @@ public class Departamento {
 
     @Basic
     @Column(name = "CANT_BAÑOS")
-    public long getCantBanos() {
-        return cantBanos;
+    public long getCantBaños() {
+        return cantBaños;
     }
 
-    public void setCantBanos(long cantBaños) {
-        this.cantBanos = cantBaños;
+    public void setCantBaños(long cantBaños) {
+        this.cantBaños = cantBaños;
     }
 
     @Basic
@@ -82,16 +71,15 @@ public class Departamento {
         Departamento that = (Departamento) o;
         return cantDorm == that.cantDorm &&
                 numDepto == that.numDepto &&
-                cantBanos == that.cantBanos &&
+                cantBaños == that.cantBaños &&
                 mtsCuadConst == that.mtsCuadConst &&
-                Objects.equals(idDepto, that.idDepto) &&
-                Objects.equals(idEdificio, that.idEdificio);
+                Objects.equals(idDepto, that.idDepto);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDepto, idEdificio, cantDorm, numDepto, cantBanos, mtsCuadConst);
+        return Objects.hash(idDepto, cantDorm, numDepto, cantBaños, mtsCuadConst);
     }
 
     @ManyToOne
@@ -100,16 +88,16 @@ public class Departamento {
         return edificio;
     }
 
-    public void setEdificio(Edificio edificioByIdEdificio) {
-        this.edificio = edificioByIdEdificio;
+    public void setEdificio(Edificio edificio) {
+        this.edificio = edificio;
     }
 
-    @OneToMany(mappedBy = "departamentoByIdDepto")
-    public Collection<Propiedad> getPropiedadsByIdDepto() {
-        return propiedadsByIdDepto;
+    @OneToMany(mappedBy = "departamento")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
     }
 
-    public void setPropiedadsByIdDepto(Collection<Propiedad> propiedadsByIdDepto) {
-        this.propiedadsByIdDepto = propiedadsByIdDepto;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

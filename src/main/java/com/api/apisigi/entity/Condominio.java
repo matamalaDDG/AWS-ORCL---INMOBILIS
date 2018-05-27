@@ -9,7 +9,7 @@ public class Condominio {
     private String idCondominio;
     private String nombre;
     private long numeroCond;
-    private Collection<Casa> casasByIdCondominio;
+    private Collection<Casa> casa;
 
     @Id
     @Column(name = "ID_CONDOMINIO")
@@ -58,11 +58,11 @@ public class Condominio {
     }
 
     @OneToMany(mappedBy = "condominio")
-    public Collection<Casa> getCasasByIdCondominio() {
-        return casasByIdCondominio;
+    public Collection<Casa> getCasa() {
+        return casa;
     }
 
-    public void setCasasByIdCondominio(Collection<Casa> casasByIdCondominio) {
-        this.casasByIdCondominio = casasByIdCondominio;
+    public void setCasa(Collection<Casa> casa) {
+        this.casa = casa;
     }
 }

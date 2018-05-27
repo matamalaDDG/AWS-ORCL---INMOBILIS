@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository("patenteComercialRepo")
 public interface IRPatenteComercial extends JpaRepository<PatenteComercial, String> {
-    public abstract List<PatenteComercial> findByIdPatente(String patentecomercial);
 }

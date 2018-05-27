@@ -79,7 +79,7 @@ public class Casa {
     @Override
     public int hashCode() {
 
-        return Objects.hash(idCasa,  cantDorm, cantBanos, mtsHabConst, mtsPatConst);
+        return Objects.hash(idCasa, cantDorm, cantBanos, mtsHabConst, mtsPatConst);
     }
 
     @ManyToOne
@@ -88,16 +88,16 @@ public class Casa {
         return condominio;
     }
 
-    public void setCondominio(Condominio condominioByIdCondominio) {
-        this.condominio = condominioByIdCondominio;
+    public void setCondominio(Condominio condominio) {
+        this.condominio = condominio;
     }
 
-    @OneToMany(mappedBy = "casaByIdCasa")
+    @OneToMany(mappedBy = "casa")
     public Collection<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedadsByIdCasa) {
-        this.propiedad = propiedadsByIdCasa;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

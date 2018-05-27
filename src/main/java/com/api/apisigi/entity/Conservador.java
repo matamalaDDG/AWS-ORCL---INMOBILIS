@@ -8,9 +8,8 @@ import java.util.Objects;
 public class Conservador {
     private String idDocConservador;
     private String nomConservador;
-    private String doc;
     private Documento documento;
-    private Collection<Venta> ventasByIdDocConservador;
+    private Collection<Venta> venta;
 
     @Id
     @Column(name = "ID_DOC_CONSERVADOR")
@@ -32,30 +31,19 @@ public class Conservador {
         this.nomConservador = nomConservador;
     }
 
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getDoc() {
-        return doc;
-    }
-
-    public void setDoc(String idDocumento) {
-        this.doc = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Conservador that = (Conservador) o;
         return Objects.equals(idDocConservador, that.idDocConservador) &&
-                Objects.equals(nomConservador, that.nomConservador) &&
-                Objects.equals(doc, that.doc);
+                Objects.equals(nomConservador, that.nomConservador);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idDocConservador, nomConservador, doc);
+        return Objects.hash(idDocConservador, nomConservador);
     }
 
     @ManyToOne
@@ -64,16 +52,16 @@ public class Conservador {
         return documento;
     }
 
-    public void setDocumento(Documento documentoByIdDocumento) {
-        this.documento = documentoByIdDocumento;
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 
-    @OneToMany(mappedBy = "conservadorByIdDocConservador")
-    public Collection<Venta> getVentasByIdDocConservador() {
-        return ventasByIdDocConservador;
+    @OneToMany(mappedBy = "conservador")
+    public Collection<Venta> getVenta() {
+        return venta;
     }
 
-    public void setVentasByIdDocConservador(Collection<Venta> ventasByIdDocConservador) {
-        this.ventasByIdDocConservador = ventasByIdDocConservador;
+    public void setVenta(Collection<Venta> venta) {
+        this.venta = venta;
     }
 }

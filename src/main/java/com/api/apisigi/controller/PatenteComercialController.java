@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/patentecomercial")
@@ -31,8 +32,8 @@ public class PatenteComercialController {
     @GetMapping("/{patentecomercialId}/patentecomercial")
     @ResponseBody
     @JsonFormat
-    public List<PatenteComercial> getPatenteComercialById(@PathVariable String patentecomercialId) {
-            return patentecomercialrepo.findByIdPatente(patentecomercialId);
+    public Optional<PatenteComercial> getPatenteComercialById(@PathVariable String patentecomercialId) {
+            return patentecomercialrepo.findById(patentecomercialId);
     }
 
 }

@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Contrato;
 import java.io.Serializable;
 
 @Repository("contratoRepo")
-public interface IRContrato extends JpaRepository<Contrato, Serializable> {
+public interface IRContrato extends JpaRepository<Contrato, String> {
 }

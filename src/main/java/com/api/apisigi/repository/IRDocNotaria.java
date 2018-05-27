@@ -7,5 +7,5 @@ import com.api.apisigi.entity.DocNotaria;
 import java.io.Serializable;
 
 @Repository("docNotariaRepo")
-public interface IRDocNotaria extends JpaRepository<DocNotaria, Serializable> {
+public interface IRDocNotaria extends JpaRepository<DocNotaria, String> {
 }

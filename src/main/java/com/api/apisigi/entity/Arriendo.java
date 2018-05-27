@@ -10,18 +10,13 @@ public class Arriendo {
     private String idArriendo;
     private String notificacion;
     private Time fechaArriendo;
-    private String idConvenio;
-    private String idAseguradora;
-    private String idCapacidadEconomica;
-    private String idPreContrato;
     private long monto;
-    private String idCorredor;
-    private Convenio convenioByIdConvenio;
-    private Aseguradora aseguradoraByIdAseguradora;
-    private CapacidadEconomica capacidadEconomicaByIdCapacidadEconomica;
-    private Precontrato precontratoByIdPreContrato;
-    private Corredor corredorByIdCorredor;
-    private Collection<Propiedad> propiedadsByIdArriendo;
+    private Convenio convenio;
+    private Aseguradora aseguradora;
+    private CapacidadEconomica capacidadeconomica;
+    private Precontrato precontrato;
+    private Corredor corredor;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_ARRIENDO")
@@ -54,46 +49,6 @@ public class Arriendo {
     }
 
     @Basic
-    @Column(name = "ID_CONVENIO")
-    public String getIdConvenio() {
-        return idConvenio;
-    }
-
-    public void setIdConvenio(String idConvenio) {
-        this.idConvenio = idConvenio;
-    }
-
-    @Basic
-    @Column(name = "ID_ASEGURADORA")
-    public String getIdAseguradora() {
-        return idAseguradora;
-    }
-
-    public void setIdAseguradora(String idAseguradora) {
-        this.idAseguradora = idAseguradora;
-    }
-
-    @Basic
-    @Column(name = "ID_CAPACIDAD_ECONOMICA")
-    public String getIdCapacidadEconomica() {
-        return idCapacidadEconomica;
-    }
-
-    public void setIdCapacidadEconomica(String idCapacidadEconomica) {
-        this.idCapacidadEconomica = idCapacidadEconomica;
-    }
-
-    @Basic
-    @Column(name = "ID_PRE_CONTRATO")
-    public String getIdPreContrato() {
-        return idPreContrato;
-    }
-
-    public void setIdPreContrato(String idPreContrato) {
-        this.idPreContrato = idPreContrato;
-    }
-
-    @Basic
     @Column(name = "MONTO")
     public long getMonto() {
         return monto;
@@ -101,16 +56,6 @@ public class Arriendo {
 
     public void setMonto(long monto) {
         this.monto = monto;
-    }
-
-    @Basic
-    @Column(name = "ID_CORREDOR")
-    public String getIdCorredor() {
-        return idCorredor;
-    }
-
-    public void setIdCorredor(String idCorredor) {
-        this.idCorredor = idCorredor;
     }
 
     @Override
@@ -121,76 +66,71 @@ public class Arriendo {
         return monto == arriendo.monto &&
                 Objects.equals(idArriendo, arriendo.idArriendo) &&
                 Objects.equals(notificacion, arriendo.notificacion) &&
-                Objects.equals(fechaArriendo, arriendo.fechaArriendo) &&
-                Objects.equals(idConvenio, arriendo.idConvenio) &&
-                Objects.equals(idAseguradora, arriendo.idAseguradora) &&
-                Objects.equals(idCapacidadEconomica, arriendo.idCapacidadEconomica) &&
-                Objects.equals(idPreContrato, arriendo.idPreContrato) &&
-                Objects.equals(idCorredor, arriendo.idCorredor);
+                Objects.equals(fechaArriendo, arriendo.fechaArriendo);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idArriendo, notificacion, fechaArriendo, idConvenio, idAseguradora, idCapacidadEconomica, idPreContrato, monto, idCorredor);
+        return Objects.hash(idArriendo, notificacion, fechaArriendo, monto);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_CONVENIO", referencedColumnName = "ID_CONVENIO")
-    public Convenio getConvenioByIdConvenio() {
-        return convenioByIdConvenio;
+    public Convenio getConvenio() {
+        return convenio;
     }
 
-    public void setConvenioByIdConvenio(Convenio convenioByIdConvenio) {
-        this.convenioByIdConvenio = convenioByIdConvenio;
+    public void setConvenio(Convenio convenio) {
+        this.convenio = convenio;
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_ASEGURADORA", referencedColumnName = "ID_ASEGURADORA")
-    public Aseguradora getAseguradoraByIdAseguradora() {
-        return aseguradoraByIdAseguradora;
+    public Aseguradora getAseguradora() {
+        return aseguradora;
     }
 
-    public void setAseguradoraByIdAseguradora(Aseguradora aseguradoraByIdAseguradora) {
-        this.aseguradoraByIdAseguradora = aseguradoraByIdAseguradora;
+    public void setAseguradora(Aseguradora aseguradora) {
+        this.aseguradora = aseguradora;
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_CAPACIDAD_ECONOMICA", referencedColumnName = "ID_CAPACIDAD_ECONOMICA", nullable = false)
-    public CapacidadEconomica getCapacidadEconomicaByIdCapacidadEconomica() {
-        return capacidadEconomicaByIdCapacidadEconomica;
+    public CapacidadEconomica getCapacidadeconomica() {
+        return capacidadeconomica;
     }
 
-    public void setCapacidadEconomicaByIdCapacidadEconomica(CapacidadEconomica capacidadEconomicaByIdCapacidadEconomica) {
-        this.capacidadEconomicaByIdCapacidadEconomica = capacidadEconomicaByIdCapacidadEconomica;
+    public void setCapacidadeconomica(CapacidadEconomica capacidadeconomica) {
+        this.capacidadeconomica = capacidadeconomica;
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_PRE_CONTRATO", referencedColumnName = "ID_PRE_CONTRATO")
-    public Precontrato getPrecontratoByIdPreContrato() {
-        return precontratoByIdPreContrato;
+    public Precontrato getPrecontrato() {
+        return precontrato;
     }
 
-    public void setPrecontratoByIdPreContrato(Precontrato precontratoByIdPreContrato) {
-        this.precontratoByIdPreContrato = precontratoByIdPreContrato;
+    public void setPrecontrato(Precontrato precontrato) {
+        this.precontrato = precontrato;
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_CORREDOR", referencedColumnName = "ID_CORREDOR")
-    public Corredor getCorredorByIdCorredor() {
-        return corredorByIdCorredor;
+    public Corredor getCorredor() {
+        return corredor;
     }
 
-    public void setCorredorByIdCorredor(Corredor corredorByIdCorredor) {
-        this.corredorByIdCorredor = corredorByIdCorredor;
+    public void setCorredor(Corredor corredor) {
+        this.corredor = corredor;
     }
 
-    @OneToMany(mappedBy = "arriendoByIdArriendo")
-    public Collection<Propiedad> getPropiedadsByIdArriendo() {
-        return propiedadsByIdArriendo;
+    @OneToMany(mappedBy = "arriendo")
+    public Collection<Propiedad> getPropiedad() {
+        return propiedad;
     }
 
-    public void setPropiedadsByIdArriendo(Collection<Propiedad> propiedadsByIdArriendo) {
-        this.propiedadsByIdArriendo = propiedadsByIdArriendo;
+    public void setPropiedad(Collection<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
 }

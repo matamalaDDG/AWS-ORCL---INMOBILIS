@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Corredor;
 import java.io.Serializable;
 
 @Repository("corredorRepo")
-public interface IRCorredor extends JpaRepository<Corredor, Serializable> {
+public interface IRCorredor extends JpaRepository<Corredor, String> {
 }

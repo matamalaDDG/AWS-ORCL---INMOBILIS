@@ -10,15 +10,15 @@ public class Documento {
     private String idDocumento;
     private String descripcion;
     private byte[] documento;
-    private Collection<BoletaHonorario> boletaHonorariosByIdDocumento;
-    private Collection<CedulaIdentidad> cedulaIdentidadsByIdDocumento;
-    private Collection<Conservador> conservadorsByIdDocumento;
-    private Collection<Contrato> contratoesByIdDocumento;
-    private Collection<DocBanco> docBancosByIdDocumento;
-    private Collection<DocNotaria> docNotariasByIdDocumento;
-    private Collection<LiquidacionSueldo> liquidacionSueldosByIdDocumento;
-    private Collection<Precontrato> precontratoesByIdDocumento;
-    private Collection<Tasacion> tasacionsByIdDocumento;
+    private Collection<BoletaHonorario> boletahonorario;
+    private Collection<CedulaIdentidad> cedulaidentidad;
+    private Collection<Conservador> conservador;
+    private Collection<Contrato> contrato;
+    private Collection<DocBanco> docbanco;
+    private Collection<DocNotaria> docnotaria;
+    private Collection<LiquidacionSueldo> liquidacionsueldo;
+    private Collection<Precontrato> precontrato;
+    private Collection<Tasacion> tasacion;
 
     @Id
     @Column(name = "ID_DOCUMENTO")
@@ -68,84 +68,84 @@ public class Documento {
         return result;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<BoletaHonorario> getBoletaHonorariosByIdDocumento() {
-        return boletaHonorariosByIdDocumento;
+    @OneToMany(mappedBy = "documento")
+    public Collection<BoletaHonorario> getBoletahonorario() {
+        return boletahonorario;
     }
 
-    public void setBoletaHonorariosByIdDocumento(Collection<BoletaHonorario> boletaHonorariosByIdDocumento) {
-        this.boletaHonorariosByIdDocumento = boletaHonorariosByIdDocumento;
-    }
-
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<CedulaIdentidad> getCedulaIdentidadsByIdDocumento() {
-        return cedulaIdentidadsByIdDocumento;
-    }
-
-    public void setCedulaIdentidadsByIdDocumento(Collection<CedulaIdentidad> cedulaIdentidadsByIdDocumento) {
-        this.cedulaIdentidadsByIdDocumento = cedulaIdentidadsByIdDocumento;
+    public void setBoletahonorario(Collection<BoletaHonorario> boletahonorario) {
+        this.boletahonorario = boletahonorario;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<Conservador> getConservadorsByIdDocumento() {
-        return conservadorsByIdDocumento;
+    public Collection<CedulaIdentidad> getCedulaidentidad() {
+        return cedulaidentidad;
     }
 
-    public void setConservadorsByIdDocumento(Collection<Conservador> conservadorsByIdDocumento) {
-        this.conservadorsByIdDocumento = conservadorsByIdDocumento;
+    public void setCedulaidentidad(Collection<CedulaIdentidad> cedulaidentidad) {
+        this.cedulaidentidad = cedulaidentidad;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<Contrato> getContratoesByIdDocumento() {
-        return contratoesByIdDocumento;
+    @OneToMany(mappedBy = "documento")
+    public Collection<Conservador> getConservador() {
+        return conservador;
     }
 
-    public void setContratoesByIdDocumento(Collection<Contrato> contratoesByIdDocumento) {
-        this.contratoesByIdDocumento = contratoesByIdDocumento;
+    public void setConservador(Collection<Conservador> conservador) {
+        this.conservador = conservador;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<DocBanco> getDocBancosByIdDocumento() {
-        return docBancosByIdDocumento;
+    @OneToMany(mappedBy = "tbldocumento")
+    public Collection<Contrato> getContrato() {
+        return contrato;
     }
 
-    public void setDocBancosByIdDocumento(Collection<DocBanco> docBancosByIdDocumento) {
-        this.docBancosByIdDocumento = docBancosByIdDocumento;
+    public void setContrato(Collection<Contrato> contrato) {
+        this.contrato = contrato;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<DocNotaria> getDocNotariasByIdDocumento() {
-        return docNotariasByIdDocumento;
+    @OneToMany(mappedBy = "documento")
+    public Collection<DocBanco> getDocbanco() {
+        return docbanco;
     }
 
-    public void setDocNotariasByIdDocumento(Collection<DocNotaria> docNotariasByIdDocumento) {
-        this.docNotariasByIdDocumento = docNotariasByIdDocumento;
+    public void setDocbanco(Collection<DocBanco> docbanco) {
+        this.docbanco = docbanco;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<LiquidacionSueldo> getLiquidacionSueldosByIdDocumento() {
-        return liquidacionSueldosByIdDocumento;
+    @OneToMany(mappedBy = "documento")
+    public Collection<DocNotaria> getDocnotaria() {
+        return docnotaria;
     }
 
-    public void setLiquidacionSueldosByIdDocumento(Collection<LiquidacionSueldo> liquidacionSueldosByIdDocumento) {
-        this.liquidacionSueldosByIdDocumento = liquidacionSueldosByIdDocumento;
+    public void setDocnotaria(Collection<DocNotaria> docnotaria) {
+        this.docnotaria = docnotaria;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<Precontrato> getPrecontratoesByIdDocumento() {
-        return precontratoesByIdDocumento;
+    @OneToMany(mappedBy = "documento")
+    public Collection<LiquidacionSueldo> getLiquidacionsueldo() {
+        return liquidacionsueldo;
     }
 
-    public void setPrecontratoesByIdDocumento(Collection<Precontrato> precontratoesByIdDocumento) {
-        this.precontratoesByIdDocumento = precontratoesByIdDocumento;
+    public void setLiquidacionsueldo(Collection<LiquidacionSueldo> liquidacionsueldo) {
+        this.liquidacionsueldo = liquidacionsueldo;
     }
 
-    @OneToMany(mappedBy = "documentoByIdDocumento")
-    public Collection<Tasacion> getTasacionsByIdDocumento() {
-        return tasacionsByIdDocumento;
+    @OneToMany(mappedBy = "documento")
+    public Collection<Precontrato> getPrecontrato() {
+        return precontrato;
     }
 
-    public void setTasacionsByIdDocumento(Collection<Tasacion> tasacionsByIdDocumento) {
-        this.tasacionsByIdDocumento = tasacionsByIdDocumento;
+    public void setPrecontrato(Collection<Precontrato> precontrato) {
+        this.precontrato = precontrato;
+    }
+
+    @OneToMany(mappedBy = "documento")
+    public Collection<Tasacion> getTasacion() {
+        return tasacion;
+    }
+
+    public void setTasacion(Collection<Tasacion> tasacion) {
+        this.tasacion = tasacion;
     }
 }

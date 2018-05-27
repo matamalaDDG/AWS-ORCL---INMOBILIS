@@ -1,19 +1,15 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 public class Convenio {
     private String idConvenio;
     private double dscto;
-    private String idEmpresa;
     private String descripcion;
     private String tipoConvenio;
-    private Collection<Arriendo> arriendosByIdConvenio;
-    private Empresas empresasByIdEmpresa;
-    private Collection<Venta> ventasByIdConvenio;
+    private Empresas empresa;
 
     @Id
     @Column(name = "ID_CONVENIO")
@@ -33,16 +29,6 @@ public class Convenio {
 
     public void setDscto(double dscto) {
         this.dscto = dscto;
-    }
-
-    @Basic
-    @Column(name = "ID_EMPRESA")
-    public String getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa(String idEmpresa) {
-        this.idEmpresa = idEmpresa;
     }
 
     @Basic
@@ -72,7 +58,6 @@ public class Convenio {
         Convenio convenio = (Convenio) o;
         return Double.compare(convenio.dscto, dscto) == 0 &&
                 Objects.equals(idConvenio, convenio.idConvenio) &&
-                Objects.equals(idEmpresa, convenio.idEmpresa) &&
                 Objects.equals(descripcion, convenio.descripcion) &&
                 Objects.equals(tipoConvenio, convenio.tipoConvenio);
     }
@@ -80,34 +65,16 @@ public class Convenio {
     @Override
     public int hashCode() {
 
-        return Objects.hash(idConvenio, dscto, idEmpresa, descripcion, tipoConvenio);
-    }
-
-    @OneToMany(mappedBy = "convenioByIdConvenio")
-    public Collection<Arriendo> getArriendosByIdConvenio() {
-        return arriendosByIdConvenio;
-    }
-
-    public void setArriendosByIdConvenio(Collection<Arriendo> arriendosByIdConvenio) {
-        this.arriendosByIdConvenio = arriendosByIdConvenio;
+        return Objects.hash(idConvenio, dscto, descripcion, tipoConvenio);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_EMPRESA", referencedColumnName = "ID_EMPRESA", nullable = false)
-    public Empresas getEmpresasByIdEmpresa() {
-        return empresasByIdEmpresa;
+    public Empresas getEmpresa() {
+        return empresa;
     }
 
-    public void setEmpresasByIdEmpresa(Empresas empresasByIdEmpresa) {
-        this.empresasByIdEmpresa = empresasByIdEmpresa;
-    }
-
-    @OneToMany(mappedBy = "convenioByIdConvenio")
-    public Collection<Venta> getVentasByIdConvenio() {
-        return ventasByIdConvenio;
-    }
-
-    public void setVentasByIdConvenio(Collection<Venta> ventasByIdConvenio) {
-        this.ventasByIdConvenio = ventasByIdConvenio;
+    public void setEmpresa(Empresas empresa) {
+        this.empresa = empresa;
     }
 }

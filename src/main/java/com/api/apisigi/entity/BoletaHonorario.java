@@ -9,9 +9,8 @@ import java.util.Objects;
 public class BoletaHonorario {
     private String idBoleta;
     private String descripcion;
-    private String idDocumento;
-    private Documento documentoByIdDocumento;
-    private Collection<CapacidadEconomica> capacidadEconomicasByIdBoleta;
+    private Documento documento;
+    private Collection<CapacidadEconomica> capacidadeconomica;
 
     @Id
     @Column(name = "ID_BOLETA")
@@ -33,48 +32,37 @@ public class BoletaHonorario {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BoletaHonorario that = (BoletaHonorario) o;
         return Objects.equals(idBoleta, that.idBoleta) &&
-                Objects.equals(descripcion, that.descripcion) &&
-                Objects.equals(idDocumento, that.idDocumento);
+                Objects.equals(descripcion, that.descripcion);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idBoleta, descripcion, idDocumento);
+        return Objects.hash(idBoleta, descripcion);
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
-    public Documento getDocumentoByIdDocumento() {
-        return documentoByIdDocumento;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
-        this.documentoByIdDocumento = documentoByIdDocumento;
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 
-    @OneToMany(mappedBy = "boletaHonorarioByIdBoleta")
-    public Collection<CapacidadEconomica> getCapacidadEconomicasByIdBoleta() {
-        return capacidadEconomicasByIdBoleta;
+    @OneToMany(mappedBy = "boletahonorario")
+    public Collection<CapacidadEconomica> getCapacidadeconomica() {
+        return capacidadeconomica;
     }
 
-    public void setCapacidadEconomicasByIdBoleta(Collection<CapacidadEconomica> capacidadEconomicasByIdBoleta) {
-        this.capacidadEconomicasByIdBoleta = capacidadEconomicasByIdBoleta;
+    public void setCapacidadeconomica(Collection<CapacidadEconomica> capacidadeconomica) {
+        this.capacidadeconomica = capacidadeconomica;
     }
 }

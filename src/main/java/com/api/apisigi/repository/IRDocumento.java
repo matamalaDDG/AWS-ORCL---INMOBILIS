@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Documento;
 import java.io.Serializable;
 
 @Repository("documentoRepo")
-public interface IRDocumento extends JpaRepository<Documento, Serializable> {
+public interface IRDocumento extends JpaRepository<Documento, String> {
 }

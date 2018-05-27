@@ -43,17 +43,17 @@ public class LiquidacionSueldoController {
                                                    @Valid @RequestBody LiquidacionSueldo liquidacionSueldo) {
         return liquidacionsueldorepo.save(
                 documentorepo.findById(documentoId).map(documento -> {
-                    liquidacionSueldo.setDocumentoByIdDocumento(documento);
+                    liquidacionSueldo.setDocumento(documento);
                     return liquidacionSueldo;
                 }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + documentoId + " not found")));
     }
-    //    PUT MAPPING:
 
-    @PutMapping("/documento/{documentoId}/liquidacionSuel/{liquidacionSueldo}")
+    //    PUT MAPPING:
+    @PutMapping("/documento/{documentoId}/liquidacionSuel/{liquidacionSueldoId}")
     @ResponseBody
     @JsonFormat
     public LiquidacionSueldo updateLiquidacionSuel(@PathVariable(value = "documentoId") String documentoId,
-                                                   @PathVariable(value = "liquidacionSueldo") String liquidacionSueldoId,
+                                                   @PathVariable(value = "liquidacionSueldoId") String liquidacionSueldoId,
                                                    @Valid @RequestBody LiquidacionSueldo liquidacionsueldorequest) {
         if (!documentorepo.existsById(documentoId)) {
             throw new ResourceNotFoundExcption("ID " + documentoId + " not found");

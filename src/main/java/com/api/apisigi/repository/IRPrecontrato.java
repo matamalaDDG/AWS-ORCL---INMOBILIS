@@ -7,5 +7,5 @@ import com.api.apisigi.entity.Precontrato;
 import java.io.Serializable;
 
 @Repository("preContratoRepo")
-public interface IRPrecontrato extends JpaRepository<Precontrato, Serializable> {
+public interface IRPrecontrato extends JpaRepository<Precontrato, String> {
 }

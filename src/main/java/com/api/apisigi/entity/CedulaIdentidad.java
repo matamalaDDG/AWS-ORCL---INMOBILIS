@@ -9,9 +9,8 @@ import java.util.Objects;
 public class CedulaIdentidad {
     private String idCedula;
     private String descripcion;
-    private String idDocumento;
-    private Collection<CapacidadEconomica> capacidadEconomicasByIdCedula;
-    private Documento documentoByIdDocumento;
+    private Collection<CapacidadEconomica> capacidadeconomica;
+    private Documento documento;
 
     @Id
     @Column(name = "ID_CEDULA")
@@ -33,48 +32,37 @@ public class CedulaIdentidad {
         this.descripcion = descripcion;
     }
 
-    @Basic
-    @Column(name = "ID_DOCUMENTO")
-    public String getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(String idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CedulaIdentidad that = (CedulaIdentidad) o;
         return Objects.equals(idCedula, that.idCedula) &&
-                Objects.equals(descripcion, that.descripcion) &&
-                Objects.equals(idDocumento, that.idDocumento);
+                Objects.equals(descripcion, that.descripcion);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idCedula, descripcion, idDocumento);
+        return Objects.hash(idCedula, descripcion);
     }
 
-    @OneToMany(mappedBy = "cedulaIdentidadByIdCedula")
-    public Collection<CapacidadEconomica> getCapacidadEconomicasByIdCedula() {
-        return capacidadEconomicasByIdCedula;
+    @OneToMany(mappedBy = "cedulaidentidad")
+    public Collection<CapacidadEconomica> getCapacidadeconomica() {
+        return capacidadeconomica;
     }
 
-    public void setCapacidadEconomicasByIdCedula(Collection<CapacidadEconomica> capacidadEconomicasByIdCedula) {
-        this.capacidadEconomicasByIdCedula = capacidadEconomicasByIdCedula;
+    public void setCapacidadeconomica(Collection<CapacidadEconomica> capacidadeconomica) {
+        this.capacidadeconomica = capacidadeconomica;
     }
 
     @ManyToOne
     @JoinColumn(name = "ID_DOCUMENTO", referencedColumnName = "ID_DOCUMENTO", nullable = false)
-    public Documento getDocumentoByIdDocumento() {
-        return documentoByIdDocumento;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setDocumentoByIdDocumento(Documento documentoByIdDocumento) {
-        this.documentoByIdDocumento = documentoByIdDocumento;
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 }
