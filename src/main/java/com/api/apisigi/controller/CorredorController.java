@@ -1,44 +1,34 @@
 package com.api.apisigi.controller;
 
-import com.api.apisigi.entity.Comuna;
-import com.api.apisigi.exception.ResourceNotFoundExcption;
-import com.api.apisigi.repository.IRComuna;
-import com.api.apisigi.repository.IRRegion;
+import com.api.apisigi.entity.Corredor;
+import com.api.apisigi.repository.IRPerfilCliente;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/ubicacion")
-public class ComunaController {
-
-    //#LOGS
-    public static final Log logger = LogFactory.getLog(RegionController.class);
+@RequestMapping("/api/propiedades/corredor")
+public class CorredorController {
 
     @Autowired
-    @Qualifier("comunaRepo")
-    private IRComuna comunarepo;
+    @Qualifier("perfilClienteRepo")
+    private IRPerfilCliente perfilcliente;
 
     @Autowired
-    @Qualifier("regionRepo")
-    private IRRegion regionrepo;
+    @Qualifier
+    priva
+
+    @Autowired
+    @Qualifier
 
     //#LISTADO DE COMUNAS POR ID REGION
-    @GetMapping("/region/{regionId}/comunas/ListComunas")
+    @GetMapping("/usuario/)
     @ResponseBody
     @JsonFormat
-    public Optional<Comuna> getAllComunasByRegionID(@PathVariable(value = "regionId") String idregion) {
+    public Optional<Corredor> getAllCorredores(@PathVariable(value = "regionId") String idregion) {
         return comunarepo.findById(idregion);
     }
 
@@ -110,4 +100,5 @@ public class ComunaController {
             return comunarepo.save(comuna);
         }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + comunaId + "not found"));
     }
+
 }
