@@ -1,6 +1,7 @@
 package com.api.apisigi.controller;
 
 import com.api.apisigi.entity.Cuenta;
+import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRCuenta;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.logging.Log;
@@ -46,44 +47,36 @@ public class CuentaController {
     @JsonFormat
     public void createCuenta(@Valid @RequestBody Cuenta cuenta) {
         logger.info("[CREANDO CUENTA : ROUTE: /cuentas/cuentasusuarios/nuevacuenta ----- Nuevo usuario" + cuenta.getUsuario() + ".... Method: createCuenta]");
-        if (!cuentarepo.findByUsuario(cuenta.getUsuario())) {
+        if (!cuentarepo.validarPorUsuario(cuenta.getUsuario())) {
             cuentarepo.save(cuenta);
         }
-        logger.error("[CREANDO CUENTA : ROUTE: /cuentas/cuentasusuarios/nuevacuenta" + cuenta.getUsuario() + ".... Method: createCuenta]...usuario ya existe");
+        logger.error("[CREANDO CUENTA : ROUTE: /cuentas/cuentasusuarios/nuevacuenta" + cuenta.getUsuario() + ".... Method: createCuenta...usuario ya existe]");
 
     }
 
-    @DeleteMapping("/cuentas/cuentasusuarios/{usuario}")
+    @DeleteMapping("/cuentas/cuentasusuarios/cuenta/{cuentaId}")
     @ResponseBody
     @JsonFormat
-    public ResponseEntity<?> deleteCuenta(@PathVariable String usuario) {
-        logger.info("[ELIMINANDO CUENTA : ROUTE: /cuentas/cuentasusuarios/nuevacuenta ----- Buscando usuario" + usuario + ".... Method: deleteCuenta]");
-
-       cuentarepo.findByUsuario(usuario);
-
-
-
-
-
-        return cuentarepo.findByUsuario(usuario).map(region -> {
-            logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
-            regionre.delete(region);
+    public ResponseEntity<?> eliminarCuenta(@PathVariable String cuentaId) {
+        logger.info("[ELIMINANDO CUENTA : ROUTE: /cuentas/cuentasusuarios/cuenta----- Nuevo usuario .... Method: eliminarCuenta]");
+        return cuentarepo.findById(cuentaId).map(cuenta -> {
+            cuentarepo.delete(cuenta);
             logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + cuentaId + " not found"));
     }
 
     //#UPDATE REGION
-    @PutMapping("/region/{regionId}")
+    @PutMapping("/cuentas/cuentasusuarios/cuenta/{idCuenta}")
     @ResponseBody
     @JsonFormat
-    public Region updatePost(@PathVariable String regionId,
-                             @Valid @RequestBody Region regionRequest) {
-        return regionre.findById(regionId).map(region -> {
-            region.setRegion(regionRequest.getRegion());
-            region.setIdRegion(regionRequest.getIdRegion());
-            return regionre.save(region);
-        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+    public Cuenta actualizarCuenta(@PathVariable String idCuenta,
+                             @Valid @RequestBody Cuenta cuentarequest) {
+        return cuentarepo.findById(idCuenta).map(cuenta -> {
+            cuenta.setUsuario(cuentarequest.getUsuario());
+            cuenta.setPassword(cuentarequest.getPassword());
+            return cuentarepo.save(cuenta);
+        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + idCuenta + " not found"));
     }
 
 
