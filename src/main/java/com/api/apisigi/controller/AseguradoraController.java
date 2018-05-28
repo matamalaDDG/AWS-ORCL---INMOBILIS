@@ -23,7 +23,9 @@ public class AseguradoraController {
     @ResponseBody
     @JsonFormat
     public List<Aseguradora> getAll() {
+
         return aseguradorarepo.findAll();
+
     }
 
     @PostMapping("/naseguradora")
@@ -31,7 +33,7 @@ public class AseguradoraController {
     @JsonFormat
     public Aseguradora createRegion(@Valid @RequestBody Aseguradora aseguradora) {
         // logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        return aseguradorarepo.save(aseguradora);
+        return aseguradorarepo.save( aseguradora );
     }
 
     @DeleteMapping("/daseguradora/{aseguradoraId}")
