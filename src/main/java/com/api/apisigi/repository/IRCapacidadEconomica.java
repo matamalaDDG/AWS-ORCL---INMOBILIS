@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository("capacidadEconomicaRepo")
 public interface IRCapacidadEconomica extends JpaRepository<CapacidadEconomica, String> {
-    public abstract Optional<CapacidadEconomica> findCapacidadEconomicaByBoletahonorarioAndAndCedulaidentidadAndContratoAndLiquidacionsueldo(String boletaid,String horarioid,String contratoid,String liquidid);
+    public abstract Optional<CapacidadEconomica> findCapacidadEconomicaByBoletahonorarioAndAndCedulaidentidadAndContratoAndLiquidacionsueldo(String cedulaid,String liquidacionid,String boletaHonorarioId,String contratioid);
 }

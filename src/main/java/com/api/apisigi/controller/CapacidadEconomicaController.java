@@ -67,23 +67,23 @@ public class CapacidadEconomicaController {
         cedulaIdentidadrepo.findById(cedulaid).map((cedulaIdentidad) -> {
             capacidadEconomica.setCedulaidentidad(cedulaIdentidad);
             return capacidadEconomica;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + cedulaid + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + cedulaid + " not found"));
         liquidacionSueldorepo.findById(liquidacionid).map((empresa) -> {
             capacidadEconomica.setLiquidacionsueldo(empresa);
             return capacidadEconomica;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + liquidacionid + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + liquidacionid + " not found"));
         boletaHonorariorepo.findById(boletaHonorarioId).map((empresa) -> {
             capacidadEconomica.setBoletahonorario(empresa);
             return capacidadEconomica;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + boletaHonorarioId + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + boletaHonorarioId + " not found"));
         contratorepo.findById(contratioid).map((empresa) -> {
             capacidadEconomica.setContrato(empresa);
             return capacidadEconomica;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + contratioid + " not found"));
-        capacidadEconomicarepo.delete(capacidadEconomica);
+        }).orElseThrow(() -> new ResourceNotFoundExcption("ID  " + contratioid + " not found"));
+        capacidadEconomicarepo.save(capacidadEconomica);
     }
 
-    //#UPDATE REGION
+    //#PUT METHOD: MODIFICAR CONVENIO
     @PutMapping("/cliente/{cedulaid}/ingresos/{liquidacionid}/honorarios/{boletaHonorarioId}/documentacion/{contratioid}/arriendo/cliente/capacidadecomicalciente/actualizar")
     @ResponseBody
     @JsonFormat
@@ -111,7 +111,8 @@ public class CapacidadEconomicaController {
                 "ID " + cedulaid + "not found"));
     }
 
-    //#PUT METHOD: ELIMINAR CONVENIO
+    //TODO corregir metodo delete
+    //#DELETE METHOD: ELIMINAR CONVENIO
     @DeleteMapping("/cliente/{cedulaid}/ingresos/{liquidacionid}/honorarios/{boletaHonorarioId}/documentacion/{contratioid}/arriendo/cliente/capacidadecomicalciente/{idCapacidad}/actualizar")
     @ResponseBody
     @JsonFormat
