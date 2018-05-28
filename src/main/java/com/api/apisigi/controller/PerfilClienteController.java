@@ -26,6 +26,8 @@ public class PerfilClienteController {
     @Qualifier("cuentaRepo")
     private IRCuenta cuentarepo;
 
+    //#ROUTE METHODS
+    //#GET METHOD: LISTADO PERFILES
     @GetMapping("/perfilesclientes/listado")
     @ResponseBody
     @JsonFormat
