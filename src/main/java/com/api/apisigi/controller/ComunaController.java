@@ -67,9 +67,10 @@ public class ComunaController {
                              @Valid @RequestBody Comuna comuna) {
 
         regionrepo.findById(regionId).map((region) -> {
+            //TODO Agregar LOGS
 
             comuna.setRegion(region);
-            
+
             return comuna;
         }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found"));
         comunarepo.delete(comuna);
@@ -94,6 +95,8 @@ public class ComunaController {
 
     //# PUTCONTROLLER
     @PutMapping("/region/{regionId}/comuna/{comunaId}")
+    @ResponseBody
+    @JsonFormat
     public Comuna updateComuna(@PathVariable(value = "regionId") String regionId,
                                @PathVariable(value = "comunaId") String comunaId,
                                @Valid @RequestBody Comuna comunaRequest) {

@@ -47,11 +47,7 @@ public class CuentaController {
     @JsonFormat
     public void createCuenta(@Valid @RequestBody Cuenta cuenta) {
         logger.info("[CREANDO CUENTA : ROUTE: /cuentas/cuentasusuarios/nuevacuenta ----- Nuevo usuario" + cuenta.getUsuario() + ".... Method: createCuenta]");
-        if (!cuentarepo.validarPorUsuario(cuenta.getUsuario())) {
             cuentarepo.save(cuenta);
-        }
-        logger.error("[CREANDO CUENTA : ROUTE: /cuentas/cuentasusuarios/nuevacuenta" + cuenta.getUsuario() + ".... Method: createCuenta...usuario ya existe]");
-
     }
 
     @DeleteMapping("/cuentas/cuentasusuarios/cuenta/{cuentaId}")
