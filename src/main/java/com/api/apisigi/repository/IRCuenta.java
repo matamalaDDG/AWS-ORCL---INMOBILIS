@@ -9,4 +9,6 @@ import java.io.Serializable;
 @Repository("cuentaRepo")
 public interface IRCuenta extends JpaRepository<Cuenta, String> {
 
+    public abstract boolean findByUsuario (String usuario);
+
 }
