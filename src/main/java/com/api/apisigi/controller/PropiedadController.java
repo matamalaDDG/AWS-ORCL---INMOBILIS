@@ -189,7 +189,7 @@ public class PropiedadController {
                     "ID " + idarriendo + "not found," +
                     "ID " + idperfil + "not found.");
         }
-        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map(propiedad -> {
+        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idestado, idtipoprop, idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map(propiedad -> {
             propiedad.setDireccion(propiedadrequest.getDireccion());
             propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
             propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
@@ -240,7 +240,7 @@ public class PropiedadController {
                     "ID " + idperfil + "not found.");
         }
 
-        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map(propiedad -> {
+        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idestado, idtipoprop, idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map(propiedad -> {
             propeidadrepo.delete(propiedad);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + idtipoprop + "not found," +

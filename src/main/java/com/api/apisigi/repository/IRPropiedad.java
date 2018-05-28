@@ -9,12 +9,5 @@ import java.util.Optional;
 
 @Repository("propiedadRepo")
 public interface IRPropiedad extends JpaRepository<Propiedad, String> {
-    public abstract Optional<Propiedad> findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(String idconservador,
-                                                                                                                                                                            String idcovenio,
-                                                                                                                                                                            String iddocbanco,
-                                                                                                                                                                            String iddocnotaria,
-                                                                                                                                                                            String idservicio,
-                                                                                                                                                                            String idtasacion,
-                                                                                                                                                                            String idcorredor,
-                                                                                                                                                                            String idperfil);
+    public abstract Optional<Propiedad> findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(String idestado,String  idtipoprop,String  idcomuna,String  idoficina,String  idcasa,String  idventa,String  idepto,String  idestacionamiento,String idarriendo,String idperfil);
 }
