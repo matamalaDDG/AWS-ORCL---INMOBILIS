@@ -1,12 +1,17 @@
 package com.api.apisigi.controller;
 
 import com.api.apisigi.entity.Corredor;
+import com.api.apisigi.exception.ResourceNotFoundExcption;
+import com.api.apisigi.repository.IRCorredor;
 import com.api.apisigi.repository.IRPerfilCliente;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -14,91 +19,72 @@ import java.util.Optional;
 public class CorredorController {
 
     @Autowired
+    @Qualifier("corredorRepo")
+    private IRCorredor corredorrepo;
+
+    @Autowired
     @Qualifier("perfilClienteRepo")
     private IRPerfilCliente perfilcliente;
 
-    @Autowired
-    @Qualifier
-    priva
-
-    @Autowired
-    @Qualifier
-
-    //#LISTADO DE COMUNAS POR ID REGION
-    @GetMapping("/usuario/)
-    @ResponseBody
-    @JsonFormat
-    public Optional<Corredor> getAllCorredores(@PathVariable(value = "regionId") String idregion) {
-        return comunarepo.findById(idregion);
-    }
-
-    //#LISTADO DE COMUNAS POR ID COMUNA
-    @GetMapping("/{comunaId}/comunas")
-    @ResponseBody
-    @JsonFormat
-    public Optional<Comuna> getComunas(@PathVariable(value = "comunaId") String idcomuna) {
-        return comunarepo.findById(idcomuna);
-    }
-
     //#LISTADO DE COMUNAS
-    @GetMapping("/comunas")
+    @GetMapping("/usuario/cuenta/tipousuarios/corredores")
     @ResponseBody
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus
     @JsonFormat
-    public List<Comuna> getAll() {
-        return comunarepo.findAll();
+    public List<Corredor> getAll() {
+        return corredorrepo.findAll();
     }
 
     //#AGREGAR COMUNAS NUEVAS CON RELACION DE REGION
-    @PostMapping("/region/{regionId}/NComuna")
+    @PostMapping("/usuario/cuenta/perfilcliente/{idperfil}/tipousuarios/corredores/nuevocorredor")
     @ResponseBody
     @JsonFormat
-    public void createComuna(@PathVariable(value = "regionId") String regionId,
-                             @Valid @RequestBody Comuna comuna) {
+    public void crearCorredor(@PathVariable(value = "idperfil") String idperfil,
+                             @Valid @RequestBody Corredor corredor) {
 
-        regionrepo.findById(regionId).map((region) -> {
+        perfilcliente.findById(idperfil).map((perfilCliente) -> {
             //TODO Agregar LOGS
 
-            comuna.setRegion(region);
+            corredor.setPerfilcliente(perfilCliente);
 
-            return comuna;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found"));
-        comunarepo.delete(comuna);
+            return corredor;
+        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + idperfil + " not found"));
+        corredorrepo.delete(corredor);
     }
 
 
     //# ELIMINAR UNA COMUNA
-    @DeleteMapping("/region/{regionId}/comunas/{comunaId}")
+    @DeleteMapping("/usuario/cuenta/perfilcliente/{idperfil}/tipousuarios/corredores/{idcorredor}/deletecorredor")
     @ResponseBody
     @JsonFormat
-    public ResponseEntity<?> deleteComment(@PathVariable(value = "regionId") String regionId,
-                                           @PathVariable(value = "comunaId") String comunaId) {
-        if (!regionrepo.existsById(regionId)) {
-            throw new ResourceNotFoundExcption("PostId " + regionId + " not found");
+    public ResponseEntity<?> deleteComment(@PathVariable(value = "idperfil") String idperfil,
+                                           @PathVariable(value = "idcorredor") String idcorredor) {
+        if (!perfilcliente.existsById(idperfil)) {
+            throw new ResourceNotFoundExcption("PostId " + idperfil + " not found");
         }
 
-        return comunarepo.findById(comunaId).map(comuna -> {
-            comunarepo.delete(comuna);
+        return corredorrepo.findById(idcorredor).map(corredor -> {
+            corredorrepo.delete(corredor);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + comunaId + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + idcorredor + " not found"));
     }
 
     //# PUTCONTROLLER
-    @PutMapping("/region/{regionId}/comuna/{comunaId}")
+    @PutMapping("/usuario/cuenta/perfilcliente/{idperfil}/tipousuarios/corredores/{idcorredor}/actualizarcorredor")
     @ResponseBody
     @JsonFormat
-    public Comuna updateComuna(@PathVariable(value = "regionId") String regionId,
-                               @PathVariable(value = "comunaId") String comunaId,
-                               @Valid @RequestBody Comuna comunaRequest) {
-        if (!regionrepo.existsById(regionId)) {
-            throw new ResourceNotFoundExcption("ID " + regionId + " not found");
+    public Corredor updateCorreodor(@PathVariable(value = "idperfil") String idperfil,
+                               @PathVariable(value = "idcorredor") String idcorredor,
+                               @Valid @RequestBody Corredor corredorrequest) {
+        if (!perfilcliente.existsById(idperfil)) {
+            throw new ResourceNotFoundExcption("ID " + idperfil + " not found");
         }
 
-        return comunarepo.findById(comunaId).map(comuna -> {
-            comuna.setIdComuna(comunaRequest.getIdComuna());
-            comuna.setComuna(comunaRequest.getComuna());
-            return comunarepo.save(comuna);
-        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + comunaId + "not found"));
+        return corredorrepo.findById(idcorredor).map(corredor -> {
+            corredor.setNombreCorredor(corredorrequest.getNombreCorredor());
+            corredor.setIdCorredor(corredorrequest.getIdCorredor());
+            return corredorrepo.save(corredor);
+        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + idcorredor + "not found"));
     }
 
 }
