@@ -39,8 +39,8 @@ public class DepartamentoController {
                 edificiorepo.findById(idEdificio).map(edificio -> {
                     departamento.setEdificio(edificio);
                     return departamento;
-                }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idEdificio + " not found")
-                ));
+                }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idEdificio + " not found"))
+        );
     }
 
     //#GET METHOD: OBTENCION DE LISTADO EDIFICIOS
