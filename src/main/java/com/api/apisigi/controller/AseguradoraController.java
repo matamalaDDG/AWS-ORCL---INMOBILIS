@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/aseguradora")
+@RequestMapping("/api/propiedades/seguros")
 public class AseguradoraController {
     @Autowired
     @Qualifier("aseguradoraRepo")

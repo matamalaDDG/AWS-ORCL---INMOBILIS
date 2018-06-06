@@ -73,7 +73,7 @@ public class ComunaController {
 
             return comuna;
         }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found"));
-        comunarepo.delete(comuna);
+        comunarepo.save(comuna);
     }
 
 

@@ -1,10 +1,15 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "idRegion")
 public class Region {
     private String idRegion;
     private String region;
@@ -45,7 +50,10 @@ public class Region {
         return Objects.hash(idRegion, region);
     }
 
-    @OneToMany(mappedBy = "region")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "region",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     public Collection<Comuna> getComuna() {
         return comuna;
     }

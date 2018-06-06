@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/propiedades/estado/proceso/arriendo")
+@RequestMapping("/api/propiedades/estado/proceso/arriendo")
 public class ArriendoController {
 
     @Autowired

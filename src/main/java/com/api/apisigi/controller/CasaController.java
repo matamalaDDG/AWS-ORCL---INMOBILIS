@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/casa")
+@RequestMapping("/api/propiedades/tipo/casa")
 public class CasaController {
 
     @Autowired
