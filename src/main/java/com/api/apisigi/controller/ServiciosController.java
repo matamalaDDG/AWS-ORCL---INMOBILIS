@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/servicios")
+@RequestMapping("/api/propiedades/venta/proceso/contrato/servicios")
 public class ServiciosController {
 
     //   INYECCION DE DEPENDENCIAS

@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/edificio")
+@RequestMapping("/api/propiedades/tipo/edificio")
 public class EdificioController {
 
     @Autowired

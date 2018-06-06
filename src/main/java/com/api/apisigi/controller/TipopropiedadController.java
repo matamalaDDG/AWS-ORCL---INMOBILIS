@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tipopropiedad")
+@RequestMapping("/api/propiedades/tipopropiedad")
 public class TipopropiedadController {
 
     @Autowired

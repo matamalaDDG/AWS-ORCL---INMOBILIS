@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/documentos")
+@RequestMapping("/api/propiedades/ventas/proceso/documentos")
 public class DocumentoController {
 
     //    INYECCION DE DEPENDENCIAS

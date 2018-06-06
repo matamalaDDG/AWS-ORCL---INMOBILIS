@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/region")
+@RequestMapping("/api/propiedades/ubicacion/region")
 public class RegionController {
 
     public static final Log logger = LogFactory.getLog(RegionController.class);

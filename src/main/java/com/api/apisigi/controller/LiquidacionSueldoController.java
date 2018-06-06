@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/liquidacionsueldo")
+@RequestMapping("/api/propiedades/proceso/capacidadeconomica/liquidacionsueldo")
 public class LiquidacionSueldoController {
 
     //LiquidacionuSueldoRepo

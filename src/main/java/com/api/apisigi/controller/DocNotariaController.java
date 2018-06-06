@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/ventas/documentacion/docnotaria")
+@RequestMapping("/api/propiedades/proceso/ventas/documentacion/docnotaria")
 public class DocNotariaController {
     @Autowired
     @Qualifier("docNotariaRepo")

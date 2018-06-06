@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/patentecomercial")
+@RequestMapping("/api/propiedades/tipo/oficina/patentecomercial")
 public class PatenteComercialController {
 
     //#DEPENDENCI INJECTION AREA

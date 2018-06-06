@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("propiedad/ventas/en_Venta/tasacion")
+@RequestMapping("/api/propiedades/ventas/en_Venta/tasacion")
 public class TasacionController {
 
         @Autowired
