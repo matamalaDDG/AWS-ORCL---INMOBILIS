@@ -51,7 +51,7 @@ public class TipopropiedadController {
     }
 
     //#UPDATE REGION
-    @PutMapping("/region/{regionId}")
+    @PutMapping("/tipopropiedad/{tipopropiedadid}")
     @ResponseBody
     @JsonFormat
     public TipoPropiedad updatePost(@PathVariable String tipopropiedadId,
