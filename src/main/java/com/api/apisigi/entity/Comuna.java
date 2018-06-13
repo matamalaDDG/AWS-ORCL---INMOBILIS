@@ -1,10 +1,15 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO COMUNA
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "idComuna")
 public class Comuna {
     private String idComuna;
     private String comuna;
@@ -46,7 +51,8 @@ public class Comuna {
         return Objects.hash(idComuna, comuna);
     }
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_REGION", referencedColumnName = "ID_REGION", nullable = false)
     public Region getRegion() {
         return region;
@@ -56,6 +62,7 @@ public class Comuna {
         this.region = region;
     }
 
+    @JsonBackReference
     @OneToMany(mappedBy = "comuna")
     public Collection<Propiedad> getPropiedad() {
         return propiedad;

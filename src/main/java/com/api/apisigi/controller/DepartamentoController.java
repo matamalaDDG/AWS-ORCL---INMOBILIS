@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/departamento")
+@RequestMapping("/api/pripiedad/tipo/departamento")
 public class DepartamentoController {
 
     @Autowired

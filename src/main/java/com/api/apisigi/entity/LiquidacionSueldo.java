@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO LIQDESUELDO
 @Entity
 @Table(name = "LIQUIDACION_SUELDO", schema = "SIGIADMIN", catalog = "")
 public class LiquidacionSueldo {

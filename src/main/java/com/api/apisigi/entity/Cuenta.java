@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO CUENTA
 @Entity
 public class Cuenta {
     private String idCuenta;

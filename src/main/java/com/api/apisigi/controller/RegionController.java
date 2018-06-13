@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/region")
+@RequestMapping("/api/propiedades/ubicacion/region")
 public class RegionController {
 
     public static final Log logger = LogFactory.getLog(RegionController.class);
@@ -25,7 +25,7 @@ public class RegionController {
     @Qualifier("regionRepo")
     private IRRegion regionre;
 
-
+    //##GET ALL REGIONES
     @GetMapping("/regiones")
     @ResponseBody
     @JsonFormat
@@ -35,10 +35,19 @@ public class RegionController {
         logger.info("[Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]");
         List temp_Regiones = new ArrayList<>();
         regionre.findAll().forEach(temp_Regiones::add);
+        //regionre.deleteAll(temp_Regiones);
         return temp_Regiones;
-
         //return regionre.findAll().;
 
+    }
+
+    //##GET REGION BY ID
+    @GetMapping("/region/{idregion}")
+    @ResponseBody
+    public Region getRegionbyID(@PathVariable String idregion) {
+        Region re = regionre.findById(idregion)
+                .orElseThrow(() -> new ResourceNotFoundExcption("PostId " + idregion + " not found"));
+        return re;
     }
 
     //#ROUTE METHODS
@@ -47,8 +56,8 @@ public class RegionController {
     @ResponseBody
     @JsonFormat
     public void createRegion(@Valid @RequestBody Region region) {
-        logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        logger.info("[REGION creada : ROUTE: /dregion/{regionId}.... Method: createRegion]");
+        logger.info("[creando region : ROUTE: .... Method: createRegion]");
+        logger.info("[REGION creada : ROUTE: .... Method: createRegion]");
         regionre.save(region);
     }
 

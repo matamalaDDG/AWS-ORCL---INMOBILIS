@@ -6,7 +6,6 @@ import com.api.apisigi.repository.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/propiedades/")
+@RequestMapping("/api/inmobiliaria/propiedades")
 public class PropiedadController {
+    //TODO Comenzar controlador propiedad completo
 
     @Autowired
     @Qualifier("propiedadRepo")
@@ -189,7 +189,7 @@ public class PropiedadController {
                     "ID " + idarriendo + "not found," +
                     "ID " + idperfil + "not found.");
         }
-        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idestado, idtipoprop, idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map(propiedad -> {
+        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idestado, idtipoprop, idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map( propiedad -> {
             propiedad.setDireccion(propiedadrequest.getDireccion());
             propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
             propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
@@ -206,51 +206,4 @@ public class PropiedadController {
                 "ID " + idperfil + "not found."));
     }
 
-    @DeleteMapping("/procesopublicacion/propiedad/estado/{idestado}/{idventa}/{idarriendo}/tipoprop/{idtipoprop}/ubicacion/{idcomuna}/{idoficina}/{idcasa}/{idventa}/{idepto}/{idestacionamiento}/usuario/{idperfil}/propiedad/{idpropiedad}/Eliminar")
-    @ResponseBody
-    @JsonFormat
-    public ResponseEntity<?> EliminarPropiedad(@PathVariable(value = "idestado") String idestado,
-                                               @PathVariable(value = "idtipoprop") String idtipoprop,
-                                               @PathVariable(value = "idcomuna") String idcomuna,
-                                               @PathVariable(value = "idoficina") String idoficina,
-                                               @PathVariable(value = "idcasa") String idcasa,
-                                               @PathVariable(value = "idventa") String idventa,
-                                               @PathVariable(value = "idepto") String idepto,
-                                               @PathVariable(value = "idestacionamiento") String idestacionamiento,
-                                               @PathVariable(value = "idarriendo") String idarriendo,
-                                               @PathVariable(value = "idperfil") String idperfil) {
-        if (!estadoRepo.existsById(idestado) || idestado != "null" ||
-                !tipoPropiedadrepo.existsById(idtipoprop) || idtipoprop != "null" ||
-                !comunarepo.existsById(idcomuna) || idcomuna != "null" ||
-                !oficinarepo.existsById(idoficina) || idoficina != "null" ||
-                !casarepo.existsById(idcasa) || idcasa != "null" ||
-                !ventarepo.existsById(idventa) || idventa != "null" ||
-                !departamentorepo.existsById(idepto) || idepto != "null" ||
-                !departamentorepo.existsById(idarriendo) || idarriendo != "null" ||
-                !departamentorepo.existsById(idestacionamiento) || idestacionamiento != "null" ||
-                !departamentorepo.existsById(idperfil) || idperfil != "null") {
-            throw new ResourceNotFoundExcption("ID " + idtipoprop + "not found," +
-                    "ID " + idcomuna + "not found," +
-                    "ID " + idoficina + "not found," +
-                    "ID " + idcasa + "not found," +
-                    "ID " + idventa + "not found," +
-                    "ID " + idepto + "not found," +
-                    "ID " + idestacionamiento + "not found," +
-                    "ID " + idarriendo + "not found," +
-                    "ID " + idperfil + "not found.");
-        }
-
-        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idestado, idtipoprop, idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map(propiedad -> {
-            propeidadrepo.delete(propiedad);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + idtipoprop + "not found," +
-                "ID " + idcomuna + "not found," +
-                "ID " + idoficina + "not found," +
-                "ID " + idcasa + "not found," +
-                "ID " + idventa + "not found," +
-                "ID " + idepto + "not found," +
-                "ID " + idestacionamiento + "not found," +
-                "ID " + idarriendo + "not found," +
-                "ID " + idperfil + "not found."));
-    }
 }

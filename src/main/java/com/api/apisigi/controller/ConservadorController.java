@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/ventas/conservador")
+@RequestMapping("/api/propiedades/ventas/conservador")
 public class ConservadorController {
 
     @Autowired

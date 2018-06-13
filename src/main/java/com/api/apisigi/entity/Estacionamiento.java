@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO ESTACIONAMIENTO
 @Entity
 public class Estacionamiento {
     private String idEstacionamiento;

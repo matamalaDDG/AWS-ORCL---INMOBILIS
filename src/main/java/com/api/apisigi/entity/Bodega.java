@@ -1,14 +1,15 @@
 package com.api.apisigi.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO  BODEGA
 @Entity
 public class Bodega {
     private String idBodega;
     private long numIdentBodega;
     private long mtsCuad;
-    private Propiedad propiedad;
+    private Collection<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_BODEGA")
@@ -56,13 +57,19 @@ public class Bodega {
         return Objects.hash(idBodega, numIdentBodega, mtsCuad);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "ID_PROPIEDAD", referencedColumnName = "ID_PROPIEDAD")
-    public Propiedad getPropiedad() {
+    /*  @OneToMany
+      @JoinColumn(name = "ID_PROPIEDAD", referencedColumnName = "ID_PROPIEDAD")
+      public Propiedad getPropiedad() {
+          return propiedad;
+      }*/
+
+    @OneToMany(mappedBy = "bodega")
+    public Collection<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Propiedad propiedad) {
-        this.propiedad = propiedad;
+    public void setPropiedad(Collection<Propiedad> propiedades) {
+        this.propiedad = propiedades;
     }
+
 }

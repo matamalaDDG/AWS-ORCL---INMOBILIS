@@ -2,7 +2,7 @@ package com.api.apisigi.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO LOGSSESSIONS
 @Entity
 @Table(name = "LOGS_SESSIONS", schema = "SIGIADMIN", catalog = "")
 public class LogsSessions {

@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/bodega")
+@RequestMapping("/api/propiedades/tipo/bodega")
 public class BodegaController {
     //#DEPENDENCI INJECTION AREA
     @Autowired
@@ -21,7 +21,6 @@ public class BodegaController {
     private IRBodega bodegarepo;
 
     //#lOGS
-
 
     //#REQUEST AREA
     //#GETMAPPING

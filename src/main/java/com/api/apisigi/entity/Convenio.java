@@ -2,7 +2,7 @@ package com.api.apisigi.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO CONVENIO
 @Entity
 public class Convenio {
     private String idConvenio;

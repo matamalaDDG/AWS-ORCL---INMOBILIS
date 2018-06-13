@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/condominio")
+@RequestMapping("/api/propiedad/tipo/")
 public class CondominioController {
 
 

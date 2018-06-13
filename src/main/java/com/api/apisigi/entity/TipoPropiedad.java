@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO TIPOPROPIEDAD
 @Entity
 @Table(name = "TIPO_PROPIEDAD", schema = "SIGIADMIN", catalog = "")
 public class TipoPropiedad {

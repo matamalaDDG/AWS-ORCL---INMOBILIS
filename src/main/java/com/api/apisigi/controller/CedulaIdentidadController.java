@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cedulaidentidad")
+@RequestMapping("/api/propiedad/cliente/")
 public class CedulaIdentidadController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class CedulaIdentidadController {
 
 
     //    GET MAPPING:
-    @GetMapping("/cedulasidentidad")
+    @GetMapping("/cedulaidentidad")
     @ResponseBody
     @JsonFormat
     public List<CedulaIdentidad> getAllCedulaIdentidad() {
@@ -37,7 +37,7 @@ public class CedulaIdentidadController {
     }
 
     //    POST MAPPING:
-    @PostMapping("/documento/{documentoId}/NCedulaIdentidad")
+    @PostMapping("/documento/{documentoId}/cedulaidentidad/NCedulaIdentidad")
     @ResponseBody
     @JsonFormat
     public CedulaIdentidad crearCedulaIdentidad(@PathVariable(value = "documentoId") String documentoId,

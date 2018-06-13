@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notaria")
+@RequestMapping("/api/propiedades/venta/proceso/documento/notaria")
 public class NotariaController {
     @Autowired
     @Qualifier("notariaRepo")

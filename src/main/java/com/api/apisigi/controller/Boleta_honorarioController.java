@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/boletahonorario")
+@RequestMapping("/api/ventas/economico/boletahonorario")
 public class Boleta_honorarioController {
 
     //#DEPENDECIAS

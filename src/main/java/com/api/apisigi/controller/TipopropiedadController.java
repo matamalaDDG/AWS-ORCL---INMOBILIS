@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tipopropiedad")
+@RequestMapping("/api/propiedades/tipopropiedad")
 public class TipopropiedadController {
 
     @Autowired
@@ -51,7 +51,7 @@ public class TipopropiedadController {
     }
 
     //#UPDATE REGION
-    @PutMapping("/region/{regionId}")
+    @PutMapping("/tipopropiedad/{tipopropiedadid}")
     @ResponseBody
     @JsonFormat
     public TipoPropiedad updatePost(@PathVariable String tipopropiedadId,

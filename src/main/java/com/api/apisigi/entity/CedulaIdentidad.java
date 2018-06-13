@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO CEDULA IDENTIDAD
 @Entity
 @Table(name = "CEDULA_IDENTIDAD", schema = "SIGIADMIN", catalog = "")
 public class CedulaIdentidad {

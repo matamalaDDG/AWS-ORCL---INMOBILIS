@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO DOCBANCO
 @Entity
 @Table(name = "DOC_BANCO", schema = "SIGIADMIN", catalog = "")
 public class DocBanco {

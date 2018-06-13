@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO CONTRATO
 @Entity
 public class Contrato {
     private String idContrato;

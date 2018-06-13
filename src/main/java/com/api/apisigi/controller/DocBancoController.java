@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/ventas/documentacion/documentosbanco")
+@RequestMapping("/api/propiedades/proceso/ventas/documentacion/documentosbanco")
 public class DocBancoController {
 
 

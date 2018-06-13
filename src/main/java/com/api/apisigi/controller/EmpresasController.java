@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/empresas")
+@RequestMapping("/api/propiedades/convenio/empresas")
 public class EmpresasController {
 
     //    INYECCION DE DEPENDENCIAS

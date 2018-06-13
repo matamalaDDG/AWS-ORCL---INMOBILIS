@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/contrato")
+@RequestMapping("/api/propiedades/venta/proceso/documento/contrato")
 public class ContratoController {
 
     @Autowired

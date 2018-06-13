@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO CAPACIDAD ECONOMICA
 @Entity
 @Table(name = "CAPACIDAD_ECONOMICA", schema = "SIGIADMIN", catalog = "")
 public class CapacidadEconomica {
