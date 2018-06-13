@@ -48,6 +48,7 @@ public class RegionController {
     @JsonFormat
     public void createRegion(@Valid @RequestBody Region region) {
         logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
+        logger.info("[REGION creada : ROUTE: /dregion/{regionId}.... Method: createRegion]");
         regionre.save(region);
     }
 
