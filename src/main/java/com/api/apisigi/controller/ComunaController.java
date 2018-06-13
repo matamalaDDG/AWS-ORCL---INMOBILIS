@@ -71,9 +71,10 @@ public class ComunaController {
 
             comuna.setRegion(region);
 
+            comunarepo.save(comuna);
             return comuna;
         }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found"));
-        comunarepo.save(comuna);
+
     }
 
 

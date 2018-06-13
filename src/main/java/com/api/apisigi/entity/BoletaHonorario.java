@@ -1,10 +1,14 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO BOLETAHONORARIO
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
 @Table(name = "BOLETA_HONORARIO", schema = "SIGIADMIN", catalog = "")
 public class BoletaHonorario {
     private String idBoleta;

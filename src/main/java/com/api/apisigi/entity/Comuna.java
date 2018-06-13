@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO COMUNA
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "idComuna")
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
 public class Comuna {
     private String idComuna;
     private String comuna;
@@ -51,7 +51,6 @@ public class Comuna {
         return Objects.hash(idComuna, comuna);
     }
 
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_REGION", referencedColumnName = "ID_REGION", nullable = false)
     public Region getRegion() {

@@ -1,10 +1,14 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO PROPIEDAD
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
 public class Propiedad {
     private String idPropiedad;
     private String direccion;

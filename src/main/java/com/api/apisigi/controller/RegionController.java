@@ -30,15 +30,21 @@ public class RegionController {
     @ResponseBody
     @JsonFormat
     public List<Region> getAllRegiones() {
-        logger.info("[Buscando Region : ROUTE: /regiones .... Method: getAllRegiones]");
-        logger.info("[Listando Regiones : ROUTE: /regiones .... Method: getAllRegiones]");
-        logger.info("[Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]");
-        List temp_Regiones = new ArrayList<>();
-        regionre.findAll().forEach(temp_Regiones::add);
-        //regionre.deleteAll(temp_Regiones);
-        return temp_Regiones;
-        //return regionre.findAll().;
+        try {
+            logger.info("[Buscando Region : ROUTE: /regiones .... Method: getAllRegiones]");
+            logger.info("[Listando Regiones : ROUTE: /regiones .... Method: getAllRegiones]");
+            logger.info("[Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]");
+            List temp_Regiones = new ArrayList<>();
+            regionre.findAll().forEach(temp_Regiones::add);
+            //regionre.deleteAll(temp_Regiones);
+            return temp_Regiones;
+            //return regionre.findAll().;
 
+        } catch (Exception ex) {
+            logger.info("[ERROR Listando Regiones : ROUTE: /regiones .... Method: getAllRegiones]" + ex.getMessage() + "");
+            List temp_regiones = null;
+            return temp_regiones;
+        }
     }
 
     //##GET REGION BY ID
@@ -52,20 +58,27 @@ public class RegionController {
 
     //#ROUTE METHODS
     //#POST METHOD: INSERCION REGION
-    @PostMapping("/nregion")
+    @PostMapping("/region")
     @ResponseBody
     @JsonFormat
     public void createRegion(@Valid @RequestBody Region region) {
-        logger.info("[creando region : ROUTE: .... Method: createRegion]");
-        logger.info("[REGION creada : ROUTE: .... Method: createRegion]");
-        regionre.save(region);
+
+        try {
+            logger.info("[creando region : ROUTE: .... Method: createRegion]");
+            logger.info("[REGION creada : ROUTE: .... Method: createRegion]");
+            regionre.save(region);
+        }catch(Exception ex){
+
+            return;
+        }
+
     }
 
     @DeleteMapping("/dregion/{regionId}")
     @ResponseBody
     @JsonFormat
     public ResponseEntity<?> deleteRegion(@PathVariable String regionId) {
-        logger.info("[buscado region : /dregion/{regionId}.... Method: deletePost]");
+        logger.info("[buscado region : .... Method: deletePost]");
         return regionre.findById(regionId).map(region -> {
             logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
             regionre.delete(region);
