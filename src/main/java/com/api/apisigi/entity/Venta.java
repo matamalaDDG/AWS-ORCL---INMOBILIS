@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO VENTA
 @Entity
 public class Venta {
     private String idVenta;

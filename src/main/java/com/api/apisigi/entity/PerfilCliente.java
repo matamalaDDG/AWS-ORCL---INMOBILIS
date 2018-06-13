@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO PERFILCLIENTE
 @Entity
 @Table(name = "PERFIL_CLIENTE", schema = "SIGIADMIN", catalog = "")
 public class PerfilCliente {

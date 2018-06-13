@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO PATENTE COMERCIAL
 @Entity
 @Table(name = "PATENTE_COMERCIAL", schema = "SIGIADMIN", catalog = "")
 public class PatenteComercial {

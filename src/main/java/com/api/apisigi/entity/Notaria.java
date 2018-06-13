@@ -2,7 +2,7 @@ package com.api.apisigi.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO NOTARIA
 @Entity
 public class Notaria {
     private String idNotaria;

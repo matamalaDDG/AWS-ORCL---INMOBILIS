@@ -3,7 +3,7 @@ package com.api.apisigi.entity;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO HISTARRIENDO
 @Entity
 @Table(name = "HIST_ARRIENDO", schema = "SIGIADMIN", catalog = "")
 public class HistArriendo {

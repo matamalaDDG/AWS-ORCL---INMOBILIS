@@ -7,6 +7,15 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
+//TODO PROCEDIMIENTO ALMACENADO REGION
+
+/*
+@NamedNativeQueries({
+  @NamedNativeQuery(
+    name = "callGetAllFoos",
+    query = "CALL GetAllFoos()",
+    resultClass = Region.class)
+})*/
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "idRegion")

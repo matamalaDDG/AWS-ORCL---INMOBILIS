@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
-
+//TODO PROCEDIMIENTO ALMACENADO DOCUMENTO
 @Entity
 public class Documento {
     private String idDocumento;
