@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/ubicacion")
+@RequestMapping("api/ubicacion/comuna")
 public class ComunaController {
 
     //#LOGS
@@ -34,13 +34,7 @@ public class ComunaController {
     @Qualifier("regionRepo")
     private IRRegion regionrepo;
 
-    //#LISTADO DE COMUNAS POR ID REGION
-    @GetMapping("/region/{regionId}/comunas/ListComunas")
-    @ResponseBody
-    @JsonFormat
-    public Optional<Comuna> getAllComunasByRegionID(@PathVariable(value = "regionId") String idregion) {
-        return comunarepo.findById(idregion);
-    }
+
 
     //#LISTADO DE COMUNAS POR ID COMUNA
     @GetMapping("/{comunaId}/comunas")
