@@ -1,7 +1,9 @@
 package com.api.apisigi.controller;
 
+import com.api.apisigi.entity.ErrorLogs;
 import com.api.apisigi.entity.Region;
 import com.api.apisigi.exception.ResourceNotFoundExcption;
+import com.api.apisigi.repository.IRErrorLogs;
 import com.api.apisigi.repository.IRRegion;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.logging.Log;
@@ -24,44 +26,74 @@ public class RegionController {
     @Autowired
     @Qualifier("regionRepo")
     private IRRegion regionre;
+    @Autowired
+    @Qualifier("errorLogsRepo")
+    private IRErrorLogs errorLogs;
 
-
+    //##GET ALL REGIONES
     @GetMapping("/regiones")
     @ResponseBody
     @JsonFormat
     public List<Region> getAllRegiones() {
-        logger.info("[Buscando Region : ROUTE: /regiones .... Method: getAllRegiones]");
-        logger.info("[Listando Regiones : ROUTE: /regiones .... Method: getAllRegiones]");
-        logger.info("[Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]");
-        List temp_Regiones = new ArrayList<>();
-        regionre.findAll().forEach(temp_Regiones::add);
-        return temp_Regiones;
+        try {
+            logger.info("[Buscando Region : ROUTE: /regiones .... Method: getAllRegiones]");
+            logger.info("[Listando Regiones : ROUTE: /regiones .... Method: getAllRegiones]");
+            logger.info("[Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]");
+            List temp_Regiones = new ArrayList<>();
+            regionre.findAll().forEach(temp_Regiones::add);
+            //regionre.deleteAll(temp_Regiones);
+            return temp_Regiones;
+            //return regionre.findAll().;
 
-        //return regionre.findAll().;
+        } catch (Exception ex) {
+            logger.error("[Error Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]" + ex.getMessage());
+            return null;
+        }
+    }
 
+    //##GET REGION BY ID
+    @GetMapping("/region/{idregion}")
+    @ResponseBody
+    public Region getRegionbyID(@PathVariable String idregion) {
+        Region re = regionre.findById(idregion)
+                .orElseThrow(() -> new ResourceNotFoundExcption("PostId " + idregion + " not found"));
+        return re;
     }
 
     //#ROUTE METHODS
     //#POST METHOD: INSERCION REGION
-    @PostMapping("/nregion")
+    @PostMapping("/region")
     @ResponseBody
     @JsonFormat
     public void createRegion(@Valid @RequestBody Region region) {
-        logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        regionre.save(region);
+
+        try {
+            logger.info("[creando region : ROUTE: .... Method: createRegion]");
+            logger.info("[REGION creada : ROUTE: .... Method: createRegion]");
+            regionre.save(region);
+        } catch (Exception ex) {
+
+            return;
+        }
+
     }
 
     @DeleteMapping("/dregion/{regionId}")
     @ResponseBody
     @JsonFormat
     public ResponseEntity<?> deleteRegion(@PathVariable String regionId) {
-        logger.info("[buscado region : /dregion/{regionId}.... Method: deletePost]");
-        return regionre.findById(regionId).map(region -> {
-            logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
-            regionre.delete(region);
-            logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+        logger.info("[buscado region : .... Method: deletePost]");
+        try {
+            return regionre.findById(regionId).map(region -> {
+                logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
+                regionre.delete(region);
+                logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
+                return ResponseEntity.ok().build();
+            }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+        } catch (Exception ex) {
+              return null;
+        }
+
     }
 
     //#UPDATE REGION

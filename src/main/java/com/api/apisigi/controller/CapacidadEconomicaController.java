@@ -111,7 +111,7 @@ public class CapacidadEconomicaController {
                 "ID " + cedulaid + "not found"));
     }
 
-    //TODO corregir metodo delete
+    //TODO corregir metodo delete, probar
     //#DELETE METHOD: ELIMINAR CONVENIO
     @DeleteMapping("/cliente/{cedulaid}/ingresos/{liquidacionid}/honorarios/{boletaHonorarioId}/documentacion/{contratioid}/arriendo/cliente/capacidadecomicalciente/{idCapacidad}/actualizar")
     @ResponseBody
