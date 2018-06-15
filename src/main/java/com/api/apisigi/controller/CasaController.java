@@ -7,6 +7,7 @@ import com.api.apisigi.repository.IRCondominio;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,18 +40,16 @@ public class CasaController {
                 ));
     }
 
-    //    GET MAPPING:
-    @GetMapping("/casas")
+    //TODO
+    //    GET MAPPING: ALL
+    //#LISTADO DE COMUNAS
+    @GetMapping("/comunas")
     @ResponseBody
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @JsonFormat
     public List<Casa> getAll() {
         return casarepo.findAll();
     }
-
-    //TODO
-    //    GET MAPPING: ById
-    //    GET MAPPING: findByIdCasa
-    //    GET MAPPING: findAllByIdCondominio
 
     //    PUT MAPPING:
     @PutMapping("/condominio/{condominioId}/casa/{casaid}")
