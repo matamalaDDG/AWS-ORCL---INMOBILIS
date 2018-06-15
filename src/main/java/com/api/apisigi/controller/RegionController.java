@@ -1,7 +1,9 @@
 package com.api.apisigi.controller;
 
+import com.api.apisigi.entity.ErrorLogs;
 import com.api.apisigi.entity.Region;
 import com.api.apisigi.exception.ResourceNotFoundExcption;
+import com.api.apisigi.repository.IRErrorLogs;
 import com.api.apisigi.repository.IRRegion;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.logging.Log;
@@ -24,6 +26,9 @@ public class RegionController {
     @Autowired
     @Qualifier("regionRepo")
     private IRRegion regionre;
+    @Autowired
+    @Qualifier("errorLogsRepo")
+    private IRErrorLogs errorLogs;
 
     //##GET ALL REGIONES
     @GetMapping("/regiones")
@@ -41,9 +46,8 @@ public class RegionController {
             //return regionre.findAll().;
 
         } catch (Exception ex) {
-            logger.info("[ERROR Listando Regiones : ROUTE: /regiones .... Method: getAllRegiones]" + ex.getMessage() + "");
-            List temp_regiones = null;
-            return temp_regiones;
+            logger.error("[Error Regiones Listadas : ROUTE: /regiones.... Method: getAllRegiones]" + ex.getMessage());
+            return null;
         }
     }
 
@@ -67,7 +71,7 @@ public class RegionController {
             logger.info("[creando region : ROUTE: .... Method: createRegion]");
             logger.info("[REGION creada : ROUTE: .... Method: createRegion]");
             regionre.save(region);
-        }catch(Exception ex){
+        } catch (Exception ex) {
 
             return;
         }
@@ -79,12 +83,17 @@ public class RegionController {
     @JsonFormat
     public ResponseEntity<?> deleteRegion(@PathVariable String regionId) {
         logger.info("[buscado region : .... Method: deletePost]");
-        return regionre.findById(regionId).map(region -> {
-            logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
-            regionre.delete(region);
-            logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+        try {
+            return regionre.findById(regionId).map(region -> {
+                logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
+                regionre.delete(region);
+                logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
+                return ResponseEntity.ok().build();
+            }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + regionId + " not found"));
+        } catch (Exception ex) {
+              return null;
+        }
+
     }
 
     //#UPDATE REGION

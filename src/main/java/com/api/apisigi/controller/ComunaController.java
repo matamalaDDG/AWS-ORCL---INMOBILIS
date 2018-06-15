@@ -35,7 +35,6 @@ public class ComunaController {
     private IRRegion regionrepo;
 
 
-
     //#LISTADO DE COMUNAS POR ID COMUNA
     @GetMapping("/{comunaId}/comunas")
     @ResponseBody
@@ -64,11 +63,9 @@ public class ComunaController {
             //TODO Agregar LOGS
 
             comuna.setRegion(region);
-
             comunarepo.save(comuna);
             return comuna;
         }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found"));
-
     }
 
 
