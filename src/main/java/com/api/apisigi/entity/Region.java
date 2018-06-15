@@ -1,6 +1,7 @@
 package com.api.apisigi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -18,7 +19,7 @@ import java.util.Objects;
 })*/
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "idRegion")
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class,property = "UUID")
 public class Region {
     private String idRegion;
     private String region;
@@ -59,7 +60,7 @@ public class Region {
         return Objects.hash(idRegion, region);
     }
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "region",
             cascade = CascadeType.ALL,
             orphanRemoval = true)

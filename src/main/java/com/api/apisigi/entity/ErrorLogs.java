@@ -1,11 +1,15 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO ERRORLOGS
 @Entity
-@Table(name = "ERROR_LOGS", schema = "SIGIADMIN", catalog = "")
-public class ErrorLogs {
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
+@Table(name = "ERROR_LOGS", schema = "SIGIADMIN")
+public class ErrorLogs extends Exception{
     private String idError;
     private String descripcion;
 
