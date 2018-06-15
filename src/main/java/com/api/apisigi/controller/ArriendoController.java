@@ -58,7 +58,7 @@ public class ArriendoController {
     @PostMapping("/arriendo/contrato/precontrato/{precontratoid}/seguro/aseguradora/poliza/{aseguradoraid}/capacidad/costos/{capacidadeconomicaid}/empresas/convenio/{convenioid}/empresa/corredores/{corredorid}/nuevoarriendo")
     @ResponseBody
     @JsonFormat
-    public void createCapacidadEconomica(@PathVariable(value = "precontratoid") String precontratoid,
+    public void createaArriendo(@PathVariable(value = "precontratoid") String precontratoid,
                                          @PathVariable(value = "aseguradoraid") String aseguradoraid,
                                          @PathVariable(value = "capacidadeconomicaid") String capacidadeconomicaid,
                                          @PathVariable(value = "convenioid") String convenioid,
@@ -96,7 +96,7 @@ public class ArriendoController {
     @PutMapping("/arriendo/contrato/precontrato/{precontratoid}/seguro/aseguradora/poliza/{aseguradoraid}/capacidad/costos/{capacidadeconomicaid}/empresas/convenio/{convenioid}/empresa/corredores/{corredorid}/nuevoarriendo")
     @ResponseBody
     @JsonFormat
-    public Arriendo actualizarArriendo(@PathVariable(value = "precontratoid") String precontratoid,
+    public Arriendo updateArriendo(@PathVariable(value = "precontratoid") String precontratoid,
                                        @PathVariable(value = "aseguradoraid") String aseguradoraid,
                                        @PathVariable(value = "capacidadeconomicaid") String capacidadeconomicaid,
                                        @PathVariable(value = "convenioid") String convenioid,
@@ -126,12 +126,12 @@ public class ArriendoController {
                 "ID " + corredorid + "not found"));
     }
 
-    //TODO REVISION Y CORRECCION DE METODO DELETE
+    //TODO REVISION Y CORRECCION DE METODO DELETE, probar
     //#DELETE METHOD: ELIMINAR CONVENIO
     @DeleteMapping("/cliente/{cedulaid}/ingresos/{liquidacionid}/honorarios/{boletaHonorarioId}/documentacion/{contratioid}/arriendo/{arriendoid}/cliente/capacidadecomicalciente/{idCapacidad}/eliminar")
     @ResponseBody
     @JsonFormat
-    public ResponseEntity<?> eliminarCapacidadeconomica(@PathVariable(value = "precontratoid") String precontratoid,
+    public ResponseEntity<?> deleteArriendo(@PathVariable(value = "precontratoid") String precontratoid,
                                                         @PathVariable(value = "aseguradoraid") String aseguradoraid,
                                                         @PathVariable(value = "capacidadeconomicaid") String capacidadeconomicaid,
                                                         @PathVariable(value = "convenioid") String convenioid,

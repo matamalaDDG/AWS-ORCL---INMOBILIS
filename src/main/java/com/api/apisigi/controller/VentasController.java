@@ -166,7 +166,7 @@ public class VentasController {
     @DeleteMapping("/nuevaventa/conservador/{idconservador}/empresas/convenio/{idcovenio}/banco/tipopago/documentos/{iddocbanco}/notaria/documentos/{iddocnotaria}/externos/venta/servicios/{idservicio}/documentos/venta/tasacion/{idtasacion}/ventas/vendedor/corredor/{idcorredor}")
     @ResponseBody
     @JsonFormat
-    public ResponseEntity<?> eliminarCapacidadeconomica(@PathVariable(value = "idconservador") String idconservador,
+    public ResponseEntity<?> deleteVenta(@PathVariable(value = "idconservador") String idconservador,
                                                         @PathVariable(value = "idcovenio") String idcovenio,
                                                         @PathVariable(value = "iddocbanco") String iddocbanco,
                                                         @PathVariable(value = "iddocnotaria") String iddocnotaria,

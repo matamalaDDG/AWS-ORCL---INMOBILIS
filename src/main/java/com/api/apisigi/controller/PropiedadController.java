@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/inmobiliaria/propiedades")
 public class PropiedadController {
-    //TODO Comenzar controlador propiedad completo
 
     @Autowired
     @Qualifier("propiedadRepo")
