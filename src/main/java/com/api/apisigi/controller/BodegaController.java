@@ -4,6 +4,8 @@ import com.api.apisigi.entity.Bodega;
 import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRBodega;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/propiedades/tipo/bodega")
 public class BodegaController {
+    public static final Log logger = LogFactory.getLog(BodegaController.class);
+
     //#DEPENDENCI INJECTION AREA
     @Autowired
     @Qualifier("bodegaRepo")
@@ -31,13 +35,20 @@ public class BodegaController {
         return bodegarepo.findAll();
     }
 
-    //#POSTMAPPING
-    @PostMapping("/nbodega")
+            //#POSTMAPPING
+    @PostMapping("/bodega")
     @ResponseBody
     @JsonFormat
-    public Bodega createEdificio(@Valid @RequestBody Bodega bodega) {
-        //logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        return bodegarepo.save(bodega);
+    public void createBodega(@Valid @RequestBody Bodega bodega) {
+        logger.info("[creando Bodega : ROUTE: /bodegas.... Method: createBodega]");
+        try {
+            logger.info("[creando Bodega : ROUTE: .... Method: createBodega]");
+            logger.info("[Bodega creada : ROUTE: .... Method: createBodega]");
+            bodegarepo.save(bodega);
+        } catch (Exception ex) {
+            logger.error("[Error creando bodega  : ROUTE: .... Method: createBodega]");
+            return;
+        }
     }
 
     //#UPDATEMAPPING
@@ -50,6 +61,7 @@ public class BodegaController {
             bodega.setIdBodega(bodegarequest.getIdBodega());
             bodega.setNumIdentBodega(bodegarequest.getNumIdentBodega());
             bodega.setMtsCuad(bodegarequest.getMtsCuad());
+            int random = (int)(Math.random() * 999999 + 1);
             return bodegarepo.save(bodega);
         }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + bodegaId + " not found"));
     }

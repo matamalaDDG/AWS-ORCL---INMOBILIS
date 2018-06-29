@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO PRECONTRATO
 @Entity
@@ -13,7 +13,7 @@ public class Precontrato {
     private String idPreContrato;
     private String estado;
     private String descripcion;
-    private Collection<Arriendo> arriendo;
+    private List<Arriendo> arriendo;
     private Documento documento;
 
     @Id
@@ -63,11 +63,11 @@ public class Precontrato {
     }
 
     @OneToMany(mappedBy = "precontrato")
-    public Collection<Arriendo> getArriendo() {
+    public List<Arriendo> getArriendo() {
         return arriendo;
     }
 
-    public void setArriendo(Collection<Arriendo> arriendo) {
+    public void setArriendo(List<Arriendo> arriendo) {
         this.arriendo = arriendo;
     }
 

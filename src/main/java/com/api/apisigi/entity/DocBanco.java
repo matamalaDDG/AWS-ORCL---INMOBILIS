@@ -4,19 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO DOCBANCO
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
-@Table(name = "DOC_BANCO", schema = "SIGIADMIN", catalog = "")
 public class DocBanco {
     private String idBanco;
     private String tipoPago;
     private long monto;
     private String banco;
     private Documento documento;
-    private Collection<Venta> venta;
+    private List<Venta> venta;
 
     @Id
     @Column(name = "ID_BANCO")
@@ -86,11 +85,11 @@ public class DocBanco {
     }
 
     @OneToMany(mappedBy = "docbanco")
-    public Collection<Venta> getVenta() {
+    public List<Venta> getVenta() {
         return venta;
     }
 
-    public void setVenta(Collection<Venta> venta) {
+    public void setVenta(List<Venta> venta) {
         this.venta = venta;
     }
 }

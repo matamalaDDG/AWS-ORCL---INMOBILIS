@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO CONTRATO
 @Entity
@@ -15,7 +15,7 @@ public class Contrato {
     private String descripcion;
     private Time fechaInico;
     private Time fechaFin;
-    private Collection<CapacidadEconomica> capacidadeconomica;
+    private List<CapacidadEconomica> capacidadeconomica;
     private Documento tbldocumento;
 
     @Id
@@ -76,11 +76,11 @@ public class Contrato {
     }
 
     @OneToMany(mappedBy = "contrato")
-    public Collection<CapacidadEconomica> getCapacidadeconomica() {
+    public List<CapacidadEconomica> getCapacidadeconomica() {
         return capacidadeconomica;
     }
 
-    public void setCapacidadeconomica(Collection<CapacidadEconomica> capacidadeconomica) {
+    public void setCapacidadeconomica(List<CapacidadEconomica> capacidadeconomica) {
         this.capacidadeconomica = capacidadeconomica;
     }
 

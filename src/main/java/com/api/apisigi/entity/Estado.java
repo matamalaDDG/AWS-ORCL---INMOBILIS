@@ -1,10 +1,11 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO ESTADO
 @Entity
@@ -12,7 +13,8 @@ import java.util.Objects;
 public class Estado {
     private String idEstado;
     private String estado;
-    private Collection<Propiedad> propiedad;
+    @JsonBackReference
+    private List<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_ESTADO")
@@ -50,11 +52,11 @@ public class Estado {
     }
 
     @OneToMany(mappedBy = "estado")
-    public Collection<Propiedad> getPropiedad() {
+    public List<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedad) {
+    public void setPropiedad(List<Propiedad> propiedad) {
         this.propiedad = propiedad;
     }
 }

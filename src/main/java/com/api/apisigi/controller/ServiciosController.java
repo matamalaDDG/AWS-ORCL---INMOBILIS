@@ -5,6 +5,8 @@ import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRAseguradora;
 import com.api.apisigi.repository.IRServicios;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/propiedades/venta/proceso/contrato/servicios")
+@RequestMapping("/api/propiedades/venta/proceso/contrato/servicio")
 public class ServiciosController {
+    public static final Log logger = LogFactory.getLog(ServiciosController.class);
 
     //   INYECCION DE DEPENDENCIAS
     @Autowired

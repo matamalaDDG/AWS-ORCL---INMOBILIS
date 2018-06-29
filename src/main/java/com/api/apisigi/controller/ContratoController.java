@@ -36,6 +36,7 @@ public class ContratoController {
     @JsonFormat
     public Contrato agregarContrato(@PathVariable(value = "documentoId") String documentoId,
                                     @Valid @RequestBody Contrato contrato) {
+
         return contratorepo.save(
                 documentorepo.findById(documentoId).map(documento -> {
                     contrato.setTbldocumento(documento);

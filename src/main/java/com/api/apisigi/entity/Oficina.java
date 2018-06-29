@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO OFICINA
 @Entity
@@ -14,7 +14,7 @@ public class Oficina {
     private long numOficina;
     private long mtsCuadDisp;
     private PatenteComercial patenteComercial;
-    private Collection<com.api.apisigi.entity.Propiedad> Propiedad;
+    private List<Propiedad> Propiedad;
 
     @Id
     @Column(name = "ID_OFICINA")
@@ -73,11 +73,11 @@ public class Oficina {
     }
 
     @OneToMany(mappedBy = "oficina")
-    public Collection<com.api.apisigi.entity.Propiedad> getPropiedad() {
+    public List<Propiedad> getPropiedad() {
         return Propiedad;
     }
 
-    public void setPropiedad(Collection<com.api.apisigi.entity.Propiedad> propiedad) {
+    public void setPropiedad(List<Propiedad> propiedad) {
         Propiedad = propiedad;
     }
 }

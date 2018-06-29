@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO CONDOMINIO
 @Entity
@@ -13,7 +13,7 @@ public class Condominio {
     private String idCondominio;
     private String nombre;
     private long numeroCond;
-    private Collection<Casa> casa;
+    private List<Casa> casa;
 
     @Id
     @Column(name = "ID_CONDOMINIO")
@@ -62,11 +62,11 @@ public class Condominio {
     }
 
     @OneToMany(mappedBy = "condominio")
-    public Collection<Casa> getCasa() {
+    public List<Casa> getCasa() {
         return casa;
     }
 
-    public void setCasa(Collection<Casa> casa) {
+    public void setCasa(List<Casa> casa) {
         this.casa = casa;
     }
 }

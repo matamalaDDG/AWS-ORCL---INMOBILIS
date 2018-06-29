@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO DOCUMENTO
 @Entity
@@ -14,15 +14,15 @@ public class Documento {
     private String idDocumento;
     private String descripcion;
     private byte[] documento;
-    private Collection<BoletaHonorario> boletahonorario;
-    private Collection<CedulaIdentidad> cedulaidentidad;
-    private Collection<Conservador> conservador;
-    private Collection<Contrato> contrato;
-    private Collection<DocBanco> docbanco;
-    private Collection<DocNotaria> docnotaria;
-    private Collection<LiquidacionSueldo> liquidacionsueldo;
-    private Collection<Precontrato> precontrato;
-    private Collection<Tasacion> tasacion;
+    private List<BoletaHonorario> boletahonorario;
+    private List<CedulaIdentidad> cedulaidentidad;
+    private List<Conservador> conservador;
+    private List<Contrato> contrato;
+    private List<DocBanco> docbanco;
+    private List<DocNotaria> docnotaria;
+    private List<LiquidacionSueldo> liquidacionsueldo;
+    private List<Precontrato> precontrato;
+    private List<Tasacion> tasacion;
 
     @Id
     @Column(name = "ID_DOCUMENTO")
@@ -73,83 +73,83 @@ public class Documento {
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<BoletaHonorario> getBoletahonorario() {
+    public List<BoletaHonorario> getBoletahonorario() {
         return boletahonorario;
     }
 
-    public void setBoletahonorario(Collection<BoletaHonorario> boletahonorario) {
+    public void setBoletahonorario(List<BoletaHonorario> boletahonorario) {
         this.boletahonorario = boletahonorario;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<CedulaIdentidad> getCedulaidentidad() {
+    public List<CedulaIdentidad> getCedulaidentidad() {
         return cedulaidentidad;
     }
 
-    public void setCedulaidentidad(Collection<CedulaIdentidad> cedulaidentidad) {
+    public void setCedulaidentidad(List<CedulaIdentidad> cedulaidentidad) {
         this.cedulaidentidad = cedulaidentidad;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<Conservador> getConservador() {
+    public List<Conservador> getConservador() {
         return conservador;
     }
 
-    public void setConservador(Collection<Conservador> conservador) {
+    public void setConservador(List<Conservador> conservador) {
         this.conservador = conservador;
     }
 
     @OneToMany(mappedBy = "tbldocumento")
-    public Collection<Contrato> getContrato() {
+    public List<Contrato> getContrato() {
         return contrato;
     }
 
-    public void setContrato(Collection<Contrato> contrato) {
+    public void setContrato(List<Contrato> contrato) {
         this.contrato = contrato;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<DocBanco> getDocbanco() {
+    public List<DocBanco> getDocbanco() {
         return docbanco;
     }
 
-    public void setDocbanco(Collection<DocBanco> docbanco) {
+    public void setDocbanco(List<DocBanco> docbanco) {
         this.docbanco = docbanco;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<DocNotaria> getDocnotaria() {
+    public List<DocNotaria> getDocnotaria() {
         return docnotaria;
     }
 
-    public void setDocnotaria(Collection<DocNotaria> docnotaria) {
+    public void setDocnotaria(List<DocNotaria> docnotaria) {
         this.docnotaria = docnotaria;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<LiquidacionSueldo> getLiquidacionsueldo() {
+    public List<LiquidacionSueldo> getLiquidacionsueldo() {
         return liquidacionsueldo;
     }
 
-    public void setLiquidacionsueldo(Collection<LiquidacionSueldo> liquidacionsueldo) {
+    public void setLiquidacionsueldo(List<LiquidacionSueldo> liquidacionsueldo) {
         this.liquidacionsueldo = liquidacionsueldo;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<Precontrato> getPrecontrato() {
+    public List<Precontrato> getPrecontrato() {
         return precontrato;
     }
 
-    public void setPrecontrato(Collection<Precontrato> precontrato) {
+    public void setPrecontrato(List<Precontrato> precontrato) {
         this.precontrato = precontrato;
     }
 
     @OneToMany(mappedBy = "documento")
-    public Collection<Tasacion> getTasacion() {
+    public List<Tasacion> getTasacion() {
         return tasacion;
     }
 
-    public void setTasacion(Collection<Tasacion> tasacion) {
+    public void setTasacion(List<Tasacion> tasacion) {
         this.tasacion = tasacion;
     }
 }

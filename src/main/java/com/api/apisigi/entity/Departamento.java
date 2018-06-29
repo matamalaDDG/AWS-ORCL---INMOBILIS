@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,7 +16,7 @@ public class Departamento {
     private long cantBaños;
     private long mtsCuadConst;
     private Edificio edificio;
-    private Collection<Propiedad> propiedad;
+    private List<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_DEPTO")
@@ -97,11 +97,11 @@ public class Departamento {
     }
 
     @OneToMany(mappedBy = "departamento")
-    public Collection<Propiedad> getPropiedad() {
+    public List<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedad) {
+    public void setPropiedad(List<Propiedad> propiedad) {
         this.propiedad = propiedad;
     }
 }

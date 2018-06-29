@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO CONSERVADOR
 @Entity
@@ -13,7 +13,7 @@ public class Conservador {
     private String idDocConservador;
     private String nomConservador;
     private Documento documento;
-    private Collection<Venta> venta;
+    private List<Venta> venta;
 
     @Id
     @Column(name = "ID_DOC_CONSERVADOR")
@@ -61,11 +61,11 @@ public class Conservador {
     }
 
     @OneToMany(mappedBy = "conservador")
-    public Collection<Venta> getVenta() {
+    public List<Venta> getVenta() {
         return venta;
     }
 
-    public void setVenta(Collection<Venta> venta) {
+    public void setVenta(List<Venta> venta) {
         this.venta = venta;
     }
 }

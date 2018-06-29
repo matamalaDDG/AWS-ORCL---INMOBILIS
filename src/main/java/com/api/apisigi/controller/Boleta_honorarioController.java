@@ -43,7 +43,10 @@ public class Boleta_honorarioController {
                                                 @Valid @RequestBody BoletaHonorario boletaHonorario) {
         return boletahonorariorepo.save(
                 documentorepo.findById(documentoId).map(documento -> {
-                    boletaHonorario.setDocumento(documento);
+                    int random = (int)(Math.random() * 999999 + 1);
+                    String id = "BOLHO"+ random;
+                    boletaHonorario.setIdBoleta(id);
+                            boletaHonorario.setDocumento(documento);
                     return boletaHonorario;
                 }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + documentoId + " not found")));
     }

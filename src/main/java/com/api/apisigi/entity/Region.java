@@ -1,12 +1,9 @@
 package com.api.apisigi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO REGION
 
@@ -19,11 +16,11 @@ import java.util.Objects;
 })*/
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class,property = "UUID")
 public class Region {
     private String idRegion;
     private String region;
-    private Collection<Comuna> comuna;
+    @JsonBackReference
+    private List<Comuna> comuna;
 
     @Id
     @Column(name = "ID_REGION")
@@ -63,12 +60,12 @@ public class Region {
     @JsonIgnore
     @OneToMany(mappedBy = "region",
             cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    public Collection<Comuna> getComuna() {
+            orphanRemoval = false)
+    public List<Comuna> getComuna() {
         return comuna;
     }
 
-    public void setComuna(Collection<Comuna> comuna) {
+    public void setComuna(List<Comuna> comuna) {
         this.comuna = comuna;
     }
 }

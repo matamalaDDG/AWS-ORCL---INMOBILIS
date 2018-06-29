@@ -1,20 +1,19 @@
 package com.api.apisigi.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO COMUNA
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
 public class Comuna {
     private String idComuna;
     private String comuna;
+
     private Region region;
-    private Collection<Propiedad> propiedad;
+
+    private List<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_COMUNA")
@@ -52,6 +51,8 @@ public class Comuna {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JsonManagedReference("region")
     @JoinColumn(name = "ID_REGION", referencedColumnName = "ID_REGION", nullable = false)
     public Region getRegion() {
         return region;
@@ -61,13 +62,17 @@ public class Comuna {
         this.region = region;
     }
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "comuna")
-    public Collection<Propiedad> getPropiedad() {
+
+    @OneToMany(mappedBy = "comuna",
+            cascade = CascadeType.ALL,
+            orphanRemoval = false)
+    @JsonIgnore
+    @JsonBackReference("propiedad")
+    public List<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedad) {
+    public void setPropiedad(List<Propiedad> propiedad) {
         this.propiedad = propiedad;
     }
 }

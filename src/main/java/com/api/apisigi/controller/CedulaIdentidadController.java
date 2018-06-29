@@ -5,6 +5,8 @@ import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRCedulaIdentidad;
 import com.api.apisigi.repository.IRDocumento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/propiedad/cliente/")
 public class CedulaIdentidadController {
+    //#LOGS
+    public static final Log logger = LogFactory.getLog(RegionController.class);
 
     @Autowired
     @Qualifier("cedulaIdentidadRepo")
@@ -40,13 +44,21 @@ public class CedulaIdentidadController {
     @PostMapping("/documento/{documentoId}/cedulaidentidad/NCedulaIdentidad")
     @ResponseBody
     @JsonFormat
-    public CedulaIdentidad crearCedulaIdentidad(@PathVariable(value = "documentoId") String documentoId,
+    public void crearCedulaIdentidad(@PathVariable(value = "documentoId") String documentoId,
                                                 @Valid @RequestBody CedulaIdentidad cedulaIdentidad) {
-        return cedulaidentidadrepo.save(
-                documentorepo.findById(documentoId).map(documento -> {
-                    cedulaIdentidad.setDocumento(documento);
-                    return cedulaIdentidad;
-                }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + documentoId + " not found")));
+        try {
+             cedulaidentidadrepo.save(
+                    documentorepo.findById(documentoId).map(documento -> {
+                        cedulaIdentidad.setDocumento(documento);
+                        int random = (int) (Math.random() * 999999 + 1);
+                        String id = "CDI" + random;
+                        cedulaIdentidad.setIdCedula(id);
+                        return cedulaIdentidad;
+                    }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + documentoId + " not found")));
+        } catch (Exception ex) {
+            return ;
+        }
+
     }
 
     //    PUT MAPPING:

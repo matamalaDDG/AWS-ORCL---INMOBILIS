@@ -8,7 +8,6 @@ import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO ERRORLOGS
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
-@Table(name = "ERROR_LOGS", schema = "SIGIADMIN")
 public class ErrorLogs extends Exception{
     private String idError;
     private String descripcion;

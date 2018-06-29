@@ -34,9 +34,17 @@ public class CondominioController {
     @PostMapping("/ncondominio")
     @ResponseBody
     @JsonFormat
-    public Condominio createEdificio(@Valid @RequestBody Condominio condominio) {
+    public void  createEdificio(@Valid @RequestBody Condominio condominio) {
         //logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        return condomioniorepo.save(condominio);
+        try{
+            int random = (int)(Math.random() * 999999 + 1);
+            String id = "COND"+ random;
+            condominio.setIdCondominio(id);
+            condomioniorepo.save(condominio);
+        }catch (Exception ex){
+            return;
+        }
+
     }
 
     //#UPDATEMAPPING

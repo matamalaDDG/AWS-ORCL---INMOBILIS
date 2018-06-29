@@ -4,17 +4,22 @@ import com.api.apisigi.entity.Documento;
 import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRDocumento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/propiedades/ventas/proceso/documentos")
 public class DocumentoController {
+
+    public static final Log logger = LogFactory.getLog(DocNotariaController.class);
 
     //    INYECCION DE DEPENDENCIAS
     @Autowired
@@ -25,51 +30,79 @@ public class DocumentoController {
     @GetMapping("/documentos")
     @ResponseBody
     @JsonFormat
-    public List<Documento> getAll() {
-        return documentorepo.findAll();
+    public List<Documento> getAllDocumento() {
+        logger.info("[Buscando Documento : ROUTE: /Documento .... Method: getAllDocumento]");
+        try {
+            logger.info("[Listando Documento : ROUTE: /Documento .... Method: getAllDocumento]");
+            logger.info("[Documento Listadas : ROUTE: /Documento.... Method: getAllDocumento]");
+            List temp_Documento = new ArrayList<>();
+            documentorepo.findAll().forEach(temp_Documento::add);
+            return temp_Documento;
+        } catch (Exception ex) {
+            logger.error("[Error Documento Listadas : ROUTE: /Documento.... Method: getAllDocumento]" + ex.getMessage());
+            return null;
+        }
     }
-
-    //TODO
-    //    GET MAPPING: ById
-    //    GET MAPPING: ByDescripcion
-    //    GET MAPPING: ByDocumento
 
 
     //    POST MAPPING
-    @PostMapping("/ndocumento")
+    @PostMapping("/documento")
     @ResponseBody
     @JsonFormat
-    public Documento createDocumento(@Valid @RequestBody Documento documento) {
-        // logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        return documentorepo.save(documento);
+    public void createDocumento(@Valid @RequestBody Documento documento) {
+        logger.info("[Creando Documento  : ROUTE: /Documento .... Method: createDocumento]");
+        try {
+            logger.info("[creando ..... : ROUTE: .... Method: createDocumento]");
+            logger.info("[Documento creada : ROUTE: .... Method: createDocumento]");
+            documentorepo.save(documento);
+        } catch (Exception ex) {
+            logger.error("[Error  creando documento  : ROUTE: .... Method: createDocumento]");
+            ex.getMessage();
+            return;
+        }
     }
 
     //    UPDATE MAPPING
-    @PutMapping("/udocumento/{documentoId}")
+    @PutMapping("/documento/{documentoId}")
     @ResponseBody
     @JsonFormat
-    public Documento updateDocumento(@PathVariable String documentoId,
-                                     @Valid @RequestBody Documento documentorequest) {
-        return documentorepo.findById(documentoId).map(documento -> {
-            documento.setIdDocumento(documentorequest.getIdDocumento());
-            documento.setDescripcion(documentorequest.getDescripcion());
-            documento.setDocumento(documentorequest.getDocumento());
-            return documentorepo.save(documento);
-        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + documentoId + " not found"));
+    public void updateDocumento(@PathVariable String documentoId,
+                                @Valid @RequestBody Documento documentorequest) {
+        logger.info("[actualizando Documento  : ROUTE: /Documento .... Method: updateDocumento]");
+
+        try {
+            logger.info("[actualizando ....  : ROUTE: /Documento .... Method: updateDocumento]");
+            documentorepo.findById(documentoId).map(documento -> {
+                documento.setIdDocumento(documentorequest.getIdDocumento());
+                documento.setDescripcion(documentorequest.getDescripcion());
+                documento.setDocumento(documentorequest.getDocumento());
+                logger.info("[Documento actualizado   : ROUTE: /Documento .... Method: updateDocumento]");
+                return documentorepo.save(documento);
+            }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + documentoId + " not found"));
+        } catch (Exception ex) {
+            logger.error("[Error actualizando Documento  : ROUTE: /Documento .... Method: updateDocumento]");
+            ex.getMessage();
+            return;
+        }
     }
 
     //    DELETE MAPPING
-    @DeleteMapping("/ddocumento/{documentoId}")
+    @DeleteMapping("/documento/{documentoId}")
     @ResponseBody
     @JsonFormat
-    public ResponseEntity<?> deleteRegion(@PathVariable String documentoId) {
-        //    logger.info("[buscado region : /dregion/{regionId}.... Method: deletePost]");
-        return documentorepo.findById(documentoId).map(documento -> {
-            //        logger.info("[Eliminando region  region : /dregion/{regionId}.... Method: deletePost]");
-            documentorepo.delete(documento);
-            //         logger.info("[region eliminada: /dregion/{regionId}.... Method: deletePost .... state: success]");
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundExcption("PostId " + documentoId + " not found"));
+    public ResponseEntity<?> deleteDocumento(@PathVariable String documentoId) {
+        logger.info("[Eliminando Documento  : ROUTE: /Documento .... Method: updateDocumento]");
+        try {
+            logger.info("[Eliminando..... : ROUTE: /Documento .... Method: updateDocumento]");
+            return documentorepo.findById(documentoId).map(documento -> {
+                documentorepo.delete(documento);
+                logger.info("[Documento Eliminado  : ROUTE: /Documento .... Method: updateDocumento]");
+                return ResponseEntity.ok().build();
+            }).orElseThrow(() -> new ResourceNotFoundExcption("documentoId " + documentoId + " not found"));
+        } catch (Exception ex) {
+            logger.error("[Error eliminando Documento  : ROUTE: /Documento .... Method: deleteDocumento]");
+            return null;
+        }
     }
 
 }

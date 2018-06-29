@@ -1,10 +1,14 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
-//TODO PROCEDIMIENTO ALMACENADO ARRIENDO
+
+
 @Entity
 public class Arriendo {
     private String idArriendo;
@@ -15,8 +19,8 @@ public class Arriendo {
     private Aseguradora aseguradora;
     private CapacidadEconomica capacidadeconomica;
     private Precontrato precontrato;
-    private Corredor corredor;
-    private Collection<Propiedad> propiedad;
+
+    private List<Propiedad> propiedad;
 
     @Id
     @Column(name = "ID_ARRIENDO")
@@ -76,6 +80,7 @@ public class Arriendo {
     }
 
     @ManyToOne
+    @JsonManagedReference("convenio")
     @JoinColumn(name = "ID_CONVENIO", referencedColumnName = "ID_CONVENIO")
     public Convenio getConvenio() {
         return convenio;
@@ -86,6 +91,7 @@ public class Arriendo {
     }
 
     @ManyToOne
+    @JsonManagedReference("aseguradora")
     @JoinColumn(name = "ID_ASEGURADORA", referencedColumnName = "ID_ASEGURADORA")
     public Aseguradora getAseguradora() {
         return aseguradora;
@@ -96,6 +102,7 @@ public class Arriendo {
     }
 
     @ManyToOne
+    @JsonManagedReference("capacidadeconomica")
     @JoinColumn(name = "ID_CAPACIDAD_ECONOMICA", referencedColumnName = "ID_CAPACIDAD_ECONOMICA", nullable = false)
     public CapacidadEconomica getCapacidadeconomica() {
         return capacidadeconomica;
@@ -106,6 +113,7 @@ public class Arriendo {
     }
 
     @ManyToOne
+    @JsonManagedReference("precontrato")
     @JoinColumn(name = "ID_PRE_CONTRATO", referencedColumnName = "ID_PRE_CONTRATO")
     public Precontrato getPrecontrato() {
         return precontrato;
@@ -115,22 +123,13 @@ public class Arriendo {
         this.precontrato = precontrato;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "ID_CORREDOR", referencedColumnName = "ID_CORREDOR")
-    public Corredor getCorredor() {
-        return corredor;
-    }
-
-    public void setCorredor(Corredor corredor) {
-        this.corredor = corredor;
-    }
-
+    @JsonBackReference("propiedad")
     @OneToMany(mappedBy = "arriendo")
-    public Collection<Propiedad> getPropiedad() {
+    public List<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedad) {
+    public void setPropiedad(List<Propiedad> propiedad) {
         this.propiedad = propiedad;
     }
 }

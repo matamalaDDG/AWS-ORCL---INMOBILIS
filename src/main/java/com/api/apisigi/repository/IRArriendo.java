@@ -11,6 +11,6 @@ package com.api.apisigi.repository;
 
 @Repository("arriendoRepo")
 public interface IRArriendo extends JpaRepository<Arriendo, String> {
-    public abstract Optional<Arriendo> findArriendoByAseguradoraAndPrecontratoAndCapacidadeconomicaAndConvenioAndCorredor(String precontratoid,String aseguradoraid,String capacidadeconomicaid,String convenioid,String corredorid);
+    public abstract Optional<Arriendo> findArriendoByAseguradoraAndPrecontratoAndCapacidadeconomicaAndConvenio(String precontratoid,String aseguradoraid,String capacidadeconomicaid,String convenioid);
 
 }

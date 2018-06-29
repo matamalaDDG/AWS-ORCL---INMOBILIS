@@ -1,25 +1,49 @@
 package com.api.apisigi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO PERFILCLIENTE
+
+@NamedStoredProcedureQuery(
+		name = "proceso_usuarios_sp", // name of stored procedure in the persistence unit
+		procedureName = "PROCESO_USUARIOS", //name of  stored procedure in the database
+		parameters = //Parameters of the stored procedure
+		{
+            @StoredProcedureParameter(name = "nombre", mode = ParameterMode.IN, type = String.class),
+            @StoredProcedureParameter(name = "apellido", mode = ParameterMode.IN, type = String.class),
+            @StoredProcedureParameter(name = "correo", mode = ParameterMode.IN, type = String.class),
+            @StoredProcedureParameter(name = "rut", mode = ParameterMode.IN, type = String.class),
+            @StoredProcedureParameter(name = "tipoCliente", mode = ParameterMode.IN, type = String.class)
+		}
+)
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
-@Table(name = "PERFIL_CLIENTE", schema = "SIGIADMIN", catalog = "")
 public class PerfilCliente {
+
     private String idPerfil;
     private String nombre;
     private String apellido;
     private String correo;
     private String rut;
     private String tipoCliente;
-    private Collection<Corredor> corredor;
     private Cuenta cuenta;
-    private Collection<Propiedad> propiedad;
+    private List<Propiedad> propiedad;
+
+    public PerfilCliente() {
+    }
+
+    public PerfilCliente(String nombre, String apellido, String correo, String rut, String tipoCliente) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.rut = rut;
+        this.tipoCliente = tipoCliente;
+    }
+
+
 
     @Id
     @Column(name = "ID_PERFIL")
@@ -100,15 +124,7 @@ public class PerfilCliente {
         return Objects.hash(idPerfil, nombre, apellido, correo, rut, tipoCliente);
     }
 
-    @OneToMany(mappedBy = "perfilcliente")
-    public Collection<Corredor> getCorredor() {
-        return corredor;
-    }
-
-    public void setCorredor(Collection<Corredor> corredor) {
-        this.corredor = corredor;
-    }
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_CUENTA", referencedColumnName = "ID_CUENTA", nullable = false)
     public Cuenta getCuenta() {
@@ -119,12 +135,13 @@ public class PerfilCliente {
         this.cuenta = cuenta;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "perfilcliente")
-    public Collection<Propiedad> getPropiedad() {
+    public List<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedad) {
+    public void setPropiedad(List<Propiedad> propiedad) {
         this.propiedad = propiedad;
     }
 }

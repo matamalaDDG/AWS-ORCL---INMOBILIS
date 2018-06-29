@@ -4,17 +4,21 @@ import com.api.apisigi.entity.Empresas;
 import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IREmpresas;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/propiedades/convenio/empresas")
+@RequestMapping("/api/propiedades/convenio/externos")
 public class EmpresasController {
+    public static final Log logger = LogFactory.getLog(RolesController.class);
 
     //    INYECCION DE DEPENDENCIAS
     @Autowired
@@ -25,17 +29,37 @@ public class EmpresasController {
     @GetMapping("/empresas")
     @ResponseBody
     @JsonFormat
-    public List<Empresas> getAll() {
-        return empresasrepo.findAll();
+    public List<Empresas> getAllEmpresas() {
+        try {
+            logger.info("[Buscando Empresas : ROUTE: /empresas .... Method: getAllEmpresas]");
+            logger.info("[Listando Empresas : ROUTE: /empresas .... Method: getAllEmpresas]");
+            logger.info("[Empresas Listados : ROUTE: /empresas.... Method: getAllEmpresas]");
+            List temp_empresas = new ArrayList<>();
+            empresasrepo.findAll().forEach(temp_empresas::add);
+
+            return temp_empresas;
+
+        } catch (Exception ex) {
+
+            logger.error("[Error Listado Empresas : ROUTE: /empresas.... Method: getAllEmpresas]" + ex.getMessage());
+            return null;
+        }
     }
 
     //    POST MAPPING
-    @PostMapping("/nempresa")
+    @PostMapping("/empresa")
     @ResponseBody
     @JsonFormat
-    public Empresas createRegion(@Valid @RequestBody Empresas empresas) {
-        // logger.info("[creando region : ROUTE: /dregion/{regionId}.... Method: createRegion]");
-        return empresasrepo.save(empresas);
+    public void createRegion(@Valid @RequestBody Empresas empresas) {
+        try {
+            logger.info("[creando empresa : ROUTE: .... Method: createRegion]");
+            logger.info("[empresa creada : ROUTE: .... Method: createRegion]");
+             empresasrepo.save(empresas);
+        } catch (Exception ex) {
+            logger.error("[Error creando Empresas : ROUTE: /empresas.... Method: getAllEmpresas]" + ex.getMessage());
+            return ;
+        }
+
     }
 
     //    UPDATE MAPPING

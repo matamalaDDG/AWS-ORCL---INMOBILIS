@@ -1,22 +1,30 @@
 package com.api.apisigi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.List;
+
+
 //TODO PROCEDIMIENTO ALMACENADO CUENTA
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
 public class Cuenta {
+
     private String idCuenta;
     private String usuario;
     private String password;
-    private Collection<PerfilCliente> perfilcliente;
+    private int isEnabled;
+    private List<PerfilCliente> perfilcliente;
+    private Roles roles;
+
+
+    public Cuenta() {
+    }
+
 
     @Id
     @Column(name = "ID_CUENTA")
+
     public String getIdCuenta() {
         return idCuenta;
     }
@@ -36,7 +44,7 @@ public class Cuenta {
     }
 
     @Basic
-    @Column(name = "PASSWORD")
+    @Column(name = "CONTRASENA")
     public String getPassword() {
         return password;
     }
@@ -45,28 +53,45 @@ public class Cuenta {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cuenta cuenta = (Cuenta) o;
-        return Objects.equals(idCuenta, cuenta.idCuenta) &&
-                Objects.equals(usuario, cuenta.usuario) &&
-                Objects.equals(password, cuenta.password);
+    @Basic
+    @Column(name = "ISENABLED")
+    public int getIsEnabled() {
+        return isEnabled;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(idCuenta, usuario, password);
+    public void setIsEnabled(int isEnabled) {
+        this.isEnabled = isEnabled;
     }
 
+    @JsonBackReference
     @OneToMany(mappedBy = "cuenta")
-    public Collection<PerfilCliente> getPerfilcliente() {
+    public List<PerfilCliente> getPerfilcliente() {
         return perfilcliente;
     }
 
-    public void setPerfilcliente(Collection<PerfilCliente> perfilcliente) {
+    public void setPerfilcliente(List<PerfilCliente> perfilcliente) {
         this.perfilcliente = perfilcliente;
+    }
+
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "IDROL", referencedColumnName = "IDROL", nullable = false)
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "Cuenta{" +
+                "idCuenta='" + idCuenta + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", password='" + password + '\'' +
+                ", perfilcliente=" + perfilcliente +
+                '}';
     }
 }

@@ -4,16 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO CEDULA IDENTIDAD
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
-@Table(name = "CEDULA_IDENTIDAD", schema = "SIGIADMIN", catalog = "")
 public class CedulaIdentidad {
     private String idCedula;
     private String descripcion;
-    private Collection<CapacidadEconomica> capacidadeconomica;
+    private List<CapacidadEconomica> capacidadeconomica;
     private Documento documento;
 
     @Id
@@ -52,11 +51,11 @@ public class CedulaIdentidad {
     }
 
     @OneToMany(mappedBy = "cedulaidentidad")
-    public Collection<CapacidadEconomica> getCapacidadeconomica() {
+    public List<CapacidadEconomica> getCapacidadeconomica() {
         return capacidadeconomica;
     }
 
-    public void setCapacidadeconomica(Collection<CapacidadEconomica> capacidadeconomica) {
+    public void setCapacidadeconomica(List<CapacidadEconomica> capacidadeconomica) {
         this.capacidadeconomica = capacidadeconomica;
     }
 

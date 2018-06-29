@@ -9,7 +9,7 @@ import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO HISTARRIENDO
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
-@Table(name = "HIST_ARRIENDO", schema = "SIGIADMIN", catalog = "")
+
 public class HistArriendo {
     private String idHistArr;
     private String arrendatario;

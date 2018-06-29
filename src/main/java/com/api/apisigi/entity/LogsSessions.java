@@ -8,7 +8,7 @@ import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO LOGSSESSIONS
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
-@Table(name = "LOGS_SESSIONS", schema = "SIGIADMIN", catalog = "")
+
 public class LogsSessions {
     private String idLogSession;
     private String descripcion;

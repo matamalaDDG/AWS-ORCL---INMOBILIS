@@ -1,10 +1,11 @@
 package com.api.apisigi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO EMPRESA
 @Entity
@@ -12,7 +13,8 @@ import java.util.Objects;
 public class Empresas {
     private String idEmpresa;
     private String nombreEmpresa;
-    private Collection<Convenio> convenio;
+    @JsonBackReference
+    private List<Convenio> convenio;
 
     @Id
     @Column(name = "ID_EMPRESA")
@@ -50,11 +52,11 @@ public class Empresas {
     }
 
     @OneToMany(mappedBy = "empresa")
-    public Collection<Convenio> getConvenio() {
+    public List<Convenio> getConvenio() {
         return convenio;
     }
 
-    public void setConvenio(Collection<Convenio> convenio) {
+    public void setConvenio(List<Convenio> convenio) {
         this.convenio = convenio;
     }
 }

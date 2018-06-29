@@ -25,9 +25,6 @@ public class ArriendoController {
     @Qualifier("capacidadEconomicaRepo")
     private IRCapacidadEconomica capacidadEconomicarepo;
 
-    @Autowired
-    @Qualifier("corredorRepo")
-    private IRCorredor corredorrepo;
 
     @Autowired
     @Qualifier("convenioRepo")
@@ -55,14 +52,13 @@ public class ArriendoController {
     }
 
     //#POST METHOD: INSERCION CONVENIO
-    @PostMapping("/arriendo/contrato/precontrato/{precontratoid}/seguro/aseguradora/poliza/{aseguradoraid}/capacidad/costos/{capacidadeconomicaid}/empresas/convenio/{convenioid}/empresa/corredores/{corredorid}/nuevoarriendo")
+    @PostMapping("/arriendo/contrato/precontrato/{precontratoid}/seguro/aseguradora/poliza/{aseguradoraid}/capacidad/costos/{capacidadeconomicaid}/empresas/convenio/{convenioid}/empresa/nuevoarriendo")
     @ResponseBody
     @JsonFormat
     public void createaArriendo(@PathVariable(value = "precontratoid") String precontratoid,
                                          @PathVariable(value = "aseguradoraid") String aseguradoraid,
                                          @PathVariable(value = "capacidadeconomicaid") String capacidadeconomicaid,
                                          @PathVariable(value = "convenioid") String convenioid,
-                                         @PathVariable(value = "corredorid") String corredorid,
                                          @Valid @RequestBody Arriendo arriendo) {
         //precontrato
         precontratorepo.findById(precontratoid).map((precontrato) -> {
@@ -84,37 +80,32 @@ public class ArriendoController {
             arriendo.setConvenio(convenio);
             return arriendo;
         }).orElseThrow(() -> new ResourceNotFoundExcption("ID" + convenioid + " not found"));
-        //corredor
-        corredorrepo.findById(corredorid).map((corredor) -> {
-            arriendo.setCorredor(corredor);
-            return arriendo;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("ID" + corredorid + " not found"));
+        int random = (int)(Math.random() * 999999 + 1);
+        String id = "ARR"+ random;
+        arriendo.setIdArriendo(id);
         arriendorepo.save(arriendo); //AGREGAMOS TODOS LOS DATOS
     }
 
     //#PUT METHOD: ELIMINAR CONVENIO
-    @PutMapping("/arriendo/contrato/precontrato/{precontratoid}/seguro/aseguradora/poliza/{aseguradoraid}/capacidad/costos/{capacidadeconomicaid}/empresas/convenio/{convenioid}/empresa/corredores/{corredorid}/nuevoarriendo")
+    @PutMapping("/arriendo/contrato/precontrato/{precontratoid}/seguro/aseguradora/poliza/{aseguradoraid}/capacidad/costos/{capacidadeconomicaid}/empresas/convenio/{convenioid}/empresa/nuevoarriendo")
     @ResponseBody
     @JsonFormat
     public Arriendo updateArriendo(@PathVariable(value = "precontratoid") String precontratoid,
                                        @PathVariable(value = "aseguradoraid") String aseguradoraid,
                                        @PathVariable(value = "capacidadeconomicaid") String capacidadeconomicaid,
                                        @PathVariable(value = "convenioid") String convenioid,
-                                       @PathVariable(value = "corredorid") String corredorid,
                                        @Valid @RequestBody Arriendo arriendorequest) {
 
         if (!precontratorepo.existsById(precontratoid) || precontratoid != "null" ||
                 !aseguradorarepo.existsById(aseguradoraid) || aseguradoraid != "null" ||
                 !capacidadEconomicarepo.existsById(capacidadeconomicaid) || capacidadeconomicaid != "null" ||
-                !conveniorepo.existsById(convenioid) || convenioid != "null" ||
-                !corredorrepo.existsById(corredorid) || corredorid != "null") {
+                !conveniorepo.existsById(convenioid) || convenioid != "null") {
             throw new ResourceNotFoundExcption("ID " + precontratoid + "not found," +
                     "ID " + aseguradoraid + "not found" +
                     "ID " + capacidadeconomicaid + "not found" +
-                    "ID " + convenioid + "not found" +
-                    "ID " + corredorid + "not found");
+                    "ID " + convenioid + "not found");
         }
-        return arriendorepo.findArriendoByAseguradoraAndPrecontratoAndCapacidadeconomicaAndConvenioAndCorredor(precontratoid, aseguradoraid, capacidadeconomicaid, convenioid, corredorid).map(arriendo -> {
+        return arriendorepo.findArriendoByAseguradoraAndPrecontratoAndCapacidadeconomicaAndConvenio(precontratoid, aseguradoraid, capacidadeconomicaid, convenioid).map(arriendo -> {
             arriendo.setNotificacion(arriendorequest.getNotificacion());
             arriendo.setFechaArriendo(arriendorequest.getFechaArriendo());
             arriendo.setMonto(arriendorequest.getMonto());
@@ -122,8 +113,7 @@ public class ArriendoController {
         }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + precontratoid + "not found," +
                 "ID " + aseguradoraid + "not found" +
                 "ID " + capacidadeconomicaid + "not found" +
-                "ID " + convenioid + "not found" +
-                "ID " + corredorid + "not found"));
+                "ID " + convenioid + "not found"));
     }
 
     //TODO REVISION Y CORRECCION DE METODO DELETE, probar
@@ -135,30 +125,26 @@ public class ArriendoController {
                                                         @PathVariable(value = "aseguradoraid") String aseguradoraid,
                                                         @PathVariable(value = "capacidadeconomicaid") String capacidadeconomicaid,
                                                         @PathVariable(value = "convenioid") String convenioid,
-                                                        @PathVariable(value = "corredorid") String corredorid,
                                                         @PathVariable(value = "arriendoid") String arriendoid) {
         if (!precontratorepo.existsById(precontratoid) || precontratoid != "null" ||
                 !aseguradorarepo.existsById(aseguradoraid) || aseguradoraid != "null" ||
                 !capacidadEconomicarepo.existsById(capacidadeconomicaid) || capacidadeconomicaid != "null" ||
-                !conveniorepo.existsById(convenioid) || convenioid != "null" ||
-                !corredorrepo.existsById(corredorid) || corredorid != "null"||
+                !conveniorepo.existsById(convenioid) || convenioid != "null"||
                 !arriendorepo.existsById(arriendoid) ) {
             throw new ResourceNotFoundExcption("ID " + precontratoid + "not found," +
                     "ID " + aseguradoraid + "not found" +
                     "ID " + capacidadeconomicaid + "not found" +
                     "ID " + convenioid + "not found" +
-                    "ID " + corredorid + "not found" +
                     "ID " + arriendoid + "not found");
         }
 
-        return arriendorepo.findArriendoByAseguradoraAndPrecontratoAndCapacidadeconomicaAndConvenioAndCorredor(precontratoid, aseguradoraid, capacidadeconomicaid, convenioid, corredorid).map(arriendo -> {
+        return arriendorepo.findArriendoByAseguradoraAndPrecontratoAndCapacidadeconomicaAndConvenio(precontratoid, aseguradoraid, capacidadeconomicaid, convenioid).map(arriendo -> {
             arriendorepo.delete(arriendo);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + precontratoid + "not found," +
                 "ID " + aseguradoraid + "not found" +
                 "ID " + capacidadeconomicaid + "not found" +
-                "ID " + convenioid + "not found" +
-                "ID " + corredorid + "not found"));
+                "ID " + convenioid + "not found"));
     }
 }
 

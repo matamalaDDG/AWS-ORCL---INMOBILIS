@@ -28,7 +28,7 @@ public class PerfilClienteController {
 
     //#ROUTE METHODS
     //#GET METHOD: LISTADO PERFILES
-    @GetMapping("/perfilesclientes/listado")
+    @GetMapping("/perfilesclientes")
     @ResponseBody
     @JsonFormat
     public List<PerfilCliente> obtenerTodosLosPerfiles() {
@@ -42,17 +42,22 @@ public class PerfilClienteController {
 
     //#ROUTE METHODS
     //#POST METHOD: INSERCION REGION
-    @PostMapping("/usuario/cuenta/{idcuenta}/perfil/nuevoperfil")
+    @PostMapping("/usuario/cuenta/{idcuenta}/perfil")
     @ResponseBody
     @JsonFormat
-    public void createComuna(@PathVariable(value = "idcuenta") String idcuenta,
+    public void createPerfil(@PathVariable(value = "idcuenta") String idcuenta,
                              @Valid @RequestBody PerfilCliente perfilCliente) {
 
-        cuentarepo.findById(idcuenta).map((cuenta) -> {
-            perfilCliente.setCuenta(cuenta);
-            return perfilCliente;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + idcuenta + " not found"));
-        perfilclienterepo.delete(perfilCliente);
+        try {
+            cuentarepo.findById(idcuenta).map((cuenta) -> {
+                perfilCliente.setCuenta(cuenta);
+                perfilclienterepo.save(perfilCliente);
+                return perfilCliente;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("CuentaID " + idcuenta + " not found"));
+        } catch (Exception ex) {
+
+        }
+
     }
 
     @DeleteMapping("/usuario/cuenta/{idcuenta}/perfil/{idperfil}/eliminarperfil")

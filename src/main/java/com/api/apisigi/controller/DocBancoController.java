@@ -5,6 +5,8 @@ import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRDocBanco;
 import com.api.apisigi.repository.IRDocumento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/propiedades/proceso/ventas/documentacion/documentosbanco")
 public class DocBancoController {
-
-
+    public static final Log logger = LogFactory.getLog(DocBancoController.class);
     @Autowired
     @Qualifier("docbancoRepo")
     private IRDocBanco docbancorepo;
@@ -37,6 +38,10 @@ public class DocBancoController {
     @JsonFormat
     public DocBanco agregarDocBanco(@PathVariable(value = "documentoId") String documentoId,
                                     @Valid @RequestBody DocBanco docBanco) {
+        if (!documentorepo.existsById(documentoId)) {
+            logger.error("[Error documentoId......: ROUTE: /DocNotaria .... Method: updateDocNotaria]");
+            throw new ResourceNotFoundExcption("ID " + documentoId + " not found");
+        }
         return docbancorepo.save(
                 documentorepo.findById(documentoId).map(documento -> {
                     docBanco.setDocumento(documento);

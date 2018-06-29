@@ -4,16 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO PATENTE COMERCIAL
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
-@Table(name = "PATENTE_COMERCIAL", schema = "SIGIADMIN", catalog = "")
+
 public class PatenteComercial {
     private String idPatente;
     private String tipoPatente;
-    private Collection<Oficina> oficina;
+    private List<Oficina> oficina;
 
     @Id
     @Column(name = "ID_PATENTE")
@@ -51,11 +51,11 @@ public class PatenteComercial {
     }
 
     @OneToMany(mappedBy = "patenteComercial")
-    public Collection<Oficina> getOficina() {
+    public List<Oficina> getOficina() {
         return oficina;
     }
 
-    public void setOficina(Collection<Oficina> oficina) {
+    public void setOficina(List<Oficina> oficina) {
         this.oficina = oficina;
     }
 }

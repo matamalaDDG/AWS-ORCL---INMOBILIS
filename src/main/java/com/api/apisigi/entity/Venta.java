@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO VENTA
 @Entity
@@ -14,14 +14,13 @@ public class Venta {
     private String idVenta;
     private long monto;
     private Time fechaCompra;
-    private Collection<Propiedad> propiedad;
+    private List<Propiedad> propiedad;
     private Servicios servicios;
     private Convenio convenio;
     private DocNotaria docnotaria;
     private Conservador conservador;
     private Tasacion tasacion;
     private DocBanco docbanco;
-    private Corredor corredor;
 
     @Id
     @Column(name = "ID_VENTA")
@@ -70,11 +69,11 @@ public class Venta {
     }
 
     @OneToMany(mappedBy = "venta")
-    public Collection<Propiedad> getPropiedad() {
+    public List<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedad) {
+    public void setPropiedad(List<Propiedad> propiedad) {
         this.propiedad = propiedad;
     }
 
@@ -138,13 +137,4 @@ public class Venta {
         this.docbanco = docbanco;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "ID_CORREDOR", referencedColumnName = "ID_CORREDOR")
-    public Corredor getCorredor() {
-        return corredor;
-    }
-
-    public void setCorredor(Corredor corredor) {
-        this.corredor = corredor;
-    }
 }

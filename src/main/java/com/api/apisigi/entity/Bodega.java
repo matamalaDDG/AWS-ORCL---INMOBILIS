@@ -1,10 +1,11 @@
 package com.api.apisigi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 //TODO PROCEDIMIENTO ALMACENADO  BODEGA
 @Entity
@@ -13,10 +14,10 @@ public class Bodega {
     private String idBodega;
     private long numIdentBodega;
     private long mtsCuad;
-    private Collection<Propiedad> propiedad;
+    private List<Propiedad> propiedad;
 
     @Id
-    @Column(name = "ID_BODEGA")
+    @Column(name = "IDBODEGA")
     public String getIdBodega() {
         return idBodega;
     }
@@ -26,7 +27,7 @@ public class Bodega {
     }
 
     @Basic
-    @Column(name = "NUM_IDENT_BODEGA")
+    @Column(name = "NUMIDENTBODEGA")
     public long getNumIdentBodega() {
         return numIdentBodega;
     }
@@ -36,7 +37,7 @@ public class Bodega {
     }
 
     @Basic
-    @Column(name = "MTS_CUAD")
+    @Column(name = "MTSCUAD")
     public long getMtsCuad() {
         return mtsCuad;
     }
@@ -61,19 +62,15 @@ public class Bodega {
         return Objects.hash(idBodega, numIdentBodega, mtsCuad);
     }
 
-    /*  @OneToMany
-      @JoinColumn(name = "ID_PROPIEDAD", referencedColumnName = "ID_PROPIEDAD")
-      public Propiedad getPropiedad() {
-          return propiedad;
-      }*/
-
-    @OneToMany(mappedBy = "bodega")
-    public Collection<Propiedad> getPropiedad() {
+    @JsonIgnore
+    @OneToMany(mappedBy = "bodega",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    public List<Propiedad> getPropiedad() {
         return propiedad;
     }
 
-    public void setPropiedad(Collection<Propiedad> propiedades) {
-        this.propiedad = propiedades;
+    public void setPropiedad(List<Propiedad> propiedad) {
+        this.propiedad = propiedad;
     }
-
 }

@@ -44,11 +44,10 @@ public class CapacidadEconomicaController {
     @JsonFormat
     public List<CapacidadEconomica> listaCapacidad() {
         //TODO Agregar LOGS
-
         List temp_capacidadrepo = new ArrayList();
         capacidadEconomicarepo.findAll().forEach(temp_capacidadrepo::add);
         return temp_capacidadrepo;
-        //return regionre.findAll().;
+        //return regionre.findAll();
     }
 
     //#POST METHOD: INSERCION CONVENIO

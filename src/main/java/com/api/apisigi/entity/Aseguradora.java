@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
-//TODO PROCEDIMIENTO ALMACENADO ASEGURADORA
+
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
 
@@ -14,7 +14,7 @@ public class Aseguradora {
     private String idAseguradora;
     private String tipoSeguro;
     private String aseguradora;
-    private Collection<Arriendo> arriendo;
+    private List<Arriendo> arriendo;
 
     @Id
     @Column(name = "ID_ASEGURADORA")
@@ -63,11 +63,11 @@ public class Aseguradora {
     }
 
     @OneToMany(mappedBy = "aseguradora")
-    public Collection<Arriendo> getArriendo() {
+    public List<Arriendo> getArriendo() {
         return arriendo;
     }
 
-    public void setArriendo(Collection<Arriendo> arriendo) {
+    public void setArriendo(List<Arriendo> arriendo) {
         this.arriendo = arriendo;
     }
 }

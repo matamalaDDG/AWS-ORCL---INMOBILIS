@@ -4,6 +4,8 @@ import com.api.apisigi.entity.Propiedad;
 import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/inmobiliaria/propiedades")
 public class PropiedadController {
+    public static final Log logger = LogFactory.getLog(PropiedadController.class);
 
     @Autowired
     @Qualifier("propiedadRepo")
@@ -71,11 +74,19 @@ public class PropiedadController {
     @JsonFormat
     public List<Propiedad> listadoPropiedades() {
         //TODO Agregar LOGS
-
-        List temp_propiedad = new ArrayList();
-        propeidadrepo.findAll().forEach(temp_propiedad::add);
-        return temp_propiedad;
-        //return regionre.findAll().;
+        logger.info("[Buscando Propiedades : ROUTE: /Propiedades .... Method: listadoPropiedades]");
+        logger.info("[Listando Propiedades : ROUTE: /Propiedades .... Method: listadoPropiedades]");
+        logger.info("[Propiedades Listadas : ROUTE: /Propiedades.... Method: listadoPropiedades]");
+        try {
+            List temp_propiedad = new ArrayList();
+            propeidadrepo.findAll().forEach(temp_propiedad::add);
+            return temp_propiedad;
+            //return regionre.findAll().;
+        }
+        catch (Exception ex){
+            logger.error("[Error al listar propiedades : ROUTE: /Propiedades.... Method: listadoPropiedades]");
+            return null;
+        }
     }
 
     //#POST METHOD: INSERCION DEPARTAMENTO + IDEDIFICIO
@@ -93,66 +104,73 @@ public class PropiedadController {
                                 @PathVariable(value = "idarriendo") String idarriendo,
                                 @PathVariable(value = "idperfil") String idperfil,
                                 @Valid @RequestBody Propiedad propiedad) {
-        //#CONSERVADOR
-        estadoRepo.findById(idestado).map(estado -> {
-            propiedad.setEstado(estado);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idestado + " not found"));
-        //#CONVENIO
-        tipoPropiedadrepo.findById(idtipoprop).map(tipoPropiedad -> {
-            propiedad.setTipopropiedad(tipoPropiedad);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idtipoprop + " not found"));
+        logger.info("[Agregando Propiedades : ROUTE: /Propiedades .... Method: listadoPropiedades]");
+        logger.info("[Insertando Propiedades...... : ROUTE: /Propiedades .... Method: listadoPropiedades]");
+        try {
+            //#CONSERVADOR
+            estadoRepo.findById(idestado).map(estado -> {
+                propiedad.setEstado(estado);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idestado + " not found"));
+            //#CONVENIO
+            tipoPropiedadrepo.findById(idtipoprop).map(tipoPropiedad -> {
+                propiedad.setTipopropiedad(tipoPropiedad);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idtipoprop + " not found"));
 
-        //#DOCBANCO
-        comunarepo.findById(idcomuna).map(comuna -> {
-            propiedad.setComuna(comuna);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idcomuna + " not found"));
+            //#DOCBANCO
+            comunarepo.findById(idcomuna).map(comuna -> {
+                propiedad.setComuna(comuna);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idcomuna + " not found"));
 
-        //#DOCNOTARIA
-        oficinarepo.findById(idoficina).map(oficina -> {
-            propiedad.setOficina(oficina);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idoficina + " not found"));
+            //#DOCNOTARIA
+            oficinarepo.findById(idoficina).map(oficina -> {
+                propiedad.setOficina(oficina);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idoficina + " not found"));
 
-        //#SERVICIO
-        casarepo.findById(idcasa).map(casa -> {
-            propiedad.setCasa(casa);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idcasa + " not found"));
+            //#SERVICIO
+            casarepo.findById(idcasa).map(casa -> {
+                propiedad.setCasa(casa);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idcasa + " not found"));
 
-        //#VENTA
-        ventarepo.findById(idventa).map(venta -> {
-            propiedad.setVenta(venta);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idventa + " not found"));
+            //#VENTA
+            ventarepo.findById(idventa).map(venta -> {
+                propiedad.setVenta(venta);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("edificioId " + idventa + " not found"));
 
-        //#CONSERVADOR
-        departamentorepo.findById(idepto).map(departamento -> {
-            propiedad.setDepartamento(departamento);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
+            //#CONSERVADOR
+            departamentorepo.findById(idepto).map(departamento -> {
+                propiedad.setDepartamento(departamento);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
 
-        //#CONSERVADOR
-        estacionamientorepo.findById(idestacionamiento).map(estacionamiento -> {
-            propiedad.setEstacionamiento(estacionamiento);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
+            //#CONSERVADOR
+            estacionamientorepo.findById(idestacionamiento).map(estacionamiento -> {
+                propiedad.setEstacionamiento(estacionamiento);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
 
-        //#CONSERVADOR
-        ariendorepo.findById(idarriendo).map(arriendo -> {
-            propiedad.setArriendo(arriendo);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
+            //#CONSERVADOR
+            ariendorepo.findById(idarriendo).map(arriendo -> {
+                propiedad.setArriendo(arriendo);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
 
-        //#CONSERVADOR
-        perfilClienterepo.findById(idperfil).map(perfilCliente -> {
-            propiedad.setPerfilcliente(perfilCliente);
-            return propiedad;
-        }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
+            //#CONSERVADOR
+            perfilClienterepo.findById(idperfil).map(perfilCliente -> {
+                propiedad.setPerfilcliente(perfilCliente);
+                return propiedad;
+            }).orElseThrow(() -> new ResourceNotFoundExcption("id " + idepto + " not found"));
+            propeidadrepo.save(propiedad);
+            logger.info("[Propiedades insertada : ROUTE: /Propiedades.... Method: listadoPropiedades]");
 
-        propeidadrepo.save(propiedad);
+        } catch (Exception ex) {
+            return;
+        }
     }
 
     //#PUT METHOD: ACTUALIZACION DE VENTA
@@ -188,21 +206,29 @@ public class PropiedadController {
                     "ID " + idarriendo + "not found," +
                     "ID " + idperfil + "not found.");
         }
-        return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idestado, idtipoprop, idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map( propiedad -> {
-            propiedad.setDireccion(propiedadrequest.getDireccion());
-            propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
-            propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
+        logger.info("[Modificando Propiedades : ROUTE: /Propiedades .... Method: listadoPropiedades]");
+        try {
+            logger.info("[Se esta modificando Propiedades...... : ROUTE: /Propiedades .... Method: listadoPropiedades]");
+            return propeidadrepo.findPropiedadByEstadoAndTipopropiedadAndComunaAndOficinaAndCasaAndVentaAndDepartamentoAndEstacionamientoAndArriendoAndPerfilcliente(idestado, idtipoprop, idcomuna, idoficina, idcasa, idventa, idepto, idestacionamiento, idarriendo, idperfil).map(propiedad -> {
+                propiedad.setDireccion(propiedadrequest.getDireccion());
+                propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
+                propiedad.setTipoDueno(propiedadrequest.getTipoDueno());
+                logger.info("[Propiedades Modificada...... : ROUTE: /Propiedades .... Method: listadoPropiedades]");
+                return propeidadrepo.save(propiedad);
 
-            return propeidadrepo.save(propiedad);
-        }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + idtipoprop + "not found," +
-                "ID " + idcomuna + "not found," +
-                "ID " + idoficina + "not found," +
-                "ID " + idcasa + "not found," +
-                "ID " + idventa + "not found," +
-                "ID " + idepto + "not found," +
-                "ID " + idestacionamiento + "not found," +
-                "ID " + idarriendo + "not found," +
-                "ID " + idperfil + "not found."));
+            }).orElseThrow(() -> new ResourceNotFoundExcption("ID " + idtipoprop + "not found," +
+                    "ID " + idcomuna + "not found," +
+                    "ID " + idoficina + "not found," +
+                    "ID " + idcasa + "not found," +
+                    "ID " + idventa + "not found," +
+                    "ID " + idepto + "not found," +
+                    "ID " + idestacionamiento + "not found," +
+                    "ID " + idarriendo + "not found," +
+                    "ID " + idperfil + "not found."));
+        } catch (Exception ex) {
+            return null;
+        }
     }
-
 }
+
+

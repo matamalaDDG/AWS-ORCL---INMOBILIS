@@ -10,17 +10,16 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("api/ubicacion/comuna")
+@RequestMapping("/api/ubicacion/comuna")
 public class ComunaController {
 
     //#LOGS
@@ -34,26 +33,29 @@ public class ComunaController {
     @Qualifier("regionRepo")
     private IRRegion regionrepo;
 
-
-    //#LISTADO DE COMUNAS POR ID COMUNA
-    @GetMapping("/{comunaId}/comunas")
-    @ResponseBody
-    @JsonFormat
-    public Optional<Comuna> getComunas(@PathVariable(value = "comunaId") String idcomuna) {
-        return comunarepo.findById(idcomuna);
-    }
-
     //#LISTADO DE COMUNAS
     @GetMapping("/comunas")
     @ResponseBody
-    @ResponseStatus(HttpStatus.ACCEPTED)
     @JsonFormat
-    public List<Comuna> getAll() {
-        return comunarepo.findAll();
+    public List<Comuna> getAllComuna() {
+        try {
+            logger.info("[Buscando Comuna : ROUTE: /comunas .... Method: getAllComuna]");
+            logger.info("[Listando Comuna : ROUTE: /comunas .... Method: getAllComuna]");
+            logger.info("[Comuna Listadas : ROUTE: /comunas.... Method: getAllComuna]");
+            List temp_comuna = new ArrayList<>();
+            comunarepo.findAll().forEach(temp_comuna::add);
+            //regionre.deleteAll(temp_Regiones);
+            return temp_comuna;
+            //return regionre.findAll().;
+
+        } catch (Exception ex) {
+            logger.error("[Error Comuna Listadas : ROUTE: /comunas.... Method: getAllComuna]" + ex.getMessage());
+            return null;
+        }
     }
 
     //#AGREGAR COMUNAS NUEVAS CON RELACION DE REGION
-    @PostMapping("/region/{regionId}/NComuna")
+    @PostMapping("/region/{regionId}/comuna")
     @ResponseBody
     @JsonFormat
     public void createComuna(@PathVariable(value = "regionId") String regionId,
@@ -68,21 +70,23 @@ public class ComunaController {
         }).orElseThrow(() -> new ResourceNotFoundExcption("REGIONID " + regionId + " not found"));
     }
 
-
     //# ELIMINAR UNA COMUNA
     @DeleteMapping("/region/{regionId}/comunas/{comunaId}")
     @ResponseBody
     @JsonFormat
     public ResponseEntity<?> deleteComment(@PathVariable(value = "regionId") String regionId,
                                            @PathVariable(value = "comunaId") String comunaId) {
-        if (!regionrepo.existsById(regionId)) {
-            throw new ResourceNotFoundExcption("PostId " + regionId + " not found");
+        try{
+            if (!regionrepo.existsById(regionId)) {
+                throw new ResourceNotFoundExcption("PostId " + regionId + " not found");
+            }
+            return comunarepo.findById(comunaId).map(comuna -> {
+                comunarepo.delete(comuna);
+                return ResponseEntity.ok().build();
+            }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + comunaId + " not found"));
+        }catch (Exception ex){
+            return null;
         }
-
-        return comunarepo.findById(comunaId).map(comuna -> {
-            comunarepo.delete(comuna);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundExcption("CommentId " + comunaId + " not found"));
     }
 
     //# PUTCONTROLLER

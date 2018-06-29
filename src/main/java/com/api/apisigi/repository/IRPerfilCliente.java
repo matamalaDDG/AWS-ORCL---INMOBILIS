@@ -8,5 +8,6 @@ import java.io.Serializable;
 
 @Repository("perfilClienteRepo")
 public interface IRPerfilCliente extends JpaRepository<PerfilCliente, String> {
+    public abstract PerfilCliente findPerfilClienteByRut(String rut);
 
 }

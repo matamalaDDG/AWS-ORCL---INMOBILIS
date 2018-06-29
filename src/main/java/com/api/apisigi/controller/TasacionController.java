@@ -5,17 +5,21 @@ import com.api.apisigi.exception.ResourceNotFoundExcption;
 import com.api.apisigi.repository.IRDocumento;
 import com.api.apisigi.repository.IRTasacion;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/propiedades/ventas/en_Venta/tasacion")
 public class TasacionController {
-
+    public static final Log logger = LogFactory.getLog(TasacionController.class);
         @Autowired
         @Qualifier("tasacionRepo")
         private IRTasacion tasacionrepo;
@@ -24,11 +28,22 @@ public class TasacionController {
         @Qualifier("documentoRepo")
         private IRDocumento documentorepo;
 
-        @GetMapping("/listado/tasaciones")
+        @GetMapping("/tasaciones")
         @ResponseBody
         @JsonFormat
-        public Iterable<Tasacion> getAllContrato() {
-            return tasacionrepo.findAll();
+        public Iterable<Tasacion> getAllTasacion()
+        {
+            try {
+                logger.info("[Buscando Tasacion : ROUTE: /Tasacion .... Method: getAllTasacion]");
+                logger.info("[Listando Tasacion : ROUTE: /Tasacion .... Method: getAllTasacion]");
+                logger.info("[Tasacion Listadas : ROUTE: /Tasacion.... Method: getAllTasacion]");
+                List temp_Tasacion = new ArrayList<>();
+                tasacionrepo.findAll().forEach(temp_Tasacion::add);
+                return temp_Tasacion;
+            } catch (Exception ex) {
+                logger.error("[Error Listando Tasacion : ROUTE: /Tasacion.... Method: getAllTasacion]" + ex.getMessage());
+                return null;
+            }
         }
 
         @PostMapping("/documento/{documentoId}/ntasacion")

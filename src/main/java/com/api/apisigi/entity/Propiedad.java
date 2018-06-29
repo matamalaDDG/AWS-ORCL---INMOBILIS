@@ -1,11 +1,13 @@
 package com.api.apisigi.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
+
 //TODO PROCEDIMIENTO ALMACENADO PROPIEDAD
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "UUID")
@@ -15,7 +17,6 @@ public class Propiedad {
     private String tipoDueno;
     private String disponibilidad;
     private Bodega bodega;
-    //private Collection<Bodega> bodega;
     private Estado estado;
     private TipoPropiedad tipopropiedad;
     private Comuna comuna;
@@ -84,12 +85,9 @@ public class Propiedad {
         return Objects.hash(idPropiedad, direccion, tipoDueno, disponibilidad);
     }
 
-   /* @OneToMany(mappedBy = "bodega")
-    public Collection<Bodega> getBodega() {
-        return bodega;
-    }**/
-    @ManyToOne
-     @JoinColumn(name ="ID_BODEGA", referencedColumnName = "ID_BODEGA", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(name = "IDBODEGA", referencedColumnName = "IDBODEGA", nullable = false)
     public Bodega getBodega() {
         return bodega;
     }
@@ -97,10 +95,6 @@ public class Propiedad {
     public void setBodega(Bodega bodega) {
         this.bodega = bodega;
     }
-
-   /* public void setBodega(Collection<Bodega> bodega) {
-        this.bodega = bodega;
-    }*/
 
     @ManyToOne
     @JoinColumn(name = "ID_ESTADO", referencedColumnName = "ID_ESTADO", nullable = false)
