@@ -2,9 +2,6 @@
 
 Proyeto realizado para el caso entregado a realizar en portafolio de titulo para la carrera de Ingenieria en informatica 
 
-```sh
-Nota Obtenida: [Aun En Proceso]
-```
 # Teconologias
 Se utilizó:
   - Java Spring Framework v5 - Sprig Boot
