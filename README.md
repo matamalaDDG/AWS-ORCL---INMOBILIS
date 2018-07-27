@@ -4,7 +4,6 @@ Proyeto realizado para el caso entregado a realizar en portafolio de titulo para
 
 # Teconologias
 Se utilizó:
-  - Java Spring Framework v5 - Sprig Boot
+  - Java Spring Framework v5 - Spring Boot
   - Oracle 11g
-  - Microsoft C#
   - AWS Intance ORCL/AWS 
